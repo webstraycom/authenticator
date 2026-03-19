@@ -1,0 +1,62 @@
+<!doctype html>
+<html class="[scrollbar-width:] overflow-auto [&::-webkit-scrollbar]:hidden">
+  <head>
+    <link
+      rel="icon"
+      type="image/png"
+      href="/src/assets/images/favicon/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/src/assets/images/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/src/assets/images/favicon/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/src/assets/images/favicon/apple-touch-icon.png"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8" />
+    <title>WebStray Authenticator</title>
+    <script>
+      (function () {
+        try {
+          const fs = require('fs');
+          const path = require('path');
+
+          const dataPath = nw.App.dataPath;
+          const dbPath = path.join(dataPath, 'vault.db');
+
+          let theme = 'dark';
+
+          if (fs.existsSync(dbPath)) {
+            const data = fs.readFileSync(dbPath, 'utf8');
+            const lines = data.split('\n');
+            for (const line of lines) {
+              if (line.includes('settings_config')) {
+                const configLine = lines.reverse().find((l) => l.includes('settings_config'));
+                if (configLine) theme = JSON.parse(configLine).theme;
+                break;
+              }
+            }
+          }
+
+          if (theme === 'system') {
+            theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          }
+
+          document.documentElement.classList.add(theme);
+          document.documentElement.style.colorScheme = theme;
+        } catch (e) {
+          console.error('Theme injection failed', e);
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+  </head>
+  <body
+    class="bg-background h-dvh w-full selection:bg-black selection:text-white dark:selection:bg-white dark:selection:text-black"
+  >
+    <div id="root" class="flex h-screen"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

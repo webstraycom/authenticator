@@ -1,0 +1,81 @@
+import { useEffect, useState } from 'react';
+import { Minus, Copy, X } from 'lucide-react';
+import { Button } from '@ui/Button';
+import { Logo } from '@common/Logo';
+import { cn } from '@lib/utils';
+
+export const TitleBar = ({ className }) => {
+  const win = window.nw ? window.nw.Window.get() : null;
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  useEffect(() => {
+    if (!win) return;
+
+    const onMaximize = () => setIsMaximized(true);
+    const onRestore = () => setIsMaximized(false);
+
+    win.on('maximize', onMaximize);
+    win.on('restore', onRestore);
+
+    return () => {
+      win.removeListener('maximize', onMaximize);
+      win.removeListener('restore', onRestore);
+    };
+  }, [win]);
+
+  const handleMinimize = () => win?.minimize();
+
+  const handleMaximize = () => {
+    if (!win) return;
+    if (isMaximized) {
+      win.restore();
+    } else {
+      win.maximize();
+    }
+  };
+
+  const handleClose = () => win?.close();
+
+  return (
+    <nav
+      className={cn(
+        'border-border bg-background start-0 z-100 mx-auto flex h-10 w-full shrink-0 flex-wrap items-center justify-between border-b pr-2 pl-4',
+        className,
+      )}
+      style={{ WebkitAppRegion: 'drag' }}
+    >
+      <a tabIndex={-1} className="flex items-center gap-2">
+        <Logo />
+        <span className="self-center text-sm font-medium whitespace-nowrap">
+          WebStray Authenticator
+        </span>
+      </a>
+      <div className="flex gap-2">
+        <Button
+          variant="ghost"
+          onClick={handleMinimize}
+          className="text-muted-foreground flex size-6 items-center justify-center rounded-md p-0 hover:text-current"
+          style={{ WebkitAppRegion: 'no-drag' }}
+        >
+          <Minus className="size-4" strokeWidth={2} />
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={handleMaximize}
+          className="text-muted-foreground flex size-6 items-center justify-center rounded-md p-0 hover:text-current"
+          style={{ WebkitAppRegion: 'no-drag' }}
+        >
+          <Copy className="size-3 scale-x-[-1]" strokeWidth={2} />
+        </Button>
+        <Button
+          variant="ghost"
+          onClick={handleClose}
+          className="text-muted-foreground flex size-6 items-center justify-center rounded-md p-0 hover:text-current"
+          style={{ WebkitAppRegion: 'no-drag' }}
+        >
+          <X className="size-4" strokeWidth={2} />
+        </Button>
+      </div>
+    </nav>
+  );
+};

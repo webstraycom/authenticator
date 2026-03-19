@@ -1,0 +1,7 @@
+dist
+build
+node_modules
+
+src/components/ui
+src/index.css
+src/styles
