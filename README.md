@@ -1,4 +1,5 @@
 ![WebStray Authenticator Preview](.github/assets/authenticator.png)
+
 # WebStray Authenticator
 
 Secure, hardware-bound desktop password manager.
@@ -10,7 +11,7 @@ WebStray Authenticator is a desktop password manager built using JavaScript, Rea
 
 ## Documentation
 
-Detailed documentation for WebStray Authenticator is available at: https://webstray.com/docs/authenticator
+Detailed documentation for WebStray Authenticator is available at the [following link](https://webstray.com/docs/authenticator)
 
 ## Key Features
 
