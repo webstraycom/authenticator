@@ -63,7 +63,7 @@ WebStray Authenticator leverages a modern tech stack designed for security, perf
 
 ### Desktop Application (Windows)
 
-You can download the WebStray Authenticator installer for Windows from the [official download page](/releases/latest).
+You can download the WebStray Authenticator installer for Windows from the [official download page](https://github.com/webstraycom/authenticator/releases/latest).
 
 ### Manual Build (Windows, macOS, Linux)
 
