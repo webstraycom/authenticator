@@ -74,14 +74,14 @@ You can build **WebStray Authenticator from source** for any supported platform 
 
 1. **Clone the repository**
 
-```cmd
+```bash
 git clone https://github.com/webstraycom/authenticator.git
 cd authenticator
 ```
 
 2. **Install dependencies**
 
-```cmd
+```bash
 npm install
 ```
 
@@ -91,13 +91,13 @@ Use the following commands to create a production-ready executable:
 
 **Windows (x64):**
 
-```cmd
+```bash
 npx nw-builder . --mode=build --platform=win --arch=x64 --outDir=./dist/win
 ```
 
 **macOS:**
 
-```cmd
+```bash
 # Intel
 npx nw-builder . --mode=build --platform=osx --arch=x64 --outDir=./dist/mac
 
@@ -107,7 +107,7 @@ npx nw-builder . --mode=build --platform=osx --arch=arm64 --outDir=./dist/mac
 
 **Linux (x64):**
 
-```cmd
+```bash
 npx nw-builder . --mode=build --platform=linux --arch=x64 --outDir=./dist/linux
 ```
 
@@ -119,7 +119,7 @@ To run the application in development mode with **Hot Module Replacement (HMR)**
 
 This will start the frontend with live-reloading on `localhost:5173`.
 
-```cmd
+```bash
 npm run dev
 ```
 
@@ -127,7 +127,7 @@ npm run dev
 
 In a **new terminal window**, run the following command to open the NW.js window:
 
-```cmd
+```bash
 npm run start
 ```
 
