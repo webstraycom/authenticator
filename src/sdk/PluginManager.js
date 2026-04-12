@@ -55,7 +55,7 @@ export class PluginManager {
 
     try {
       const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
-      if (!enabledList.includes(pkg.name)) return pkg;
+      if (!enabledList.includes(pkg.id)) return pkg;
 
       const sdk = createSDK(pkg, this.db);
 
@@ -65,7 +65,7 @@ export class PluginManager {
       if (typeof initPlugin === 'function') {
         const cleanup = initPlugin(sdk);
         if (typeof cleanup === 'function') {
-          usePluginStore.getState().registerDestructor(pkg.name, cleanup);
+          usePluginStore.getState().registerDestructor(pkg.id, cleanup);
         }
       }
       return pkg;

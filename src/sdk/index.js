@@ -139,7 +139,7 @@ export const createSDK = (pkg, db) => ({
       const result = decrypt(text);
       if (result === null || result === undefined) {
         console.error(
-          `[SDK] ${pkg.name}: Decryption failed. The vault may be locked or the password may be corrupted.`,
+          `[SDK] ${pkg.id}: Decryption failed. The vault may be locked or the password may be corrupted.`,
         );
         throw new Error(
           'Decryption failed. The vault may be locked or the password may be corrupted.',
@@ -163,6 +163,6 @@ export const createSDK = (pkg, db) => ({
   },
   plugin: {
     registerMenuAction: (slotName, config) =>
-      usePluginStore.getState().registerAction(slotName, pkg.name, config),
+      usePluginStore.getState().registerAction(slotName, pkg.id, config),
   },
 });

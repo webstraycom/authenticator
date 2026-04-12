@@ -55,7 +55,7 @@ export const PluginsDialog = () => {
             {sortedPlugins.length > 0 ? (
               sortedPlugins.map((plugin) => (
                 <div
-                  key={plugin.name}
+                  key={plugin.id}
                   className="dark:bg-muted/30 flex items-start justify-between gap-4 rounded-lg border p-3 shadow-xs dark:shadow-none"
                 >
                   <div className="flex flex-col gap-1">
@@ -69,8 +69,8 @@ export const PluginsDialog = () => {
                   </div>
 
                   <Switch
-                    checked={enabledPlugins.includes(plugin.name)}
-                    onCheckedChange={() => handleTogglePlugin(plugin.name)}
+                    checked={enabledPlugins.includes(plugin.id)}
+                    onCheckedChange={() => handleTogglePlugin(plugin.id)}
                   />
                 </div>
               ))
