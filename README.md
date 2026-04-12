@@ -11,7 +11,7 @@ WebStray Authenticator is a desktop password manager built using JavaScript, Rea
 
 ## Documentation
 
-Detailed documentation for WebStray Authenticator is available at the [following link](https://webstray.com/docs/authenticator)
+Detailed documentation for WebStray Authenticator is available on the [official WebStray website](https://webstray.com/docs/authenticator).
 
 ## Key Features
 
@@ -63,7 +63,7 @@ WebStray Authenticator leverages a modern tech stack designed for security, perf
 
 ### Desktop Application (Windows)
 
-The official installer is currently available for **Windows**. You can download it from the WebStray website using the [following link](https://webstray.com/authenticator).
+You can download the WebStray Authenticator installer for Windows from the [official download page](/releases/latest).
 
 ### Manual Build (Windows, macOS, Linux)
 
