@@ -1,10 +1,17 @@
 import { create } from 'zustand';
 import { db } from '@utils/db';
-import { initKey, clearKey, encryptWithHardwareId, decryptWithHardwareId } from '@utils/crypto';
+import {
+  generateVaultKey,
+  deriveKey,
+  initKey,
+  clearKey,
+  encrypt,
+  decrypt,
+  encryptWithHardwareId,
+  decryptWithHardwareId,
+} from '@utils/crypto';
 import bcrypt from 'bcryptjs';
 import { useUIStore, useSettingsStore } from '@store';
-import { migrationService } from '@utils/migrationService';
-import { usePasswordsStore, useCodesStore, useTokensStore } from '@store';
 import { pluginManager } from '@sdk/PluginManager';
 import { usePluginStore } from '@sdk';
 
@@ -21,18 +28,17 @@ export const useAuthStore = create((set) => ({
 
       set({ isInitialized: !!masterDoc });
 
-      if (sessionDoc?.token) {
-        const masterPassword = decryptWithHardwareId(sessionDoc.token, masterDoc.hash);
+      if (sessionDoc?.token && masterDoc?.hash) {
+        const rawVaultKey = decryptWithHardwareId(sessionDoc.token, masterDoc.hash);
 
-        if (masterPassword) {
-          initKey(masterPassword, masterDoc.hash);
+        if (rawVaultKey) {
+          initKey(rawVaultKey);
           set({ isAuthenticated: true });
           pluginManager.init();
           pluginManager.startWatcher();
           return;
         }
       }
-
       set({ isAuthenticated: false });
     } catch (error) {
       console.error('Auth check failed:', error);
@@ -44,19 +50,25 @@ export const useAuthStore = create((set) => ({
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
-      await db.insertAsync({ type: 'master_password', hash: hashedPassword });
+      const rawVaultKey = generateVaultKey();
+      const encryptedVaultKey = encrypt(rawVaultKey, deriveKey(password, hashedPassword));
+
+      await db.insertAsync({
+        type: 'master_password',
+        hash: hashedPassword,
+        vaultKey: encryptedVaultKey,
+      });
 
       await useSettingsStore.getState().initializeDefaultSettings();
 
-      const token = encryptWithHardwareId(password, hashedPassword);
+      const token = encryptWithHardwareId(rawVaultKey, hashedPassword);
       await db.updateAsync(
         { type: 'session' },
         { $set: { token, type: 'session' } },
         { upsert: true },
       );
 
-      initKey(password, hashedPassword);
-
+      initKey(rawVaultKey);
       set({ isInitialized: true, isAuthenticated: true });
       pluginManager.init();
       pluginManager.startWatcher();
@@ -83,36 +95,25 @@ export const useAuthStore = create((set) => ({
       const masterDoc = await db.findOneAsync({ type: 'master_password' });
 
       const isMatch = await bcrypt.compare(oldPassword, masterDoc.hash);
+      if (!isMatch) throw new Error('Invalid Master Password');
 
-      if (!isMatch) {
-        return { success: false, error: 'Invalid Master Password' };
-      }
+      const rawVaultKey = decrypt(masterDoc.vaultKey, deriveKey(oldPassword, masterDoc.hash));
+      if (!rawVaultKey) throw new Error('Could not decrypt Vault Key');
 
       const newSalt = await bcrypt.genSalt(10);
       const newHashedPassword = await bcrypt.hash(newPassword, newSalt);
+      const newEncryptedVaultKey = encrypt(rawVaultKey, deriveKey(newPassword, newHashedPassword));
 
-      const migration = await migrationService.reencryptAllData(
-        oldPassword,
-        masterDoc.hash,
-        newPassword,
-        newHashedPassword,
+      await db.updateAsync(
+        { type: 'master_password' },
+        { $set: { hash: newHashedPassword, vaultKey: newEncryptedVaultKey } },
       );
 
-      if (!migration.success) throw new Error(migration.error);
-
-      await db.updateAsync({ type: 'master_password' }, { $set: { hash: newHashedPassword } });
-
-      const newToken = encryptWithHardwareId(newPassword, newHashedPassword);
+      const newToken = encryptWithHardwareId(rawVaultKey, newHashedPassword);
       await db.updateAsync({ type: 'session' }, { $set: { token: newToken } });
 
-      initKey(newPassword, newHashedPassword);
+      initKey(rawVaultKey);
       useUIStore.getState().setVerified();
-
-      await Promise.all([
-        usePasswordsStore.getState().loadPasswords(true),
-        useCodesStore.getState().loadCodes(true),
-        useTokensStore.getState().loadTokens(true),
-      ]);
 
       return { success: true };
     } catch (error) {
@@ -123,20 +124,18 @@ export const useAuthStore = create((set) => ({
   login: async (password) => {
     try {
       const doc = await db.findOneAsync({ type: 'master_password' });
-      if (!doc) return false;
+      if (doc && (await bcrypt.compare(password, doc.hash))) {
+        const rawVaultKey = decrypt(doc.vaultKey, deriveKey(password, doc.hash));
+        if (!rawVaultKey) return false;
 
-      const isMatch = await bcrypt.compare(password, doc.hash);
-
-      if (isMatch) {
-        const token = encryptWithHardwareId(password, doc.hash);
+        const token = encryptWithHardwareId(rawVaultKey, doc.hash);
         await db.updateAsync(
           { type: 'session' },
           { $set: { token, type: 'session' } },
           { upsert: true },
         );
 
-        initKey(password, doc.hash);
-
+        initKey(rawVaultKey);
         set({ isAuthenticated: true });
         pluginManager.init();
         pluginManager.startWatcher();
