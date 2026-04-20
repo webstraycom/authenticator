@@ -4,12 +4,16 @@ const { machineIdSync } = window.nw.require('node-machine-id');
 const ALGORITHM = 'aes-256-gcm';
 let ENCRYPTION_KEY = null;
 
+export const generateVaultKey = () => {
+  return crypto.randomBytes(32).toString('hex');
+};
+
 export const deriveKey = (password, salt) => {
   return crypto.scryptSync(password, salt, 32);
 };
 
-export const initKey = (password, salt) => {
-  ENCRYPTION_KEY = crypto.scryptSync(password, salt, 32);
+export const initKey = (vaultKey) => {
+  ENCRYPTION_KEY = Buffer.isBuffer(vaultKey) ? vaultKey : Buffer.from(vaultKey, 'hex');
 };
 
 export const clearKey = () => {
@@ -41,25 +45,20 @@ export const decrypt = (text, customKey = null) => {
 };
 
 export const encryptWithHardwareId = (text, salt) => {
-  const hardwareId = machineIdSync();
-  const key = crypto.scryptSync(hardwareId, salt, 32);
-  const iv = crypto.randomBytes(12);
-  const cipher = crypto.createCipheriv(ALGORITHM, key, iv);
-  let encrypted = cipher.update(text, 'utf8', 'hex');
-  encrypted += cipher.final('hex');
-  const tag = cipher.getAuthTag().toString('hex');
-  return `${iv.toString('hex')}:${tag}:${encrypted}`;
+  try {
+    const hardwareId = machineIdSync();
+    const key = deriveKey(hardwareId, salt);
+    return encrypt(text, key);
+  } catch (e) {
+    return null;
+  }
 };
 
 export const decryptWithHardwareId = (text, salt) => {
   try {
-    const key = crypto.scryptSync(machineIdSync(), salt, 32);
-    const [ivHex, tagHex, encryptedText] = text.split(':');
-    const decipher = crypto.createDecipheriv(ALGORITHM, key, Buffer.from(ivHex, 'hex'));
-    decipher.setAuthTag(Buffer.from(tagHex, 'hex'));
-    let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
-    decrypted += decipher.final('utf8');
-    return decrypted;
+    const hardwareId = machineIdSync();
+    const key = deriveKey(hardwareId, salt);
+    return decrypt(text, key);
   } catch (e) {
     return null;
   }
