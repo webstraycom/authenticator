@@ -4,6 +4,10 @@ const { machineIdSync } = window.nw.require('node-machine-id');
 const ALGORITHM = 'aes-256-gcm';
 let ENCRYPTION_KEY = null;
 
+export const generateSalt = () => {
+  return crypto.randomBytes(16).toString('hex');
+};
+
 export const generateVaultKey = () => {
   return crypto.randomBytes(32).toString('hex');
 };
