@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { db } from '@utils/db';
 import {
+  generateSalt,
   generateVaultKey,
   deriveKey,
   initKey,
@@ -28,8 +29,8 @@ export const useAuthStore = create((set) => ({
 
       set({ isInitialized: !!masterDoc });
 
-      if (sessionDoc?.token && masterDoc?.hash) {
-        const rawVaultKey = decryptWithHardwareId(sessionDoc.token, masterDoc.hash);
+      if (sessionDoc?.token && masterDoc?.vaultSalt) {
+        const rawVaultKey = decryptWithHardwareId(sessionDoc.token, masterDoc.vaultSalt);
 
         if (rawVaultKey) {
           initKey(rawVaultKey);
@@ -50,18 +51,20 @@ export const useAuthStore = create((set) => ({
       const salt = await bcrypt.genSalt(10);
       const hashedPassword = await bcrypt.hash(password, salt);
 
+      const vaultSalt = generateSalt();
       const rawVaultKey = generateVaultKey();
-      const encryptedVaultKey = encrypt(rawVaultKey, deriveKey(password, hashedPassword));
+      const encryptedVaultKey = encrypt(rawVaultKey, deriveKey(password, vaultSalt));
 
       await db.insertAsync({
         type: 'master_password',
         hash: hashedPassword,
         vaultKey: encryptedVaultKey,
+        vaultSalt,
       });
 
       await useSettingsStore.getState().initializeDefaultSettings();
 
-      const token = encryptWithHardwareId(rawVaultKey, hashedPassword);
+      const token = encryptWithHardwareId(rawVaultKey, vaultSalt);
       await db.updateAsync(
         { type: 'session' },
         { $set: { token, type: 'session' } },
@@ -97,19 +100,26 @@ export const useAuthStore = create((set) => ({
       const isMatch = await bcrypt.compare(oldPassword, masterDoc.hash);
       if (!isMatch) throw new Error('Invalid Master Password');
 
-      const rawVaultKey = decrypt(masterDoc.vaultKey, deriveKey(oldPassword, masterDoc.hash));
+      const rawVaultKey = decrypt(masterDoc.vaultKey, deriveKey(oldPassword, masterDoc.vaultSalt));
       if (!rawVaultKey) throw new Error('Could not decrypt Vault Key');
 
       const newSalt = await bcrypt.genSalt(10);
+      const newVaultSalt = generateSalt();
       const newHashedPassword = await bcrypt.hash(newPassword, newSalt);
-      const newEncryptedVaultKey = encrypt(rawVaultKey, deriveKey(newPassword, newHashedPassword));
+      const newEncryptedVaultKey = encrypt(rawVaultKey, deriveKey(newPassword, newVaultSalt));
 
       await db.updateAsync(
         { type: 'master_password' },
-        { $set: { hash: newHashedPassword, vaultKey: newEncryptedVaultKey } },
+        {
+          $set: {
+            hash: newHashedPassword,
+            vaultKey: newEncryptedVaultKey,
+            vaultSalt: newVaultSalt,
+          },
+        },
       );
 
-      const newToken = encryptWithHardwareId(rawVaultKey, newHashedPassword);
+      const newToken = encryptWithHardwareId(rawVaultKey, newVaultSalt);
       await db.updateAsync({ type: 'session' }, { $set: { token: newToken } });
 
       initKey(rawVaultKey);
@@ -125,10 +135,10 @@ export const useAuthStore = create((set) => ({
     try {
       const doc = await db.findOneAsync({ type: 'master_password' });
       if (doc && (await bcrypt.compare(password, doc.hash))) {
-        const rawVaultKey = decrypt(doc.vaultKey, deriveKey(password, doc.hash));
+        const rawVaultKey = decrypt(doc.vaultKey, deriveKey(password, doc.vaultSalt));
         if (!rawVaultKey) return false;
 
-        const token = encryptWithHardwareId(rawVaultKey, doc.hash);
+        const token = encryptWithHardwareId(rawVaultKey, doc.vaultSalt);
         await db.updateAsync(
           { type: 'session' },
           { $set: { token, type: 'session' } },
