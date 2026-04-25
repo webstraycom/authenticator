@@ -76,7 +76,7 @@ export const DataManagementDialog = () => {
   const handleFile = (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    loadPreviewData(dataService.preview(file, dataManagementConfig.type), 'import');
+    loadPreviewData(dataService.previewImport(file, dataManagementConfig.type), 'import');
     e.target.value = '';
   };
 
@@ -97,7 +97,7 @@ export const DataManagementDialog = () => {
   const handleImport = async () => {
     setLoading(true);
     const dataToSave = getFilteredData();
-    const res = await dataService.save(dataToSave, password, preview.salt);
+    const res = await dataService.importData(dataToSave, password, preview.salt);
 
     if (res.success) {
       dataManagementConfig.onSuccess();
@@ -116,7 +116,7 @@ export const DataManagementDialog = () => {
     if (dataToExport.length === 0) return setError('Please select at least one type to export');
 
     setLoading(true);
-    const res = await dataService.export(dataToExport, password);
+    const res = await dataService.exportData(dataToExport, password);
     if (res.success) {
       handleClose();
       toast.success(`Successfully exported ${res.count} items!`);

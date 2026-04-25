@@ -3,7 +3,7 @@ import { encrypt, decrypt, deriveKey } from '@utils/crypto';
 const crypto = window.nw.require('crypto');
 
 export const dataService = {
-  preview: async (file, targetType = null) => {
+  previewImport: async (file, targetType = null) => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -40,7 +40,7 @@ export const dataService = {
     });
   },
 
-  save: async (dataArray, importPassword, salt) => {
+  importData: async (dataArray, importPassword, salt) => {
     try {
       const fileKey = salt && importPassword ? deriveKey(importPassword, salt) : null;
       const preparedDocs = dataArray
@@ -98,7 +98,7 @@ export const dataService = {
     }
   },
 
-  export: async (dataArray, exportPassword) => {
+  exportData: async (dataArray, exportPassword) => {
     try {
       if (!exportPassword) throw new Error('Export password is required');
 
