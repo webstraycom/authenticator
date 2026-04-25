@@ -53,12 +53,12 @@ export const useAuthStore = create((set) => ({
 
       const vaultSalt = generateSalt();
       const rawVaultKey = generateVaultKey();
-      const encryptedVaultKey = encrypt(rawVaultKey, deriveKey(password, vaultSalt));
+      const wrappedVaultKey = encrypt(rawVaultKey, deriveKey(password, vaultSalt));
 
       await db.insertAsync({
         type: 'master_password',
         hash: hashedPassword,
-        vaultKey: encryptedVaultKey,
+        vaultKey: wrappedVaultKey,
         vaultSalt,
       });
 
@@ -106,14 +106,14 @@ export const useAuthStore = create((set) => ({
       const newSalt = await bcrypt.genSalt(10);
       const newVaultSalt = generateSalt();
       const newHashedPassword = await bcrypt.hash(newPassword, newSalt);
-      const newEncryptedVaultKey = encrypt(rawVaultKey, deriveKey(newPassword, newVaultSalt));
+      const newWrappedVaultKey = encrypt(rawVaultKey, deriveKey(newPassword, newVaultSalt));
 
       await db.updateAsync(
         { type: 'master_password' },
         {
           $set: {
             hash: newHashedPassword,
-            vaultKey: newEncryptedVaultKey,
+            vaultKey: newWrappedVaultKey,
             vaultSalt: newVaultSalt,
           },
         },
