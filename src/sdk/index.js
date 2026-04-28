@@ -75,9 +75,8 @@ export const usePluginStore = create((set, get) => ({
       }
     }
     set((state) => {
-      const updatedDestructors = { ...state.destructors };
-      delete updatedDestructors[pluginId];
-      return { destructors: updatedDestructors };
+      const { [pluginId]: _, ...rest } = state.destructors;
+      return { destructors: rest };
     });
   },
 
