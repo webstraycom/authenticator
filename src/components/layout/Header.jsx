@@ -15,7 +15,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="flex h-12 shrink-0 items-center border-b pl-2">
+    <div className="flex h-12 shrink-0 items-center border-b px-6.5 gap-1.5">
       <Button
         variant="ghost"
         type="button"
@@ -25,7 +25,7 @@ export const Header = () => {
         <PanelLeft className="size-4" strokeWidth={2} />
       </Button>
 
-      <span className="text-muted-foreground ml-2 text-xs font-medium tracking-wider uppercase">
+      <span className="text-muted-foreground text-xs font-medium uppercase">
         {screenTitles[screen]}
       </span>
     </div>
