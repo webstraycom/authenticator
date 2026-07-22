@@ -1,4 +1,4 @@
-import { useState, memo, Fragment } from 'react';
+import { memo, Fragment } from 'react';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { CircleAlertIcon, ClockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
@@ -18,19 +18,11 @@ import { useTOTP } from '@hooks/useTOTP';
 export const CodeItem = memo(
   ({ item, tick }) => {
     const { token, isExpiring } = useTOTP(item.value, tick);
-    const [updateTick, setUpdateTick] = useState(0);
-    const [prevToken, setPrevToken] = useState(token);
 
     const openEdit = useUIStore((state) => state.openEditCode);
     const openConfirm = useUIStore((state) => state.openConfirm);
     const deleteCode = useCodesStore((state) => state.deleteCode);
-
     const runWithVerification = useUIStore((state) => state.runWithVerification);
-
-    if (token !== prevToken) {
-      setPrevToken(token);
-      setUpdateTick(tick);
-    }
 
     const handleCopy = () => {
       navigator.clipboard.writeText(token);
@@ -72,9 +64,7 @@ export const CodeItem = memo(
           <ItemActions>
             <Button
               variant="outline"
-              onClick={() => {
-                handleDelete(item);
-              }}
+              onClick={() => handleDelete(item)}
               size="icon-sm"
               className="size-7"
             >
@@ -109,15 +99,14 @@ export const CodeItem = memo(
                 handleCopy();
               }
             }}
-            className={`group focus-visible:bg-accent ring-offset-background flex cursor-pointer items-center gap-1 rounded transition duration-200 outline-none select-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'animate-pulse' : ''} `}
+            className={`group focus-visible:bg-accent ring-offset-background flex cursor-pointer items-center gap-1 rounded transition duration-200 outline-none select-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'animate-pulse will-change-opacity' : ''} `}
           >
             {token.split('').map((char, index) => (
               <Fragment key={index}>
                 <span className="bg-accent geist-mono relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
                   <AnimatePresence mode="popLayout">
                     <motion.span
-                      layout
-                      key={`${index}-${updateTick}`}
+                      key={`${index}-${token}`}
                       initial={{ y: '100%' }}
                       animate={{ y: 0, opacity: 1 }}
                       exit={{ y: '-100%' }}
@@ -178,6 +167,6 @@ export const CodeItem = memo(
     const isNowExpiring = nextLeft <= 5;
     if (wasExpiring !== isNowExpiring) return false;
 
-    return true;
+    return Math.floor(prev.tick / 1000) === Math.floor(next.tick / 1000);
   },
 );
