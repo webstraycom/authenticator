@@ -1,23 +1,10 @@
-@font-face {
-  font-family: 'Geist';
-  src: url('@/assets/fonts/Geist.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Geist Mono';
-  src: url('@/assets/fonts/GeistMono.ttf') format('truetype');
-  font-weight: 100 900;
-  font-style: normal;
-  font-display: swap;
-}
-
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 @import '@/styles/plugins-base.css';
+
+@import "@fontsource-variable/geist";
+@import "@fontsource-variable/geist-mono";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -139,18 +126,13 @@
     @apply bg-background text-foreground;
   }
 
-  html,
-  body,
-  #root {
-    font-family: 'Geist', sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
+  html, body, #root {
+    font-family: 'Geist Variable', sans-serif;
     interpolate-size: allow-keywords;
   }
 
   .font-mono {
-    font-family: 'Geist Mono', sans-serif;
+    font-family: 'Geist Mono Variable', monospace;
   }
 
   ::-webkit-scrollbar {
