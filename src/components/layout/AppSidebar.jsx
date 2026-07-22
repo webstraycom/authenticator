@@ -63,9 +63,9 @@ export const AppSidebar = () => {
 
   return (
     <Sidebar side="left" className="border-r border-neutral-200 dark:border-neutral-800">
-      <SidebarContent className="scrollbar pt-12">
+      <SidebarContent className="pt-10">
         {menuGroups.map((group) => (
-          <SidebarGroup key={group.label} className={`py-0 ${group.className}`}>
+          <SidebarGroup key={group.label} className={`pt-2 pb-0 ${group.className}`}>
             <SidebarGroupLabel asChild>
               <h3 id={group.id} className="text-sidebar-foreground/70">
                 {group.label}
