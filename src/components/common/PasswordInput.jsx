@@ -13,14 +13,7 @@ export const PasswordInput = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const toggleShow = () => {
-    if (showPassword) {
-      setShowPassword(false);
-      return;
-    }
-
-    setShowPassword(true);
-  };
+  const toggleShow = () => setShowPassword((prev) => !prev);
 
   return (
     <Field>
