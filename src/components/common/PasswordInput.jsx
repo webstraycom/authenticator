@@ -9,7 +9,7 @@ export const PasswordInput = ({
   value,
   onChange,
   placeholder = '••••••••',
-  required = false,
+  ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
@@ -20,13 +20,13 @@ export const PasswordInput = ({
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <InputGroup>
         <InputGroupInput
+          {...props}
           id={id}
           type={showPassword ? 'text' : 'password'}
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
           className={showPassword && value.length > 0 ? 'geist-mono' : ''}
-          required={required}
         />
         <InputGroupAddon align="inline-end">
           <InputGroupButton
