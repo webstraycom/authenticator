@@ -103,7 +103,7 @@ export const CodeItem = memo(
           >
             {token.split('').map((char, index) => (
               <Fragment key={index}>
-                <span className="bg-accent geist-mono relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
+                <span className="bg-accent font-mono relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
                   <AnimatePresence mode="popLayout">
                     <motion.span
                       key={`${index}-${token}`}
@@ -116,7 +116,7 @@ export const CodeItem = memo(
                         damping: 20,
                         delay: index * 0.05,
                       }}
-                      className="geist-mono absolute inset-0 flex items-center justify-center text-sm font-medium will-change-transform"
+                      className="font-mono absolute inset-0 flex items-center justify-center text-sm font-medium will-change-transform"
                     >
                       {char}
                     </motion.span>

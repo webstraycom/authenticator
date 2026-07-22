@@ -26,7 +26,7 @@ export const PasswordInput = ({
           placeholder={placeholder}
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          className={showPassword && value.length > 0 ? 'geist-mono' : ''}
+          className={showPassword && value.length > 0 ? 'font-mono' : ''}
         />
         <InputGroupAddon align="inline-end">
           <InputGroupButton
