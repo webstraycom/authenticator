@@ -1,14 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Minus, Copy, X } from 'lucide-react';
 import { Button } from '@ui/Button';
 import { Logo } from '@common/Logo';
 import { cn } from '@lib/utils';
 
 export const TitleBar = ({ className }) => {
-  const win = window.nw ? window.nw.Window.get() : null;
   const [isMaximized, setIsMaximized] = useState(false);
+  
+  const winRef = useRef(window.nw ? window.nw.Window.get() : null);
 
   useEffect(() => {
+    const win = winRef.current;
     if (!win) return;
 
     const onMaximize = () => setIsMaximized(true);
@@ -21,12 +23,14 @@ export const TitleBar = ({ className }) => {
       win.removeListener('maximize', onMaximize);
       win.removeListener('restore', onRestore);
     };
-  }, [win]);
+  }, []);
 
-  const handleMinimize = () => win?.minimize();
+  const handleMinimize = () => winRef.current?.minimize();
 
   const handleMaximize = () => {
+    const win = winRef.current;
     if (!win) return;
+    
     if (isMaximized) {
       win.restore();
     } else {
@@ -34,7 +38,7 @@ export const TitleBar = ({ className }) => {
     }
   };
 
-  const handleClose = () => win?.close();
+  const handleClose = () => winRef.current?.close();
 
   return (
     <nav
