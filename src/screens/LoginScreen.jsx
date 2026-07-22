@@ -55,6 +55,7 @@ export const LoginScreen = () => {
                   setError('');
                 }}
                 required
+                autoFocus
               />
               {error && <p className="text-destructive text-sm">{error}</p>}
             </div>
