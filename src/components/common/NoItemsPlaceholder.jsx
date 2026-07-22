@@ -10,17 +10,21 @@ import {
 } from '@ui/Empty';
 import { Popover, PopoverContent, PopoverTrigger } from '@ui/Popover';
 
-export const NoItemsPlaceholder = ({ onAdd, onImport, options }) => {
+export const NoItemsPlaceholder = ({
+    onAdd,
+    onImport,
+    options: {icon, header, description, buttonText}
+   }) => {
   return (
     <Empty className="h-full w-full">
       <EmptyHeader>
-        <EmptyMedia variant="icon">{options.icon}</EmptyMedia>
-        <EmptyTitle>{options.header}</EmptyTitle>
-        <EmptyDescription>{options.description}</EmptyDescription>
+        <EmptyMedia variant="icon">{icon}</EmptyMedia>
+        <EmptyTitle>{header}</EmptyTitle>
+        <EmptyDescription>{description}</EmptyDescription>
       </EmptyHeader>
       <EmptyContent>
         <div className="flex gap-2">
-          <Button onClick={onAdd}>{options.buttonText}</Button>
+          <Button onClick={onAdd}>{buttonText}</Button>
           <Button onClick={onImport} variant="outline">
             Import
           </Button>
