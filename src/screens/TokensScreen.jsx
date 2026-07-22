@@ -11,6 +11,7 @@ import {
 import { Button } from '@ui/Button';
 import { NoItemsPlaceholder } from '@common/NoItemsPlaceholder';
 import { TokenItem } from '@features/tokens/TokenItem';
+import { Marker, MarkerContent } from '@ui/marker';
 import { useTokensStore, useUIStore } from '@store';
 import { sorter } from '@utils/sorter';
 import { usePluginStore } from '@sdk';
@@ -75,12 +76,9 @@ export const TokensScreen = () => {
             ))}
             {expiredTokens.length > 0 && (
               <>
-                <div className="flex w-full max-w-xl items-center gap-4 py-2">
-                  <div className="bg-border/60 h-px flex-1"></div>
-                  <span className="text-muted-foreground text-xs">Expired Tokens</span>
-                  <div className="bg-border/60 h-px flex-1"></div>
-                </div>
-
+                <Marker variant="separator" className="max-w-xl">
+                  <MarkerContent className="text-xs py-2">Corrupted Passwords</MarkerContent>
+                </Marker>
                 {expiredTokens.map((item) => (
                   <TokenItem key={item._id} item={item} />
                 ))}
@@ -88,12 +86,9 @@ export const TokensScreen = () => {
             )}
             {corruptedTokens.length > 0 && (
               <>
-                <div className="flex w-full max-w-xl items-center gap-4 py-2">
-                  <div className="bg-border/60 h-px flex-1"></div>
-                  <span className="text-muted-foreground text-xs">Corrupted Tokens</span>
-                  <div className="bg-border/60 h-px flex-1"></div>
-                </div>
-
+                <Marker variant="separator">
+                  <MarkerContent className="text-xs py-2">Corrupted Tokens</MarkerContent>
+                </Marker>
                 {corruptedTokens.map((item) => (
                   <TokenItem key={item._id} item={item} />
                 ))}

@@ -11,6 +11,7 @@ import {
 import { Button } from '@ui/Button';
 import { CodeItem } from '@features/totp/CodeItem';
 import { NoItemsPlaceholder } from '@common/NoItemsPlaceholder';
+import { Marker, MarkerContent } from '@ui/marker';
 import { sorter } from '@utils/sorter';
 import { useUIStore, useCodesStore } from '@store';
 import { usePluginStore } from '@sdk';
@@ -82,11 +83,9 @@ export const TOTPScreen = () => {
             ))}
             {corruptedCodes.length > 0 && (
               <>
-                <div className="flex w-full max-w-xl items-center gap-4 py-2">
-                  <div className="bg-border/60 h-px flex-1"></div>
-                  <span className="text-muted-foreground text-xs">Corrupted Codes</span>
-                  <div className="bg-border/60 h-px flex-1"></div>
-                </div>
+                <Marker variant="separator" className="max-w-xl">
+                  <MarkerContent className="text-xs py-2">Corrupted Passwords</MarkerContent>
+                </Marker>
                 {corruptedCodes.map((item) => (
                   <CodeItem key={item._id} item={item} tick={globalTick} />
                 ))}
