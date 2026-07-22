@@ -47,7 +47,7 @@ export const PluginsDialog = () => {
           className={cn(
             'max-h-47 w-full overflow-y-auto',
             installedPlugins.length > 0
-              ? '[mask-image:linear-gradient(to_bottom,black_60%,transparent_100%)]'
+              ? 'scroll-fade scroll-fade-24 pb-px'
               : '',
           )}
         >

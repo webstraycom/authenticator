@@ -66,7 +66,7 @@ export const PasswordsScreen = () => {
   if (passwords.length > 0) {
     return (
       <section className="relative flex h-full w-full flex-col items-center">
-        <div className="w-full flex-1 overflow-y-auto [mask-image:linear-gradient(to_bottom,black_70%,transparent_100%)]">
+        <div className="w-full flex-1 overflow-y-auto scroll-fade scroll-fade-24">
           <div className="flex w-full flex-col items-center gap-4 p-8">
             {activePasswords.map((item) => (
               <PasswordItem key={item._id} item={item} />
