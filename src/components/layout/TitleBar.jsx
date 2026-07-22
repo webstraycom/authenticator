@@ -39,7 +39,7 @@ export const TitleBar = ({ className }) => {
   return (
     <nav
       className={cn(
-        'border-border bg-background start-0 z-100 mx-auto flex h-10 w-full shrink-0 flex-wrap items-center justify-between border-b pr-2 pl-4',
+        'border-border bg-background z-100 flex h-10 w-full shrink-0 flex-nowrap items-center justify-between border-b pr-2 pl-4',
         className,
       )}
       style={{ WebkitAppRegion: 'drag' }}
@@ -53,24 +53,27 @@ export const TitleBar = ({ className }) => {
       <div className="flex gap-2">
         <Button
           variant="ghost"
+          size='icon-xs'
           onClick={handleMinimize}
-          className="text-muted-foreground flex size-6 items-center justify-center rounded-md p-0 hover:text-current"
+          className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
         >
           <Minus className="size-4" strokeWidth={2} />
         </Button>
         <Button
           variant="ghost"
+          size='icon-xs'
           onClick={handleMaximize}
-          className="text-muted-foreground flex size-6 items-center justify-center rounded-md p-0 hover:text-current"
+          className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
         >
           <Copy className="size-3 scale-x-[-1]" strokeWidth={2} />
         </Button>
         <Button
           variant="ghost"
+          size='icon-xs'
           onClick={handleClose}
-          className="text-muted-foreground flex size-6 items-center justify-center rounded-md p-0 hover:text-current"
+          className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
         >
           <X className="size-4" strokeWidth={2} />
