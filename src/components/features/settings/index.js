@@ -1,4 +1,4 @@
-export * from './SettingsItem';
+export * from './SettingItem';
 export * from './ThemeSetting';
 export * from './ChangeMasterPasswordSetting';
 export * from './VerificationTimeoutSetting';

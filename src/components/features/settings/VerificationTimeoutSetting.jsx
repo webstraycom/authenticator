@@ -5,7 +5,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from '@ui/InputGroup';
 import { Label } from '@ui/Label';
 import { Button } from '@ui/Button';
 import { Switch } from '@ui/Switch';
-import { SettingsItem } from '@features/settings/SettingsItem';
+import { SettingsItem } from '@/components/features/settings/SettingItem';
 import { useSettingsLogic } from '@hooks/useSettingsLogic';
 
 export const VerificationTimeoutSetting = () => {

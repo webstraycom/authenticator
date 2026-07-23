@@ -1,6 +1,6 @@
 import { Trash2Icon } from 'lucide-react';
 import { Button } from '@ui/Button';
-import { SettingsItem } from '@features/settings/SettingsItem';
+import { SettingsItem } from '@/components/features/settings/SettingItem';
 import { useSettingsLogic } from '@hooks/useSettingsLogic';
 
 export const ClearDatabaseSetting = () => {
