@@ -1,6 +1,6 @@
 import React from 'react';
 import { toast } from 'sonner';
-import * as LucideIcons from 'lucide-react';
+import * as Icons from 'lucide-react';
 import * as components from '@sdk/components';
 import { create } from 'zustand';
 import { decrypt } from '@utils/crypto';
@@ -67,7 +67,7 @@ export const usePluginStore = create((set, get) => ({
 
 export const createSDK = (pkg, db) => ({
   React,
-  Icons: LucideIcons,
+  Icons,
   components,
   pkg,
   db,
