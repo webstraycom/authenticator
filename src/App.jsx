@@ -71,7 +71,12 @@ function App() {
         <ConfirmationDialog />
         <Toaster
           className="z-150"
-          toastOptions={{ style: { right: '7px', bottom: '7px', fontFamily: 'Geist, sans-serif' } }}
+          toastOptions={{ style: { right: '7px', bottom: '7px', fontFamily: 'Geist, sans-serif' },
+          classNames: {
+            toast: "[&_[data-icon]]:!self-start [&_[data-icon]]:!mt-0.25",
+            description: "!text-muted-foreground",
+            actionButton: "!font-medium !rounded-md",
+          },}}
         />
         <PluginProvider />
       </div>

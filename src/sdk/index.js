@@ -86,9 +86,9 @@ export const createSDK = (pkg, db) => ({
   ui: {
     openSheet: (Content) => usePluginStore.getState().openSheet(pkg, Content),
     closeSheet: () => usePluginStore.getState().closeSheet(),
-    notify: (message, type = 'success') => {
-      if (type === 'error') toast.error(message);
-      else toast.success(message);
+    notify: (messageOrPromise, type = 'default', options = {}) => {
+      if (messageOrPromise instanceof Promise) return toast.promise(messageOrPromise, options);
+      return (toast[type] || toast)(messageOrPromise, options);
     },
   },
   utils: {
