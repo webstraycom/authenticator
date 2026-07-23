@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { AppSidebar, TitleBar, Header } from '@/components/layout';
-import { PasswordsScreen, TOTPScreen, SettingsScreen, LoginScreen, TokensScreen } from '@/screens';
+import { AppSidebar, TitleBar, Header } from '@layout';
+import { PasswordsScreen, TOTPScreen, SettingsScreen, LoginScreen, TokensScreen } from '@screens';
 import {
   AddPasswordDialog,
   AddCodeDialog,
@@ -11,7 +11,7 @@ import {
   ChangeMasterPasswordDialog,
   PluginsDialog,
   CommandPaletteDialog,
-} from '@/components/dialogs';
+} from '@dialogs';
 import { AppLoadingPlaceholder } from '@common/app-loading-placeholder';
 import { Toaster } from '@ui/sonner';
 import { SidebarProvider } from '@ui/sidebar';

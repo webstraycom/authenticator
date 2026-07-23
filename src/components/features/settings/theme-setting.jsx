@@ -9,7 +9,7 @@ import {
   DropdownMenuLabel,
 } from '@ui/dropdown-menu';
 import { Button } from '@ui/button';
-import { SettingsItem } from '@/components/features/settings/setting-item';
+import { SettingsItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 
 export const ThemeSetting = () => {
