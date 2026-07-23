@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import * as Icons from 'lucide-react';
 import * as components from '@sdk/components';
 import { create } from 'zustand';
-import { decrypt } from '@utils/crypto';
+import { encrypt, decrypt } from '@utils/crypto';
 import { sorter } from '@utils/sorter';
 import { getTOTP } from '@utils/totp';
 import { cn } from '@lib/utils';
@@ -72,16 +72,14 @@ export const createSDK = (pkg, db) => ({
   pkg,
   db,
   crypto: {
+    encrypt: (text) => {
+      const result = encrypt(text);
+      if (!result) throw new Error('Encryption failed. The vault may be locked.');
+      return result;
+    },
     decrypt: (text) => {
       const result = decrypt(text);
-      if (result === null || result === undefined) {
-        console.error(
-          `[SDK] ${pkg.id}: Decryption failed. The vault may be locked or the password may be corrupted.`,
-        );
-        throw new Error(
-          'Decryption failed. The vault may be locked or the password may be corrupted.',
-        );
-      }
+      if (result == null) throw new Error('Decryption failed. The vault may be locked or the password may be corrupted.');
       return result;
     },
   },
