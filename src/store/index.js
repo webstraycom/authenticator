@@ -1,6 +1,6 @@
-export { useAuthStore } from './useAuthStore';
-export { useCodesStore } from './useCodesStore';
-export { usePasswordsStore } from './usePasswordsStore';
-export { useSettingsStore } from './useSettingsStore';
-export { useTokensStore } from './useTokensStore';
-export { useUIStore } from './useUIStore';
+export { useAuthStore } from './use-auth-store';
+export { useCodesStore } from './use-codes-store';
+export { usePasswordsStore } from './use-passwords-store';
+export { useSettingsStore } from './use-settings-store';
+export { useTokensStore } from './use-tokens-store';
+export { useUIStore } from './use-ui-store';
