@@ -66,6 +66,7 @@ function App() {
             <ChangeMasterPasswordDialog />
             <PluginsDialog />
             <CommandPaletteDialog />
+            <PluginProvider />
           </div>
         )}
         <ConfirmationDialog />
@@ -78,7 +79,6 @@ function App() {
             actionButton: "!font-medium !rounded-md",
           },}}
         />
-        <PluginProvider />
       </div>
     </div>
   );
