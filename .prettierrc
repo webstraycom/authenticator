@@ -10,5 +10,27 @@
   "bracketSameLine": false,
   "arrowParens": "always",
   "endOfLine": "lf",
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-tailwindcss"
+  ],
+  "importOrder": [
+    "^react$",
+    "^vite$",
+    "<BUILTIN_MODULES>",
+    "<THIRD_PARTY_MODULES>",
+    "^@ui/(.*)$",
+    "^@layout/(.*)$",
+    "^@common/(.*)$",
+    "^@features/(.*)$",
+    "^@dialogs/(.*)$",
+    "^@screens/(.*)$",
+    "^@store/(.*)$",
+    "^@hooks/(.*)$",
+    "^@lib/(.*)$",
+    "^@utils/(.*)$",
+    "^@sdk/(.*)$",
+    "^@/(.*)$",
+    "^[./]"
+  ]
 }
