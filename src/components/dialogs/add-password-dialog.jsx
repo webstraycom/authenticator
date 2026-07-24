@@ -12,9 +12,10 @@ import {
 import { FormInput } from '@common/form-input';
 import { PasswordInput } from '@common/password-input';
 
+const INITIAL_FORM = { site: '', login: '', password: '' };
+
 export const AddPasswordDialog = () => {
-  const initialForm = { site: '', login: '', password: '' };
-  const [formData, setFormData] = useState(initialForm);
+  const [formData, setFormData] = useState(INITIAL_FORM);
 
   const addPassword = usePasswordsStore((state) => state.addPassword);
   const updatePassword = usePasswordsStore((state) => state.updatePassword);
@@ -32,10 +33,10 @@ export const AddPasswordDialog = () => {
               login: editingPassword.login,
               password: editingPassword.value,
             }
-          : initialForm,
+          : INITIAL_FORM,
       );
     } else {
-      setFormData(initialForm);
+      setFormData(INITIAL_FORM);
     }
   }, [isAddPasswordOpen, editingPassword]);
 
