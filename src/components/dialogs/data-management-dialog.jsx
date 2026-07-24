@@ -25,7 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ui/tabs';
 import { PasswordInput } from '@common/password-input';
 import { dataService } from '@utils/data-service';
 
-const typeLabels = {
+const TYPE_LABELS = {
   password: 'Passwords',
   totp: 'Codes',
   token: 'Tokens',
@@ -193,7 +193,7 @@ export const DataManagementDialog = () => {
                         />
                         <FieldContent className="flex-row items-center gap-1">
                           <FieldTitle>
-                            {typeLabels[type] || type.charAt(0).toUpperCase() + type.slice(1)}
+                            {TYPE_LABELS[type]}
                           </FieldTitle>
                           <FieldDescription>
                             ({count} {count > 1 ? 'items' : 'item'})
@@ -232,7 +232,7 @@ export const DataManagementDialog = () => {
                           onCheckedChange={() => toggleType(type)}
                         />
                         <FieldContent className="flex-row items-center gap-1">
-                          <FieldTitle>{typeLabels[type] || type}</FieldTitle>
+                          <FieldTitle>{TYPE_LABELS[type]}</FieldTitle>
                           <FieldDescription>({count} items)</FieldDescription>
                         </FieldContent>
                       </Field>
