@@ -5,17 +5,17 @@ import { Calendar } from '@ui/calendar';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@ui/input-group';
 import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover';
 
+const formatDate = (date) => {
+  if (!date) return '';
+  return date.toLocaleDateString('en-US', {
+    day: '2-digit',
+    month: 'long',
+    year: 'numeric',
+  });
+};
+
 export const NaturalDatePicker = ({ value, onChange, id }) => {
   const [open, setOpen] = useState(false);
-
-  const formatDate = (date) => {
-    if (!date) return '';
-    return date.toLocaleDateString('en-US', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    });
-  };
 
   const handleInputChange = (e) => {
     const text = e.target.value;
