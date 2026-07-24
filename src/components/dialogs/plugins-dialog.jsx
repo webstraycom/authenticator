@@ -15,6 +15,10 @@ import { usePluginsLogic } from '@hooks/use-plugins-logic';
 import { cn } from '@lib/utils';
 import { pluginManager } from '@sdk/plugin-manager';
 
+const handleOpenPluginsFolder = () => {
+  pluginManager.openPluginsFolder();
+};
+
 export const PluginsDialog = () => {
   const isPluginsOpen = useUIStore((state) => state.isPluginsOpen);
   const closePlugins = useUIStore((state) => state.closePlugins);
@@ -24,10 +28,6 @@ export const PluginsDialog = () => {
   const sortedPlugins = [...installedPlugins].sort((a, b) =>
     (a.title || '').localeCompare(b.title || ''),
   );
-
-  const handleOpenPluginsFolder = () => {
-    pluginManager.openPluginsFolder();
-  };
 
   return (
     <Dialog open={isPluginsOpen} onOpenChange={(open) => !open && closePlugins()}>
