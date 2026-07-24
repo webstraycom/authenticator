@@ -1,5 +1,5 @@
 import { usePasswordsStore, useUIStore } from '@store';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { CircleAlertIcon, LockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
 import { Button } from '@ui/button';
 import {

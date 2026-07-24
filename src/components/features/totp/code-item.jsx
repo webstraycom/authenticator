@@ -1,6 +1,6 @@
 import { Fragment, memo } from 'react';
 import { useCodesStore, useUIStore } from '@store';
-import { AnimatePresence, motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'motion/react';
 import { CircleAlertIcon, ClockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@ui/button';
