@@ -13,9 +13,19 @@ import {
 import { FormInput } from '@common/form-input';
 import { PasswordInput } from '@common/password-input';
 
+const INITIAL_FORM = { service: '', account: '', secret: '' };
+
+const isValidBase32 = (secret) => {
+  try {
+    OTPAuth.Secret.fromBase32(secret);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const AddCodeDialog = () => {
-  const initialForm = { service: '', account: '', secret: '' };
-  const [formData, setFormData] = useState(initialForm);
+  const [formData, setFormData] = useState(INITIAL_FORM);
   const [error, setError] = useState('');
 
   const addCode = useCodesStore((state) => state.addCode);
@@ -35,10 +45,10 @@ export const AddCodeDialog = () => {
               account: editingCode.account,
               secret: editingCode.value,
             }
-          : initialForm,
+          : INITIAL_FORM,
       );
     } else {
-      setFormData(initialForm);
+      setFormData(INITIAL_FORM);
     }
   }, [editingCode, isAddCodeOpen]);
 
@@ -52,15 +62,6 @@ export const AddCodeDialog = () => {
   const handleCodeChange = (value) => {
     setError('');
     setFormData((prev) => ({ ...prev, secret: value }));
-  };
-
-  const isValidBase32 = (secret) => {
-    try {
-      OTPAuth.Secret.fromBase32(secret);
-      return true;
-    } catch (error) {
-      return false;
-    }
   };
 
   const handleSubmit = (e) => {
