@@ -21,8 +21,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "format": "npx prettier --write .",
-    "start": "npx nw ."
+    "format": "prettier --write .",
+    "start": "nw ."
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
