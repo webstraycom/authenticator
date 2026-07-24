@@ -15,9 +15,10 @@ import { FormInput } from '@common/form-input';
 import { NaturalDatePicker } from '@common/natural-date-picker';
 import { PasswordInput } from '@common/password-input';
 
+const INITIAL_FORM = { service: '', endpoint: '', token: '', expiration: '', expires: null };
+
 export const AddTokenDialog = () => {
-  const initialForm = { service: '', endpoint: '', token: '', expiration: '', expires: null };
-  const [formData, setFormData] = useState(initialForm);
+  const [formData, setFormData] = useState(INITIAL_FORM);
 
   const addToken = useTokensStore((state) => state.addToken);
   const updateToken = useTokensStore((state) => state.updateToken);
@@ -44,10 +45,10 @@ export const AddTokenDialog = () => {
           expires: editingToken.expires ? new Date(editingToken.expires) : null,
         });
       } else {
-        setFormData(initialForm);
+        setFormData(INITIAL_FORM);
       }
     } else {
-      setFormData(initialForm);
+      setFormData(INITIAL_FORM);
     }
   }, [editingToken, isAddTokenOpen]);
 
