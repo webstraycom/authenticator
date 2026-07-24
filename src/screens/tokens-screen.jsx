@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 import { usePluginStore } from '@sdk';
 import { useTokensStore, useUIStore } from '@store';
 import { KeyRoundIcon, PlusIcon } from 'lucide-react';

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { usePluginStore } from '@sdk';
 import { useCodesStore, useUIStore } from '@store';
 import { ClockIcon, PlusIcon } from 'lucide-react';
