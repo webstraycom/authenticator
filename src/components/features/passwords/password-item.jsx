@@ -1,5 +1,7 @@
+import { usePasswordsStore, useUIStore } from '@store';
+import { AnimatePresence, motion } from 'framer-motion';
 import { CircleAlertIcon, LockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,8 +12,6 @@ import {
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
-import { Button } from '@ui/button';
-import { useUIStore, usePasswordsStore } from '@store';
 import { useSensitiveData } from '@hooks/use-sensitive-data';
 
 export const PasswordItem = ({ item }) => {
@@ -94,7 +94,7 @@ export const PasswordItem = ({ item }) => {
               copy();
             }
           }}
-          className={`bg-accent relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:bg-neutral-800 dark:focus-visible:ring-neutral-700 ${isVisible ? 'font-mono w-fit cursor-pointer hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'w-[80px] cursor-default'} `}
+          className={`bg-accent relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:bg-neutral-800 dark:focus-visible:ring-neutral-700 ${isVisible ? 'w-fit cursor-pointer font-mono hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'w-[80px] cursor-default'} `}
         >
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span

@@ -2,8 +2,8 @@ import { useState } from 'react';
 import * as chrono from 'chrono-node';
 import { CalendarIcon } from 'lucide-react';
 import { Calendar } from '@ui/calendar';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@ui/input-group';
 import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover';
-import { InputGroup, InputGroupInput, InputGroupAddon, InputGroupButton } from '@ui/input-group';
 
 export const NaturalDatePicker = ({ value, onChange, id }) => {
   const [open, setOpen] = useState(false);

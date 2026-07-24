@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { toast } from 'sonner';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useUIStore } from '@store';
+import { toast } from 'sonner';
 
 export const useSensitiveData = (value, type = 'Item') => {
   const [isVisible, setIsVisible] = useState(false);

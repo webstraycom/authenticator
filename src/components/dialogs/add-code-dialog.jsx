@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useCodesStore, useUIStore } from '@store';
 import * as OTPAuth from 'otpauth';
+import { Button } from '@ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@ui/dialog';
-import { Button } from '@ui/button';
 import { FormInput } from '@common/form-input';
 import { PasswordInput } from '@common/password-input';
-import { useCodesStore, useUIStore } from '@store';
 
 export const AddCodeDialog = () => {
   const initialForm = { service: '', account: '', secret: '' };

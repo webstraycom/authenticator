@@ -1,14 +1,13 @@
-import React from 'react';
+import { useUIStore } from '@store';
+import { Button } from '@ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@ui/dialog';
-import { Button } from '@ui/button';
-import { useUIStore } from '@store';
 
 export const ConfirmationDialog = () => {
   const confirmConfig = useUIStore((state) => state.confirmConfig);

@@ -1,12 +1,12 @@
-import { useState, useEffect, useRef } from 'react';
-import { Minus, Copy, X } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Copy, Minus, X } from 'lucide-react';
 import { Button } from '@ui/button';
 import { Logo } from '@common/logo';
 import { cn } from '@lib/utils';
 
 export const TitleBar = ({ className }) => {
   const [isMaximized, setIsMaximized] = useState(false);
-  
+
   const winRef = useRef(window.nw ? window.nw.Window.get() : null);
 
   useEffect(() => {
@@ -30,7 +30,7 @@ export const TitleBar = ({ className }) => {
   const handleMaximize = () => {
     const win = winRef.current;
     if (!win) return;
-    
+
     if (isMaximized) {
       win.restore();
     } else {
@@ -57,7 +57,7 @@ export const TitleBar = ({ className }) => {
       <div className="flex gap-2">
         <Button
           variant="ghost"
-          size='icon-xs'
+          size="icon-xs"
           onClick={handleMinimize}
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
@@ -66,7 +66,7 @@ export const TitleBar = ({ className }) => {
         </Button>
         <Button
           variant="ghost"
-          size='icon-xs'
+          size="icon-xs"
           onClick={handleMaximize}
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
@@ -75,7 +75,7 @@ export const TitleBar = ({ className }) => {
         </Button>
         <Button
           variant="ghost"
-          size='icon-xs'
+          size="icon-xs"
           onClick={handleClose}
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}

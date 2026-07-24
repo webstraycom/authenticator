@@ -1,20 +1,20 @@
 import React from 'react';
+import { useUIStore } from '@store';
 import { CircleAlertIcon } from 'lucide-react';
+import { Badge } from '@ui/badge';
+import { Button } from '@ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@ui/dialog';
-import { Button } from '@ui/button';
 import { Switch } from '@ui/switch';
-import { Badge } from '@ui/badge';
-import { useUIStore } from '@store';
 import { usePluginsLogic } from '@hooks/use-plugins-logic';
-import { pluginManager } from '@sdk/plugin-manager';
 import { cn } from '@lib/utils';
+import { pluginManager } from '@sdk/plugin-manager';
 
 export const PluginsDialog = () => {
   const isPluginsOpen = useUIStore((state) => state.isPluginsOpen);
@@ -46,9 +46,7 @@ export const PluginsDialog = () => {
         <div
           className={cn(
             'max-h-47 w-full overflow-y-auto',
-            installedPlugins.length > 0
-              ? 'scroll-fade scroll-fade-24 pb-px'
-              : '',
+            installedPlugins.length > 0 ? 'scroll-fade scroll-fade-24 pb-px' : '',
           )}
         >
           <div className="flex flex-col gap-2">

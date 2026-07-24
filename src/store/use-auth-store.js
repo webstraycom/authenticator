@@ -1,20 +1,20 @@
+import { usePluginStore } from '@sdk';
+import { useSettingsStore, useUIStore } from '@store';
+import bcrypt from 'bcryptjs';
 import { create } from 'zustand';
-import { db } from '@utils/db';
 import {
+  clearKey,
+  decrypt,
+  decryptWithHardwareId,
+  deriveKey,
+  encrypt,
+  encryptWithHardwareId,
   generateSalt,
   generateVaultKey,
-  deriveKey,
   initKey,
-  clearKey,
-  encrypt,
-  decrypt,
-  encryptWithHardwareId,
-  decryptWithHardwareId,
 } from '@utils/crypto';
-import bcrypt from 'bcryptjs';
-import { useUIStore, useSettingsStore } from '@store';
+import { db } from '@utils/db';
 import { pluginManager } from '@sdk/plugin-manager';
-import { usePluginStore } from '@sdk';
 
 export const useAuthStore = create((set) => ({
   isInitialized: false,

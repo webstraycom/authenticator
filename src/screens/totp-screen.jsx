@@ -1,5 +1,8 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { usePluginStore } from '@sdk';
+import { useCodesStore, useUIStore } from '@store';
 import { ClockIcon, PlusIcon } from 'lucide-react';
+import { Button } from '@ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,13 +11,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
-import { Button } from '@ui/button';
-import { CodeItem } from '@features/totp/code-item';
-import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { Marker, MarkerContent } from '@ui/marker';
+import { NoItemsPlaceholder } from '@common/no-items-placeholder';
+import { CodeItem } from '@features/totp/code-item';
 import { sorter } from '@utils/sorter';
-import { useUIStore, useCodesStore } from '@store';
-import { usePluginStore } from '@sdk';
 import { Slot } from '@sdk/plugin-system';
 
 export const TOTPScreen = () => {
@@ -76,7 +76,7 @@ export const TOTPScreen = () => {
   if (codes.length > 0) {
     return (
       <section className="relative flex h-full w-full flex-col items-center">
-        <div className="w-full flex-1 overflow-y-auto scroll-fade scroll-fade-24">
+        <div className="scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
           <div className="flex w-full flex-col items-center gap-4 p-8">
             {activeCodes.map((item) => (
               <CodeItem key={item._id} item={item} tick={globalTick} />
@@ -84,7 +84,7 @@ export const TOTPScreen = () => {
             {corruptedCodes.length > 0 && (
               <>
                 <Marker variant="separator" className="max-w-xl">
-                  <MarkerContent className="text-xs py-2">Corrupted Passwords</MarkerContent>
+                  <MarkerContent className="py-2 text-xs">Corrupted Passwords</MarkerContent>
                 </Marker>
                 {corruptedCodes.map((item) => (
                   <CodeItem key={item._id} item={item} tick={globalTick} />

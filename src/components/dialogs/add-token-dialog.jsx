@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useTokensStore, useUIStore } from '@store';
+import { Button } from '@ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@ui/dialog';
-import { Button } from '@ui/button';
 import { Label } from '@ui/label';
-import { FormInput } from '@common/form-input';
-import { PasswordInput } from '@common/password-input';
-import { NaturalDatePicker } from '@common/natural-date-picker';
 import { ExpirationMessage } from '@common/expiration-message';
-import { useTokensStore, useUIStore } from '@store';
+import { FormInput } from '@common/form-input';
+import { NaturalDatePicker } from '@common/natural-date-picker';
+import { PasswordInput } from '@common/password-input';
 
 export const AddTokenDialog = () => {
   const initialForm = { service: '', endpoint: '', token: '', expiration: '', expires: null };

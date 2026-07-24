@@ -11,10 +11,10 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover';
 
 export const NoItemsPlaceholder = ({
-    onAdd,
-    onImport,
-    options: {icon, header, description, buttonText}
-   }) => {
+  onAdd,
+  onImport,
+  options: { icon, header, description, buttonText },
+}) => {
   return (
     <Empty className="h-full w-full">
       <EmptyHeader>

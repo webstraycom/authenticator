@@ -1,5 +1,8 @@
 import React, { useEffect, useMemo } from 'react';
+import { usePluginStore } from '@sdk';
+import { useTokensStore, useUIStore } from '@store';
 import { KeyRoundIcon, PlusIcon } from 'lucide-react';
+import { Button } from '@ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,13 +11,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
-import { Button } from '@ui/button';
+import { Marker, MarkerContent } from '@ui/marker';
 import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { TokenItem } from '@features/tokens/token-item';
-import { Marker, MarkerContent } from '@ui/marker';
-import { useTokensStore, useUIStore } from '@store';
 import { sorter } from '@utils/sorter';
-import { usePluginStore } from '@sdk';
 import { Slot } from '@sdk/plugin-system';
 
 export const TokensScreen = () => {
@@ -69,7 +69,7 @@ export const TokensScreen = () => {
   if (tokens.length > 0) {
     return (
       <section className="relative flex h-full w-full flex-col items-center">
-        <div className="w-full flex-1 overflow-y-auto scroll-fade scroll-fade-24">
+        <div className="scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
           <div className="flex w-full flex-col items-center gap-4 p-8">
             {activeTokens.map((item) => (
               <TokenItem key={item._id} item={item} />
@@ -77,7 +77,7 @@ export const TokensScreen = () => {
             {expiredTokens.length > 0 && (
               <>
                 <Marker variant="separator" className="max-w-xl">
-                  <MarkerContent className="text-xs py-2">Corrupted Passwords</MarkerContent>
+                  <MarkerContent className="py-2 text-xs">Corrupted Passwords</MarkerContent>
                 </Marker>
                 {expiredTokens.map((item) => (
                   <TokenItem key={item._id} item={item} />
@@ -87,7 +87,7 @@ export const TokensScreen = () => {
             {corruptedTokens.length > 0 && (
               <>
                 <Marker variant="separator">
-                  <MarkerContent className="text-xs py-2">Corrupted Tokens</MarkerContent>
+                  <MarkerContent className="py-2 text-xs">Corrupted Tokens</MarkerContent>
                 </Marker>
                 {corruptedTokens.map((item) => (
                   <TokenItem key={item._id} item={item} />

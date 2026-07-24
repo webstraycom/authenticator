@@ -1,5 +1,6 @@
+import { decrypt, deriveKey, encrypt } from '@utils/crypto';
 import { db } from '@utils/db';
-import { encrypt, decrypt, deriveKey } from '@utils/crypto';
+
 const crypto = window.nw.require('crypto');
 
 export const dataService = {

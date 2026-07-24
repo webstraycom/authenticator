@@ -1,7 +1,7 @@
+import { useUIStore } from '@store';
 import { PanelLeft } from 'lucide-react';
 import { Button } from '@ui/button';
 import { useSidebar } from '@ui/sidebar';
-import { useUIStore } from '@store';
 
 export const Header = () => {
   const { toggleSidebar } = useSidebar();
@@ -15,7 +15,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="flex h-12 shrink-0 items-center border-b px-6.5 gap-1.5">
+    <div className="flex h-12 shrink-0 items-center gap-1.5 border-b px-6.5">
       <Button
         variant="ghost"
         type="button"

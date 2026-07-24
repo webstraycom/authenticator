@@ -1,16 +1,16 @@
 import React from 'react';
+import { Button } from '@ui/button';
+import { ItemGroup } from '@ui/item';
 import {
+  ChangeMasterPasswordSetting,
+  ClearDatabaseSetting,
+  CompactDatabaseSetting,
+  ExportSetting,
+  ImportSetting,
+  PluginsSetting,
   ThemeSetting,
   VerificationTimeoutSetting,
-  ImportSetting,
-  ExportSetting,
-  CompactDatabaseSetting,
-  ClearDatabaseSetting,
-  ChangeMasterPasswordSetting,
-  PluginsSetting,
 } from '@features/settings';
-import { ItemGroup } from '@ui/item';
-import { Button } from '@ui/button';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 
 export const SettingsScreen = () => {
@@ -18,7 +18,7 @@ export const SettingsScreen = () => {
 
   return (
     <section className="relative flex h-full w-full flex-col items-center">
-      <div className="w-full flex-1 overflow-y-auto scroll-fade scroll-fade-24">
+      <div className="scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
         <ItemGroup className="flex w-full flex-col items-center gap-4 p-8">
           <ThemeSetting />
           <VerificationTimeoutSetting />

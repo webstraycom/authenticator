@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useUIStore } from '@store';
 import { CircleAlertIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import { Button } from '@ui/button';
+import { Checkbox } from '@ui/checkbox';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@ui/dialog';
-import { Button } from '@ui/button';
-import { Input } from '@ui/input';
-import { Checkbox } from '@ui/checkbox';
 import {
   Field,
   FieldContent,
@@ -20,10 +20,10 @@ import {
   FieldLabel,
   FieldTitle,
 } from '@ui/field';
+import { Input } from '@ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ui/tabs';
 import { PasswordInput } from '@common/password-input';
 import { dataService } from '@utils/data-service';
-import { useUIStore } from '@store';
 
 const typeLabels = {
   password: 'Passwords',

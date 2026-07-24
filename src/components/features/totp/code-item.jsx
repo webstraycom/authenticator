@@ -1,7 +1,9 @@
-import { memo, Fragment } from 'react';
-import { toast } from 'sonner';
-import { motion, AnimatePresence } from 'framer-motion';
+import { Fragment, memo } from 'react';
+import { useCodesStore, useUIStore } from '@store';
+import { AnimatePresence, motion } from 'framer-motion';
 import { CircleAlertIcon, ClockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
+import { toast } from 'sonner';
+import { Button } from '@ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -11,8 +13,6 @@ import {
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
-import { Button } from '@ui/button';
-import { useUIStore, useCodesStore } from '@store';
 import { useTOTP } from '@hooks/use-totp';
 
 export const CodeItem = memo(
@@ -99,11 +99,11 @@ export const CodeItem = memo(
                 handleCopy();
               }
             }}
-            className={`group focus-visible:bg-accent ring-offset-background flex cursor-pointer items-center gap-1 rounded transition duration-200 outline-none select-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'animate-pulse will-change-opacity' : ''} `}
+            className={`group focus-visible:bg-accent ring-offset-background flex cursor-pointer items-center gap-1 rounded transition duration-200 outline-none select-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
           >
             {token.split('').map((char, index) => (
               <Fragment key={index}>
-                <span className="bg-accent font-mono relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
+                <span className="bg-accent relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
                   <AnimatePresence mode="popLayout">
                     <motion.span
                       key={`${index}-${token}`}
@@ -116,7 +116,7 @@ export const CodeItem = memo(
                         damping: 20,
                         delay: index * 0.05,
                       }}
-                      className="font-mono absolute inset-0 flex items-center justify-center text-sm font-medium will-change-transform"
+                      className="absolute inset-0 flex items-center justify-center font-mono text-sm font-medium will-change-transform"
                     >
                       {char}
                     </motion.span>

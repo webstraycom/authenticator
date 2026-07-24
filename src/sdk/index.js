@@ -1,12 +1,12 @@
 import React from 'react';
-import { toast } from 'sonner';
 import * as Icons from 'lucide-react';
-import * as components from '@sdk/components';
+import { toast } from 'sonner';
 import { create } from 'zustand';
-import { encrypt, decrypt } from '@utils/crypto';
+import { cn } from '@lib/utils';
+import { decrypt, encrypt } from '@utils/crypto';
 import { sorter } from '@utils/sorter';
 import { getTOTP } from '@utils/totp';
-import { cn } from '@lib/utils';
+import * as components from '@sdk/components';
 
 export const usePluginStore = create((set, get) => ({
   slots: {},
@@ -79,7 +79,10 @@ export const createSDK = (pkg, db) => ({
     },
     decrypt: (text) => {
       const result = decrypt(text);
-      if (result == null) throw new Error('Decryption failed. The vault may be locked or the password may be corrupted.');
+      if (result == null)
+        throw new Error(
+          'Decryption failed. The vault may be locked or the password may be corrupted.',
+        );
       return result;
     },
   },

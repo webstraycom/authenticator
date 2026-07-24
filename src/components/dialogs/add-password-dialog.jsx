@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { usePasswordsStore, useUIStore } from '@store';
+import { Button } from '@ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@ui/dialog';
-import { Button } from '@ui/button';
 import { FormInput } from '@common/form-input';
 import { PasswordInput } from '@common/password-input';
-import { usePasswordsStore, useUIStore } from '@store';
 
 export const AddPasswordDialog = () => {
   const initialForm = { site: '', login: '', password: '' };

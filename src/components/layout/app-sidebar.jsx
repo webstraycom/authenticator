@@ -1,3 +1,4 @@
+import { useAuthStore, useUIStore } from '@store';
 import { ArrowLeftIcon, ClockIcon, CogIcon, KeyRoundIcon, LockIcon } from 'lucide-react';
 import {
   Sidebar,
@@ -9,7 +10,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@ui/sidebar';
-import { useUIStore, useAuthStore } from '@store';
 
 export const AppSidebar = () => {
   const openConfirm = useUIStore((state) => state.openConfirm);

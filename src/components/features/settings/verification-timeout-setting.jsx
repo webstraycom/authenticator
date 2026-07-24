@@ -1,9 +1,9 @@
 import { ClockFadingIcon, MinusIcon, PlusIcon } from 'lucide-react';
-import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover';
+import { Button } from '@ui/button';
 import { ButtonGroup } from '@ui/button-group';
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@ui/input-group';
 import { Label } from '@ui/label';
-import { Button } from '@ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover';
 import { Switch } from '@ui/switch';
 import { SettingsItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';

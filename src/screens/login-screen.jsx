@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@ui/card';
 import { Button } from '@ui/button';
-import { useAuthStore } from '@store/use-auth-store';
-import { PasswordInput } from '@common/password-input';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@ui/card';
 import { ForgotMasterPasswordButton } from '@common/forgot-master-password-button';
+import { PasswordInput } from '@common/password-input';
+import { useAuthStore } from '@store/use-auth-store';
 
 export const LoginScreen = () => {
   const [password, setPassword] = useState('');

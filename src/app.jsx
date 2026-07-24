@@ -1,22 +1,22 @@
 import { useEffect } from 'react';
-import { AppSidebar, TitleBar, Header } from '@layout';
-import { PasswordsScreen, TOTPScreen, SettingsScreen, LoginScreen, TokensScreen } from '@screens';
 import {
-  AddPasswordDialog,
   AddCodeDialog,
+  AddPasswordDialog,
   AddTokenDialog,
-  ConfirmationDialog,
-  VerificationDialog,
-  DataManagementDialog,
   ChangeMasterPasswordDialog,
-  PluginsDialog,
   CommandPaletteDialog,
+  ConfirmationDialog,
+  DataManagementDialog,
+  PluginsDialog,
+  VerificationDialog,
 } from '@dialogs';
-import { AppLoadingPlaceholder } from '@common/app-loading-placeholder';
-import { Toaster } from '@ui/sonner';
+import { AppSidebar, Header, TitleBar } from '@layout';
+import { LoginScreen, PasswordsScreen, SettingsScreen, TokensScreen, TOTPScreen } from '@screens';
+import { useAuthStore, useSettingsStore, useUIStore } from '@store';
 import { SidebarProvider } from '@ui/sidebar';
+import { Toaster } from '@ui/sonner';
+import { AppLoadingPlaceholder } from '@common/app-loading-placeholder';
 import { useAppLoaded } from '@hooks/use-app-loaded';
-import { useSettingsStore, useAuthStore, useUIStore } from '@store';
 import { PluginProvider } from '@sdk/plugin-system';
 
 function App() {
@@ -72,12 +72,14 @@ function App() {
         <ConfirmationDialog />
         <Toaster
           className="z-150"
-          toastOptions={{ style: { right: '7px', bottom: '7px', fontFamily: 'Geist, sans-serif' },
-          classNames: {
-            toast: "[&_[data-icon]]:!self-start [&_[data-icon]]:!mt-0.25",
-            description: "!text-muted-foreground",
-            actionButton: "!font-medium !rounded-md",
-          },}}
+          toastOptions={{
+            style: { right: '7px', bottom: '7px', fontFamily: 'Geist, sans-serif' },
+            classNames: {
+              toast: '[&_[data-icon]]:!self-start [&_[data-icon]]:!mt-0.25',
+              description: '!text-muted-foreground',
+              actionButton: '!font-medium !rounded-md',
+            },
+          }}
         />
       </div>
     </div>

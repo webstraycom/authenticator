@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
+import { usePluginStore } from '@sdk';
 import { CircleAlertIcon } from 'lucide-react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetDescription } from '@ui/sheet';
-import { DropdownMenuItem } from '@ui/dropdown-menu';
 import { Badge } from '@ui/badge';
-import { usePluginStore } from '@sdk';
+import { DropdownMenuItem } from '@ui/dropdown-menu';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@ui/sheet';
 
 export const Slot = ({ slotName }) => {
   const slotData = usePluginStore((state) => state.slots[slotName]);

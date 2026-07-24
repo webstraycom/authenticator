@@ -1,6 +1,6 @@
 import { create } from 'zustand';
+import { decrypt, encrypt } from '@utils/crypto';
 import { db } from '@utils/db';
-import { encrypt, decrypt } from '@utils/crypto';
 
 export const useCodesStore = create((set, get) => ({
   codes: [],

@@ -1,14 +1,14 @@
 import { PaletteIcon } from 'lucide-react';
+import { Button } from '@ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuTrigger,
   DropdownMenuSeparator,
-  DropdownMenuLabel,
+  DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
-import { Button } from '@ui/button';
 import { SettingsItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 

@@ -1,15 +1,4 @@
 import {
-  Command,
-  CommandDialog,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-  CommandSeparator,
-} from '@ui/command';
-import { useCommandPalette } from '@hooks/use-command-palette';
-import {
   ArrowLeftIcon,
   BoltIcon,
   ClockIcon,
@@ -21,6 +10,17 @@ import {
   PlusIcon,
   UploadIcon,
 } from 'lucide-react';
+import {
+  Command,
+  CommandDialog,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@ui/command';
+import { useCommandPalette } from '@hooks/use-command-palette';
 
 export const CommandPaletteDialog = () => {
   const { isOpen, closeCommandPalette, execute, actions } = useCommandPalette();

@@ -1,5 +1,5 @@
-import { Input } from '@ui/input';
 import { Field, FieldLabel } from '@ui/field';
+import { Input } from '@ui/input';
 
 export const FormInput = ({ label, id, error, children, ...props }) => (
   <Field>

@@ -1,5 +1,8 @@
 import { useEffect, useMemo } from 'react';
+import { usePluginStore } from '@sdk';
+import { usePasswordsStore, useUIStore } from '@store';
 import { LockIcon, PlusIcon } from 'lucide-react';
+import { Button } from '@ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,14 +11,11 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
-import { Button } from '@ui/button';
-import { PasswordItem } from '@features/passwords/password-item';
-import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { Marker, MarkerContent } from '@ui/marker';
-import { Slot } from '@sdk/plugin-system';
+import { NoItemsPlaceholder } from '@common/no-items-placeholder';
+import { PasswordItem } from '@features/passwords/password-item';
 import { sorter } from '@utils/sorter';
-import { useUIStore, usePasswordsStore } from '@store';
-import { usePluginStore } from '@sdk';
+import { Slot } from '@sdk/plugin-system';
 
 export const PasswordsScreen = () => {
   const openAdd = useUIStore((state) => state.openAddPassword);
@@ -67,7 +67,7 @@ export const PasswordsScreen = () => {
   if (passwords.length > 0) {
     return (
       <section className="relative flex h-full w-full flex-col items-center">
-        <div className="w-full flex-1 overflow-y-auto scroll-fade scroll-fade-24">
+        <div className="scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
           <div className="flex w-full flex-col items-center gap-4 p-8">
             {activePasswords.map((item) => (
               <PasswordItem key={item._id} item={item} />
@@ -75,7 +75,7 @@ export const PasswordsScreen = () => {
             {corruptedPasswords.length > 0 && (
               <>
                 <Marker variant="separator" className="max-w-xl">
-                  <MarkerContent className="text-xs py-2">Corrupted Passwords</MarkerContent>
+                  <MarkerContent className="py-2 text-xs">Corrupted Passwords</MarkerContent>
                 </Marker>
                 {corruptedPasswords.map((item) => (
                   <PasswordItem key={item._id} item={item} />

@@ -1,17 +1,17 @@
 import { useState } from 'react';
+import { useAuthStore, useUIStore } from '@store';
 import { LoaderIcon } from 'lucide-react';
 import { toast } from 'sonner';
+import { Button } from '@ui/button';
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from '@ui/dialog';
-import { Button } from '@ui/button';
 import { PasswordInput } from '@common/password-input';
-import { useUIStore, useAuthStore } from '@store';
 
 export const ChangeMasterPasswordDialog = () => {
   const isChangeMasterPasswordOpen = useUIStore((state) => state.isChangeMasterPasswordOpen);
