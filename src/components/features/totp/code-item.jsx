@@ -116,7 +116,7 @@ export const CodeItem = memo(
                         damping: 20,
                         delay: index * 0.05,
                       }}
-                      className="absolute inset-0 flex items-center justify-center font-mono text-sm font-medium will-change-transform"
+                      className="absolute inset-0 flex items-center justify-center text-sm font-medium will-change-transform"
                     >
                       {char}
                     </motion.span>

@@ -116,7 +116,7 @@ export const TokenItem = ({ item }) => {
               copy();
             }
           }}
-          className={`bg-accent relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:focus-visible:ring-neutral-700 ${isVisible ? 'w-fit cursor-pointer font-mono hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'w-[80px] cursor-default'} `}
+          className={`bg-accent relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:focus-visible:ring-neutral-700 ${isVisible ? 'w-fit cursor-pointer font-mono hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'font-masked w-[80px] cursor-default'} `}
         >
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span

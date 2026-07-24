@@ -9,6 +9,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-sans: 'Geist Variable', sans-serif;
+  --font-mono: 'Geist Mono Variable', monospace;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -127,12 +129,7 @@
   }
 
   html, body, #root {
-    font-family: 'Geist Variable', sans-serif;
     interpolate-size: allow-keywords;
-  }
-
-  .font-mono {
-    font-family: 'Geist Mono Variable', monospace;
   }
 
   ::-webkit-scrollbar {
@@ -166,4 +163,10 @@
 
 ::view-transition-old(root) {
   z-index: 1;
+}
+
+@layer utilities {
+  .font-masked {
+    font-family: monospace;
+  }
 }
