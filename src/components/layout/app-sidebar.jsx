@@ -78,7 +78,7 @@ export const AppSidebar = () => {
                   <SidebarMenuItem key={item.id}>
                     <SidebarMenuButton
                       asChild
-                      className="bg-neutral transition duration-150 hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800"
+                      className="hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800"
                     >
                       <a
                         href="#"
