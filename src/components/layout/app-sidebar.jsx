@@ -64,18 +64,16 @@ export const AppSidebar = () => {
   return (
     <Sidebar side="left" className="border-r border-neutral-200 dark:border-neutral-800">
       <SidebarContent className="pt-10">
-        {menuGroups.map((group) => (
-          <SidebarGroup key={group.label} className={`pt-2 pb-0 ${group.className}`}>
+        {menuGroups.map(({ label: groupLabel, items }) => (
+          <SidebarGroup key={groupLabel} className="pt-2 pb-0">
             <SidebarGroupLabel asChild>
-              <h3 id={group.id} className="text-sidebar-foreground/70">
-                {group.label}
-              </h3>
+              <h3 className="text-sidebar-foreground/70">{groupLabel}</h3>
             </SidebarGroupLabel>
 
             <SidebarGroupContent>
               <SidebarMenu>
-                {group.items.map((item) => (
-                  <SidebarMenuItem key={item.id}>
+                {items.map(({ id, label, action, icon: Icon }) => (
+                  <SidebarMenuItem key={id}>
                     <SidebarMenuButton
                       asChild
                       className="hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800"
@@ -85,11 +83,11 @@ export const AppSidebar = () => {
                         draggable="false"
                         onClick={(e) => {
                           e.preventDefault();
-                          item.action();
+                          action();
                         }}
                       >
-                        <item.icon />
-                        <span className="text-[0.8rem] font-medium">{item.label}</span>
+                        <Icon />
+                        <span className="text-[0.8rem] font-medium">{label}</span>
                       </a>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
