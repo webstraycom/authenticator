@@ -192,9 +192,7 @@ export const DataManagementDialog = () => {
                           onCheckedChange={() => toggleType(type)}
                         />
                         <FieldContent className="flex-row items-center gap-1">
-                          <FieldTitle>
-                            {TYPE_LABELS[type]}
-                          </FieldTitle>
+                          <FieldTitle>{TYPE_LABELS[type]}</FieldTitle>
                           <FieldDescription>
                             ({count} {count > 1 ? 'items' : 'item'})
                           </FieldDescription>

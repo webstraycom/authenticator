@@ -1,6 +1,6 @@
 import { usePasswordsStore, useUIStore } from '@store';
-import { AnimatePresence, motion } from 'motion/react';
 import { CircleAlertIcon, LockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Button } from '@ui/button';
 import {
   DropdownMenu,

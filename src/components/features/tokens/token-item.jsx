@@ -1,6 +1,6 @@
 import { useTokensStore, useUIStore } from '@store';
-import { AnimatePresence, motion } from 'motion/react';
 import { CircleAlertIcon, KeyRoundIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
+import { AnimatePresence, motion } from 'motion/react';
 import { Badge } from '@ui/badge';
 import { Button } from '@ui/button';
 import {
