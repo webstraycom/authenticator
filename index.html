@@ -31,12 +31,9 @@
           if (fs.existsSync(dbPath)) {
             const data = fs.readFileSync(dbPath, 'utf8');
             const lines = data.split('\n');
-            for (const line of lines) {
-              if (line.includes('settings_config')) {
-                const configLine = lines.reverse().find((l) => l.includes('settings_config'));
-                if (configLine) theme = JSON.parse(configLine).theme;
-                break;
-              }
+            const configLine = lines.findLast((line) => line.includes('settings_config'));
+            if (configLine) {
+              theme = JSON.parse(configLine).theme;
             }
           }
 
