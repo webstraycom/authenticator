@@ -51,7 +51,7 @@ export const CodeItem = memo(
       return (
         <Item
           variant="outline"
-          className="dark:bg-muted/30 w-full max-w-xl gap-2.5 opacity-50 shadow-xs transition-all dark:shadow-none"
+          className="dark:bg-muted/30 w-full max-w-xl gap-2.5 opacity-50 transition-all"
         >
           <ItemMedia variant="icon" className="bg-accent border-none">
             <CircleAlertIcon className="text-foreground size-4" />
@@ -78,7 +78,7 @@ export const CodeItem = memo(
     return (
       <Item
         variant="outline"
-        className="dark:bg-muted/30 w-full max-w-xl gap-2.5 shadow-xs transition-all dark:shadow-none"
+        className="dark:bg-muted/30 w-full max-w-xl gap-2.5 transition-all"
       >
         <ItemMedia variant="icon" className="bg-accent border-none">
           <ClockIcon className="text-foreground size-4" />

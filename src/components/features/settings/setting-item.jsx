@@ -3,7 +3,7 @@ import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle }
 export const SettingsItem = ({ icon: Icon, title, description, children }) => (
   <Item
     variant="outline"
-    className="dark:bg-muted/30 w-full max-w-xl gap-2.5 shadow-xs transition-all dark:shadow-none"
+    className="dark:bg-muted/30 w-full max-w-xl gap-2.5 transition-all"
   >
     <ItemMedia variant="icon" className="bg-accent border-none">
       <Icon size={20} />

@@ -53,7 +53,7 @@ export const PluginsDialog = () => {
               sortedPlugins.map((plugin) => (
                 <div
                   key={plugin.id}
-                  className="dark:bg-muted/30 flex items-start justify-between gap-4 rounded-lg border p-3 shadow-xs dark:shadow-none"
+                  className="dark:bg-muted/30 flex items-start justify-between gap-4 rounded-lg border p-3"
                 >
                   <div className="flex flex-col gap-1">
                     <div className="flex items-center gap-1">
