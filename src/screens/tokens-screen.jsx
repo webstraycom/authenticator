@@ -77,7 +77,7 @@ export const TokensScreen = () => {
             {expiredTokens.length > 0 && (
               <>
                 <Marker variant="separator" className="max-w-xl">
-                  <MarkerContent className="py-2 text-xs">Corrupted Passwords</MarkerContent>
+                  <MarkerContent className="py-2 text-xs">Expired Tokens</MarkerContent>
                 </Marker>
                 {expiredTokens.map((item) => (
                   <TokenItem key={item._id} item={item} />

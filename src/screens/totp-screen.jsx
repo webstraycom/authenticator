@@ -84,7 +84,7 @@ export const TOTPScreen = () => {
             {corruptedCodes.length > 0 && (
               <>
                 <Marker variant="separator" className="max-w-xl">
-                  <MarkerContent className="py-2 text-xs">Corrupted Passwords</MarkerContent>
+                  <MarkerContent className="py-2 text-xs">Corrupted Codes</MarkerContent>
                 </Marker>
                 {corruptedCodes.map((item) => (
                   <CodeItem key={item._id} item={item} tick={globalTick} />
