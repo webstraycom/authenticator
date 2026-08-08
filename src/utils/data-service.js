@@ -3,42 +3,46 @@ import { db } from '@utils/db';
 
 const crypto = window.nw.require('crypto');
 
+const readFileAsText = (file) => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error('File reading failed'));
+    reader.readAsText(file);
+  })
+}
+
 export const dataService = {
   previewImport: async (file, targetType = null) => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        try {
-          const rawData = JSON.parse(e.target.result);
+    try {
+      const text = await readFileAsText(file);
+      const rawData = JSON.parse(text);
 
-          if (!rawData.data || !Array.isArray(rawData.data)) {
-            throw new Error("Invalid format: 'data' array is missing");
-          }
+      if (!rawData.data || !Array.isArray(rawData.data)) {
+        throw new Error("Invalid format: 'data' array is missing");
+      }
 
-          const dataArray = rawData.data;
-          const salt = rawData.salt || null;
+      const dataArray = rawData.data;
+      const salt = rawData.salt || null;
 
-          const filtered = targetType
-            ? dataArray.filter((item) => item.type === targetType)
-            : dataArray;
+      const filtered = targetType
+        ? dataArray.filter((item) => item.type === targetType)
+        : dataArray;
 
-          const stats = filtered.reduce((acc, item) => {
-            acc[item.type] = (acc[item.type] || 0) + 1;
-            return acc;
-          }, {});
+      const stats = filtered.reduce((acc, item) => {
+        acc[item.type] = (acc[item.type] || 0) + 1;
+        return acc;
+      }, {});
 
-          resolve({
-            data: filtered,
-            stats,
-            total: filtered.length,
-            salt: salt,
-          });
-        } catch (err) {
-          reject(new Error('Invalid JSON File'));
-        }
+      return {
+        data: filtered,
+        stats,
+        total: filtered.length,
+        salt: salt,
       };
-      reader.readAsText(file);
-    });
+    } catch {
+      throw new Error('Invalid JSON File');
+    }
   },
 
   importData: async (dataArray, importPassword, salt) => {
