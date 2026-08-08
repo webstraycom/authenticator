@@ -88,10 +88,7 @@ export const TokenItem = ({ item }) => {
   }
 
   return (
-    <Item
-      variant="outline"
-      className="dark:bg-muted/30 w-full max-w-xl gap-2.5 transition-all"
-    >
+    <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5 transition-all">
       <ItemMedia variant="icon" className="bg-accent border-none">
         <KeyRoundIcon className="text-foreground size-4" />
       </ItemMedia>

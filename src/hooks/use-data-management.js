@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from 'react';
-import { useForm } from 'react-hook-form';
+import { useCallback, useEffect, useState } from 'react';
 import { useUIStore } from '@store';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { dataService } from '@utils/data-service';
 
@@ -8,14 +8,21 @@ export const useDataManagement = () => {
   const dataManagementConfig = useUIStore((state) => state.dataManagementConfig);
   const closeDataManagement = useUIStore((state) => state.closeDataManagement);
   const setDataManagementMode = useUIStore((state) => state.setDataManagementMode);
-  
+
   const mode = dataManagementConfig.mode || 'import';
   const type = dataManagementConfig.type;
 
   const [preview, setPreview] = useState(null);
   const [selectedTypes, setSelectedTypes] = useState({});
 
-  const { register, handleSubmit, reset, setError, clearErrors, formState: { errors, isSubmitting } } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    clearErrors,
+    formState: { errors, isSubmitting },
+  } = useForm({
     defaultValues: { password: '' },
     shouldFocusError: true,
   });
@@ -36,9 +43,9 @@ export const useDataManagement = () => {
         if (isImportMode) setGlobalError('No compatible entries found');
         return;
       }
-      
+
       setPreview(res);
-      setSelectedTypes(Object.fromEntries(Object.keys(res.stats).map(k => [k, true])));
+      setSelectedTypes(Object.fromEntries(Object.keys(res.stats).map((k) => [k, true])));
     } catch (err) {
       setGlobalError(err.message || 'Failed to load data');
     }
@@ -54,7 +61,7 @@ export const useDataManagement = () => {
   const handleModeChange = async (newMode) => {
     if (mode === newMode) return;
     setDataManagementMode(newMode);
-    
+
     reset({ password: '' });
     clearErrors('root');
     setPreview(null);
@@ -76,9 +83,9 @@ export const useDataManagement = () => {
   const onSubmit = async (data) => {
     clearErrors('root');
     const filteredData = preview?.data?.filter((item) => selectedTypes[item.type]) || [];
-    
+
     const isImport = mode === 'import';
-    const actionPromise = isImport 
+    const actionPromise = isImport
       ? dataService.importData(filteredData, data.password, preview.salt)
       : dataService.exportData(filteredData, data.password);
 
@@ -100,8 +107,19 @@ export const useDataManagement = () => {
   }, [dataManagementConfig.isOpen, type, mode]);
 
   return {
-    dataManagementConfig, mode, preview, selectedTypes, isNothingSelected,
-    globalError, isSubmitting, register, errors, toggleType,
-    handleFile, handleModeChange, handleClose, handleSubmit: handleSubmit(onSubmit)
+    dataManagementConfig,
+    mode,
+    preview,
+    selectedTypes,
+    isNothingSelected,
+    globalError,
+    isSubmitting,
+    register,
+    errors,
+    toggleType,
+    handleFile,
+    handleModeChange,
+    handleClose,
+    handleSubmit: handleSubmit(onSubmit),
   };
 };

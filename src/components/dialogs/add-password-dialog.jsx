@@ -96,9 +96,7 @@ export const AddPasswordDialog = () => {
             <Button type="button" variant="outline" onClick={closeAddPassword}>
               Cancel
             </Button>
-            <Button type="submit">
-              {editingPassword ? 'Save Changes' : 'Save Password'}
-            </Button>
+            <Button type="submit">{editingPassword ? 'Save Changes' : 'Save Password'}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

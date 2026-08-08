@@ -1,5 +1,5 @@
-import { useForm } from 'react-hook-form';
 import { useAuthStore, useUIStore } from '@store';
+import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Button } from '@ui/button';
 import {
@@ -10,8 +10,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@ui/dialog';
-import { PasswordInput } from '@common/password-input';
 import { Spinner } from '@ui/spinner';
+import { PasswordInput } from '@common/password-input';
 
 export const ChangeMasterPasswordDialog = () => {
   const isChangeMasterPasswordOpen = useUIStore((state) => state.isChangeMasterPasswordOpen);
@@ -34,7 +34,7 @@ export const ChangeMasterPasswordDialog = () => {
 
   const onSubmit = async (data) => {
     try {
-      const {oldPassword, newPassword} = data;
+      const { oldPassword, newPassword } = data;
       const result = await changeMasterPassword(oldPassword, newPassword);
 
       if (result.success) {
@@ -51,7 +51,7 @@ export const ChangeMasterPasswordDialog = () => {
   const handleClose = () => {
     reset();
     closeChangeMasterPassword();
-  }
+  };
 
   return (
     <Dialog
@@ -59,7 +59,7 @@ export const ChangeMasterPasswordDialog = () => {
       onOpenChange={(open) => !open && !isSubmitting && handleClose()}
     >
       <DialogContent className="mt-5 sm:max-w-[350px]">
-        <form onSubmit={handleSubmit(onSubmit)} className='contents' noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className="contents" noValidate>
           <DialogHeader>
             <DialogTitle>Change Master Password</DialogTitle>
             <DialogDescription>Here you can change your master password.</DialogDescription>
@@ -70,24 +70,24 @@ export const ChangeMasterPasswordDialog = () => {
               id="oldPassword"
               disabled={isSubmitting}
               error={errors.oldPassword}
-              {...register('oldPassword', {required: 'Current password is required'})}
+              {...register('oldPassword', { required: 'Current password is required' })}
             />
             <PasswordInput
               label="New Password"
               id="newPassword"
               disabled={isSubmitting}
               error={errors.newPassword}
-              {...register('newPassword', { 
+              {...register('newPassword', {
                 required: 'New password is required',
                 minLength: {
                   value: 8,
-                  message: 'Password must be at least 8 characters long'
+                  message: 'Password must be at least 8 characters long',
                 },
                 onChange: () => {
                   if (watch('confirmPassword')) {
                     trigger('confirmPassword');
                   }
-                }
+                },
               })}
             />
             <PasswordInput

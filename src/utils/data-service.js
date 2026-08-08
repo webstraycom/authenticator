@@ -9,8 +9,8 @@ const readFileAsText = (file) => {
     reader.onload = () => resolve(reader.result);
     reader.onerror = () => reject(new Error('File reading failed'));
     reader.readAsText(file);
-  })
-}
+  });
+};
 
 export const dataService = {
   previewImport: async (file, targetType = null) => {

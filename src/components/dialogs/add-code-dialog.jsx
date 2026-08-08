@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { useCodesStore, useUIStore } from '@store';
 import * as OTPAuth from 'otpauth';
+import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import {
   Dialog,
@@ -46,10 +46,10 @@ export const AddCodeDialog = () => {
       reset(
         editingCode
           ? {
-            service: editingCode.service,
-            account: editingCode.account,
-            secret: editingCode.value,
-          }
+              service: editingCode.service,
+              account: editingCode.account,
+              secret: editingCode.value,
+            }
           : { service: '', account: '', secret: '' },
       );
     }
@@ -80,13 +80,13 @@ export const AddCodeDialog = () => {
                 : 'Enter the details of the code you want to save in the vault.'}
             </DialogDescription>
           </DialogHeader>
-          <section className='flex flex-col gap-4'>
+          <section className="flex flex-col gap-4">
             <FormInput
               label="Service"
               id="add-service"
               placeholder="Google, GitHub, etc."
               error={errors.service}
-              {...register('service', {required: 'Service is required'})}
+              {...register('service', { required: 'Service is required' })}
             />
 
             <FormInput
@@ -94,16 +94,16 @@ export const AddCodeDialog = () => {
               id="add-account"
               placeholder="user@example.com"
               error={errors.account}
-              {...register('account', {required: 'Account is required'})}
+              {...register('account', { required: 'Account is required' })}
             />
 
             <PasswordInput
               label="Secret"
               id="add-secret"
               error={errors.secret}
-              {...register('secret', { 
+              {...register('secret', {
                 required: 'Secret is required',
-                validate: (value) => isValidBase32(value) || 'Invalid secret'
+                validate: (value) => isValidBase32(value) || 'Invalid secret',
               })}
             />
           </section>
@@ -111,9 +111,7 @@ export const AddCodeDialog = () => {
             <Button type="button" variant="outline" onClick={closeAddCode}>
               Cancel
             </Button>
-            <Button type="submit">
-              {editingCode ? 'Save Changes' : 'Save Code'}
-            </Button>
+            <Button type="submit">{editingCode ? 'Save Changes' : 'Save Code'}</Button>
           </DialogFooter>
         </form>
       </DialogContent>

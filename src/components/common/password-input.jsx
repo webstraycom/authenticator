@@ -3,14 +3,7 @@ import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { Field, FieldDescription, FieldError, FieldLabel } from '@ui/field';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@ui/input-group';
 
-export const PasswordInput = ({
-  id,
-  ref,
-  label,
-  description,
-  error,
-  ...props
-}) => {
+export const PasswordInput = ({ id, ref, label, description, error, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShow = () => setShowPassword((prev) => !prev);
@@ -25,7 +18,7 @@ export const PasswordInput = ({
           id={id}
           ref={ref}
           type={showPassword ? 'text' : 'password'}
-          placeholder='••••••••'
+          placeholder="••••••••"
           aria-invalid={isInvalid}
           className={showPassword ? '[&:not(:placeholder-shown)]:font-mono' : ''}
         />

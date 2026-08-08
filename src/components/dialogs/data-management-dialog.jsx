@@ -1,4 +1,6 @@
+import { CircleAlertIcon } from 'lucide-react';
 import { Button } from '@ui/button';
+import { Checkbox } from '@ui/checkbox';
 import {
   Dialog,
   DialogContent,
@@ -7,13 +9,18 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@ui/dialog';
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+  FieldTitle,
+} from '@ui/field';
+import { Input } from '@ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@ui/tabs';
 import { PasswordInput } from '@common/password-input';
 import { useDataManagement } from '@hooks/use-data-management';
-import { CircleAlertIcon } from 'lucide-react';
-import { Checkbox } from '@ui/checkbox';
-import { Field, FieldContent, FieldDescription, FieldGroup, FieldLabel, FieldTitle } from '@ui/field';
-import { Input } from '@ui/input';
 
 const TYPE_LABELS = {
   password: 'Passwords',
@@ -76,21 +83,39 @@ const DataTypesList = ({ mode, preview, selectedTypes, toggleType, handleFile, i
 
 export const DataManagementDialog = () => {
   const {
-    dataManagementConfig, mode, preview, selectedTypes, isNothingSelected,
-    globalError, isSubmitting, register, errors, toggleType,
-    handleFile, handleModeChange, handleClose, handleSubmit,
+    dataManagementConfig,
+    mode,
+    preview,
+    selectedTypes,
+    isNothingSelected,
+    globalError,
+    isSubmitting,
+    register,
+    errors,
+    toggleType,
+    handleFile,
+    handleModeChange,
+    handleClose,
+    handleSubmit,
   } = useDataManagement();
 
   return (
-    <Dialog open={dataManagementConfig.isOpen} onOpenChange={(open) => !open && !isSubmitting && handleClose()}>
+    <Dialog
+      open={dataManagementConfig.isOpen}
+      onOpenChange={(open) => !open && !isSubmitting && handleClose()}
+    >
       <DialogContent className="mt-5 sm:max-w-[350px]">
         <form onSubmit={handleSubmit} className="contents" noValidate>
           <Tabs value={mode} onValueChange={handleModeChange} className="w-full gap-4">
             <DialogHeader>
               <DialogTitle>Data Management</DialogTitle>
               <TabsList variant="line" className="w-full">
-                <TabsTrigger value="import" disabled={isSubmitting}>Import</TabsTrigger>
-                <TabsTrigger value="export" disabled={isSubmitting}>Export</TabsTrigger>
+                <TabsTrigger value="import" disabled={isSubmitting}>
+                  Import
+                </TabsTrigger>
+                <TabsTrigger value="export" disabled={isSubmitting}>
+                  Export
+                </TabsTrigger>
               </TabsList>
               <DialogDescription className="mt-2">
                 {mode === 'import'
@@ -115,20 +140,22 @@ export const DataManagementDialog = () => {
             <PasswordInput
               label={mode === 'import' ? 'Decryption Password' : 'Encryption Password'}
               id="data-management-password"
-              description={mode === 'import' ? 'Enter decryption password' : 'Create encryption password'}
+              description={
+                mode === 'import' ? 'Enter decryption password' : 'Create encryption password'
+              }
               disabled={isSubmitting}
               error={errors.password}
               {...register('password', {
                 required: 'Password is required',
                 minLength: {
                   value: 8,
-                  message: 'Password must be at least 8 characters long.'
+                  message: 'Password must be at least 8 characters long.',
                 },
               })}
             />
           )}
 
-          {globalError && <p className="text-destructive text-sm -mt-2">{globalError}</p>}
+          {globalError && <p className="text-destructive -mt-2 text-sm">{globalError}</p>}
 
           <DialogFooter>
             <Button type="button" variant="outline" onClick={handleClose} disabled={isSubmitting}>

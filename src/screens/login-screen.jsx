@@ -1,10 +1,10 @@
 import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@ui/card';
+import { Spinner } from '@ui/spinner';
 import { ForgotMasterPasswordButton } from '@common/forgot-master-password-button';
 import { PasswordInput } from '@common/password-input';
 import { useAuthStore } from '@store/use-auth-store';
-import { Spinner } from '@ui/spinner';
 
 export const LoginScreen = () => {
   const login = useAuthStore((state) => state.login);
@@ -53,12 +53,12 @@ export const LoginScreen = () => {
               : 'Set a strong password. If you lose it, data cannot be recovered.'}
           </CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit(onSubmit)} className='contents' noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} className="contents" noValidate>
           <CardContent>
             <PasswordInput
               label="Master Password"
               id="password"
-              description={!isInitialized && "Must be at least 8 characters long."}
+              description={!isInitialized && 'Must be at least 8 characters long.'}
               autoFocus
               disabled={isSubmitting}
               error={errors.password}
@@ -73,15 +73,16 @@ export const LoginScreen = () => {
           </CardContent>
           <CardFooter className="flex-col gap-2">
             <Button type="submit" className="w-full" disabled={isSubmitting}>
-              {isSubmitting
-                ? (
-                  <>
+              {isSubmitting ? (
+                <>
                   <Spinner />
                   Loading...
-                  </>
-                )
-                : (isInitialized ? 'Unlock' : 'Setup & Start')
-              }
+                </>
+              ) : isInitialized ? (
+                'Unlock'
+              ) : (
+                'Setup & Start'
+              )}
             </Button>
             {isInitialized && <ForgotMasterPasswordButton onSuccess={handleFormCleanup} />}
           </CardFooter>

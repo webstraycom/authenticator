@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
 import { useTokensStore, useUIStore } from '@store';
+import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import {
   Dialog,
@@ -23,8 +23,8 @@ const getExpirationString = (date) => {
         month: 'long',
         year: 'numeric',
       })
-    : ''
-}
+    : '';
+};
 
 export const AddTokenDialog = () => {
   const addToken = useTokensStore((state) => state.addToken);
@@ -48,19 +48,23 @@ export const AddTokenDialog = () => {
 
   useEffect(() => {
     if (isAddTokenOpen) {
-      reset (
+      reset(
         editingToken
           ? {
-            service: editingToken.service,
-            endpoint: editingToken.endpoint,
-            token: editingToken.value,
-            expiration: getExpirationString(editingToken.expires),
-            expires: editingToken.expires ? new Date(editingToken.expires) : null
-          }
+              service: editingToken.service,
+              endpoint: editingToken.endpoint,
+              token: editingToken.value,
+              expiration: getExpirationString(editingToken.expires),
+              expires: editingToken.expires ? new Date(editingToken.expires) : null,
+            }
           : {
-            service: '', endpoint: '', token: '', expiration: '', expires: null
-          }
-      )
+              service: '',
+              endpoint: '',
+              token: '',
+              expiration: '',
+              expires: null,
+            },
+      );
     }
   }, [editingToken, isAddTokenOpen, reset]);
 
@@ -96,14 +100,14 @@ export const AddTokenDialog = () => {
                 : 'Enter the details of the token you want to save in the vault.'}
             </DialogDescription>
           </DialogHeader>
-          <section className='flex flex-col gap-4'>
-            <div className='grid grid-cols-2 gap-4'>
+          <section className="flex flex-col gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <FormInput
                 label="Service"
                 id="add-service"
                 placeholder="Google, GitHub, etc."
                 error={errors.service}
-                {...register('service', {required: 'Service is required'})}
+                {...register('service', { required: 'Service is required' })}
               />
 
               <FormInput
@@ -111,7 +115,7 @@ export const AddTokenDialog = () => {
                 id="add-endpoint"
                 placeholder="api.example.com"
                 error={errors.endpoint}
-                {...register('endpoint', {required: 'Endpoint is required'})}
+                {...register('endpoint', { required: 'Endpoint is required' })}
               />
             </div>
 
@@ -119,7 +123,7 @@ export const AddTokenDialog = () => {
               label="Token"
               id="add-token"
               error={errors.token}
-              {...register('token', {required: 'Token is required'})}
+              {...register('token', { required: 'Token is required' })}
             />
 
             <div className="flex flex-col gap-2">
@@ -138,9 +142,7 @@ export const AddTokenDialog = () => {
             <Button type="button" variant="outline" onClick={closeAddToken}>
               Cancel
             </Button>
-            <Button type="submit">
-              {editingToken ? 'Save Changes' : 'Save Token'}
-            </Button>
+            <Button type="submit">{editingToken ? 'Save Changes' : 'Save Token'}</Button>
           </DialogFooter>
         </form>
       </DialogContent>
