@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useAuthStore, useUIStore } from '@store';
+import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import {
   Dialog,
@@ -17,64 +17,55 @@ export const VerificationDialog = () => {
   const setVerified = useUIStore((state) => state.setVerified);
   const verifyMasterPassword = useAuthStore((state) => state.verifyMasterPassword);
 
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setError,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { password: '' },
+    shouldFocusError: true,
+  });
 
-  const handleConfirm = async (e) => {
-    if (e) e.preventDefault();
-    setError('');
-
-    const isValid = await verifyMasterPassword(password);
+  const onSubmit = async (data) => {
+    const isValid = await verifyMasterPassword(data.password);
 
     if (isValid) {
       setVerified();
       verificationConfig.onVerify();
-      closeVerification();
-      setPassword('');
+      handleClose();
     } else {
-      setError('Invalid Master Password');
+      setError('password', { type: 'manual', message: 'Invalid master password' });
     }
   };
 
-  const handlePasswordChange = (value) => {
-    setPassword(value);
-    if (error) setError('');
-  };
-
   const handleClose = () => {
-    setPassword('');
-    setError('');
+    reset();
     closeVerification();
   };
 
   return (
     <Dialog open={verificationConfig.isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="mt-5 sm:max-w-[350px]">
-        <DialogHeader>
-          <DialogTitle>{verificationConfig.title}</DialogTitle>
-          <DialogDescription>{verificationConfig.description}</DialogDescription>
-        </DialogHeader>
-        <form id="master-password-form" onSubmit={handleConfirm}>
-          <div className="flex flex-col gap-2">
-            <PasswordInput
-              id="password"
-              label="Master Password"
-              placeholder="••••••••"
-              value={password}
-              onChange={handlePasswordChange}
-              required
-            />
-            {error && <p className="text-destructive text-sm">{error}</p>}
-          </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="contents" noValidate>
+          <DialogHeader>
+            <DialogTitle>{verificationConfig.title}</DialogTitle>
+            <DialogDescription>{verificationConfig.description}</DialogDescription>
+          </DialogHeader>
+          <PasswordInput
+            label="Master Password"
+            id="password"
+            error={errors.password}
+            {...register('password', { required: 'Master password is required' })}
+          />
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button type="submit">{verificationConfig.buttonText}</Button>
+          </DialogFooter>
         </form>
-        <DialogFooter>
-          <Button variant="outline" onClick={handleClose}>
-            Cancel
-          </Button>
-          <Button form="master-password-form" type="submit">
-            {verificationConfig.buttonText}
-          </Button>
-        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

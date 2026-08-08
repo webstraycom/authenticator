@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { usePasswordsStore, useUIStore } from '@store';
+import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import {
   Dialog,
@@ -12,11 +13,7 @@ import {
 import { FormInput } from '@common/form-input';
 import { PasswordInput } from '@common/password-input';
 
-const INITIAL_FORM = { site: '', login: '', password: '' };
-
 export const AddPasswordDialog = () => {
-  const [formData, setFormData] = useState(INITIAL_FORM);
-
   const addPassword = usePasswordsStore((state) => state.addPassword);
   const updatePassword = usePasswordsStore((state) => state.updatePassword);
 
@@ -24,99 +21,86 @@ export const AddPasswordDialog = () => {
   const closeAddPassword = useUIStore((state) => state.closeAddPassword);
   const editingPassword = useUIStore((state) => state.editingPassword);
 
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { site: '', login: '', password: '' },
+    shouldFocusError: true,
+  });
+
   useEffect(() => {
     if (isAddPasswordOpen) {
-      setFormData(
+      reset(
         editingPassword
           ? {
               site: editingPassword.site,
               login: editingPassword.login,
               password: editingPassword.value,
             }
-          : INITIAL_FORM,
+          : { site: '', login: '', password: '' },
       );
-    } else {
-      setFormData(INITIAL_FORM);
     }
-  }, [isAddPasswordOpen, editingPassword]);
+  }, [isAddPasswordOpen, editingPassword, reset]);
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    const field = id.replace('add-', '');
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handlePasswordChange = (value) => {
-    setFormData((prev) => ({ ...prev, password: value }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { site, login, password } = formData;
-
-    if (!site || !login || !password) return;
+  const onSubmit = (data) => {
+    const { site, login, password } = data;
 
     if (editingPassword) {
       updatePassword(editingPassword._id, site, login, password);
     } else {
       addPassword(site, login, password);
     }
-
     closeAddPassword();
   };
 
   return (
     <Dialog open={isAddPasswordOpen} onOpenChange={(open) => !open && closeAddPassword()}>
       <DialogContent className="mt-5 sm:max-w-[350px]">
-        <DialogHeader>
-          <DialogTitle>{editingPassword ? 'Edit Password' : 'Add New Password'}</DialogTitle>
-          <DialogDescription>
-            {editingPassword
-              ? 'Update the details for this account.'
-              : 'Enter the details of the account you want to save in the vault.'}
-          </DialogDescription>
-        </DialogHeader>
-
-        <section>
-          <form id="add-password-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="contents" noValidate>
+          <DialogHeader>
+            <DialogTitle>{editingPassword ? 'Edit Password' : 'Add New Password'}</DialogTitle>
+            <DialogDescription>
+              {editingPassword
+                ? 'Update the details for this password.'
+                : 'Enter the details of the password you want to save in the vault.'}
+            </DialogDescription>
+          </DialogHeader>
+          <section className="flex flex-col gap-4">
             <FormInput
-              label="Service"
+              label="Site"
               id="add-site"
-              type="text"
               placeholder="Google, GitHub, etc."
-              value={formData.site}
-              onChange={handleChange}
-              required
+              error={errors.site}
+              {...register('site', { required: 'Site is required' })}
             />
 
             <FormInput
               label="Login"
               id="add-login"
-              type="text"
               placeholder="user@example.com"
-              value={formData.login}
-              onChange={handleChange}
-              required
+              error={errors.login}
+              {...register('login', { required: 'Login is required' })}
             />
 
             <PasswordInput
-              id="add-password"
               label="Password"
-              placeholder="••••••••"
-              value={formData.password}
-              onChange={handlePasswordChange}
-              required
+              id="add-password"
+              error={errors.password}
+              {...register('password', { required: 'Password is required' })}
             />
-          </form>
-        </section>
-        <DialogFooter>
-          <Button variant="outline" onClick={closeAddPassword}>
-            Cancel
-          </Button>
-          <Button type="submit" form="add-password-form">
-            {editingPassword ? 'Save Changes' : 'Save Password'}
-          </Button>
-        </DialogFooter>
+          </section>
+          <DialogFooter>
+            <Button type="button" variant="outline" onClick={closeAddPassword}>
+              Cancel
+            </Button>
+            <Button type="submit">
+              {editingPassword ? 'Save Changes' : 'Save Password'}
+            </Button>
+          </DialogFooter>
+        </form>
       </DialogContent>
     </Dialog>
   );

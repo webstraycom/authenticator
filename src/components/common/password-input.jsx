@@ -1,32 +1,33 @@
 import { useState } from 'react';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
-import { Field, FieldLabel } from '@ui/field';
+import { Field, FieldDescription, FieldError, FieldLabel } from '@ui/field';
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '@ui/input-group';
 
 export const PasswordInput = ({
   id,
+  ref,
   label,
-  value,
-  onChange,
-  placeholder = '••••••••',
+  description,
+  error,
   ...props
 }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const toggleShow = () => setShowPassword((prev) => !prev);
+  const isInvalid = !!error;
 
   return (
-    <Field>
+    <Field data-invalid={isInvalid}>
       <FieldLabel htmlFor={id}>{label}</FieldLabel>
       <InputGroup>
         <InputGroupInput
           {...props}
           id={id}
+          ref={ref}
           type={showPassword ? 'text' : 'password'}
-          placeholder={placeholder}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className={showPassword && value.length > 0 ? 'font-mono' : ''}
+          placeholder='••••••••'
+          aria-invalid={isInvalid}
+          className={showPassword ? '[&:not(:placeholder-shown)]:font-mono' : ''}
         />
         <InputGroupAddon align="inline-end">
           <InputGroupButton
@@ -39,6 +40,8 @@ export const PasswordInput = ({
           </InputGroupButton>
         </InputGroupAddon>
       </InputGroup>
+      {description && <FieldDescription>{description}</FieldDescription>}
+      {isInvalid && <FieldError errors={[error]} />}
     </Field>
   );
 };
