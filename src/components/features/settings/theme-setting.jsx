@@ -6,7 +6,6 @@ import {
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
 import { SettingsItem } from '@features/settings/setting-item';
@@ -25,7 +24,6 @@ export const ThemeSetting = () => {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-40" align="end">
           <DropdownMenuLabel>Select theme</DropdownMenuLabel>
-          <DropdownMenuSeparator />
           <DropdownMenuRadioGroup
             value={settings.theme}
             onValueChange={(val) => updateSetting('theme', val)}
