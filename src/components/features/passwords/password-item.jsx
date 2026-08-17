@@ -63,7 +63,6 @@ export const PasswordItem = ({ item }) => {
               handleDelete(item);
             }}
             size="icon-sm"
-            className="size-7"
           >
             <Trash2Icon />
           </Button>
@@ -112,7 +111,7 @@ export const PasswordItem = ({ item }) => {
         </code>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" aria-label="Open menu" size="icon-sm" className="size-7">
+            <Button variant="outline" aria-label="Open menu" size="icon-sm">
               <MoreHorizontalIcon />
             </Button>
           </DropdownMenuTrigger>

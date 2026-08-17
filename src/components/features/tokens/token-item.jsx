@@ -78,7 +78,6 @@ export const TokenItem = ({ item }) => {
               handleDelete(item);
             }}
             size="icon-sm"
-            className="size-7"
           >
             <Trash2Icon />
           </Button>
@@ -134,7 +133,7 @@ export const TokenItem = ({ item }) => {
         </code>
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" aria-label="Open menu" size="icon-sm" className="size-7">
+            <Button variant="outline" aria-label="Open menu" size="icon-sm">
               <MoreHorizontalIcon />
             </Button>
           </DropdownMenuTrigger>

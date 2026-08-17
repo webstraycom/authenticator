@@ -66,7 +66,6 @@ export const CodeItem = memo(
               variant="outline"
               onClick={() => handleDelete(item)}
               size="icon-sm"
-              className="size-7"
             >
               <Trash2Icon />
             </Button>
@@ -125,7 +124,7 @@ export const CodeItem = memo(
           </div>
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label="Open menu" size="icon-sm" className="size-7">
+              <Button variant="outline" aria-label="Open menu" size="icon-sm">
                 <MoreHorizontalIcon />
               </Button>
             </DropdownMenuTrigger>
