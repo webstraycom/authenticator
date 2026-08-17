@@ -128,7 +128,7 @@ export const TOTPScreen = () => {
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button onClick={openAdd} className="gap-1">
-                <PlusIcon className="black size-3.5" />
+                <PlusIcon className="size-3.5" />
                 Add New
               </Button>
             </div>
