@@ -62,11 +62,7 @@ export const CodeItem = memo(
             </ItemDescription>
           </ItemContent>
           <ItemActions>
-            <Button
-              variant="outline"
-              onClick={() => handleDelete(item)}
-              size="icon-sm"
-            >
+            <Button variant="outline" onClick={() => handleDelete(item)} size="icon-sm">
               <Trash2Icon />
             </Button>
           </ItemActions>

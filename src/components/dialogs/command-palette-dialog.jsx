@@ -1,11 +1,5 @@
 import { Fragment, memo } from 'react';
-import { 
-  KeyRoundIcon, 
-  LockIcon, 
-  CommandIcon, 
-  CornerDownLeft,
-  ClockIcon
-} from 'lucide-react';
+import { ClockIcon, CommandIcon, CornerDownLeft, KeyRoundIcon, LockIcon } from 'lucide-react';
 import {
   Command,
   CommandDialog,
@@ -18,9 +12,9 @@ import {
   CommandSeparator,
   CommandType,
 } from '@ui/command';
-import { useCommandPalette } from '@hooks/use-command-palette';
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@ui/empty';
 import { Kbd } from '@ui/kbd';
+import { useCommandPalette } from '@hooks/use-command-palette';
 
 const ICON_MAP = {
   command: CommandIcon,
@@ -34,32 +28,32 @@ const CommandPaletteItemContent = memo(
     const CommandItemIcon = ICON_MAP[command.icon] || CommandIcon;
 
     return (
-      <div className="flex gap-2 items-center min-w-0">
+      <div className="flex min-w-0 items-center gap-2">
         <div
           aria-hidden="true"
-          className="size-6 shrink-0 flex items-center justify-center rounded-md bg-muted group-data-selected/command-item:bg-primary/5 dark:group-data-selected/command-item:bg-primary/10"
+          className="bg-muted group-data-selected/command-item:bg-primary/5 dark:group-data-selected/command-item:bg-primary/10 flex size-6 shrink-0 items-center justify-center rounded-md"
         >
           <CommandItemIcon className="size-4" />
         </div>
-        <div className="flex gap-2 items-baseline min-w-0">
-          <span className="leading-none font-medium max-w-48 truncate">{command.label}</span>
-          <span className="text-xs/none text-muted-foreground truncate">{command.hint}</span>
+        <div className="flex min-w-0 items-baseline gap-2">
+          <span className="max-w-48 truncate leading-none font-medium">{command.label}</span>
+          <span className="text-muted-foreground truncate text-xs/none">{command.hint}</span>
         </div>
       </div>
-    )
+    );
   },
-  (prevProps, nextProps) => prevProps.command.id === nextProps.command.id
+  (prevProps, nextProps) => prevProps.command.id === nextProps.command.id,
 );
 
 export const CommandPaletteDialog = () => {
-  const { 
-    isCommandPaletteOpen, 
-    closeCommandPalette, 
+  const {
+    isCommandPaletteOpen,
+    closeCommandPalette,
     groupedCommands,
-    runAction, 
+    runAction,
     selectedId,
     setSelectedId,
-    activeCommand 
+    activeCommand,
   } = useCommandPalette();
 
   const commandGroups = Object.entries(groupedCommands);
@@ -81,8 +75,7 @@ export const CommandPaletteDialog = () => {
                 </EmptyMedia>
                 <EmptyTitle>No results found</EmptyTitle>
                 <EmptyDescription className="leading-normal">
-                  No matches found for this query.
-                  Check your spelling and try again.
+                  No matches found for this query. Check your spelling and try again.
                 </EmptyDescription>
               </EmptyHeader>
             </Empty>
@@ -92,7 +85,7 @@ export const CommandPaletteDialog = () => {
             return (
               <Fragment key={type}>
                 <CommandGroup heading={`${type}s`}>
-                  {items.map((command) => 
+                  {items.map((command) => (
                     <CommandItem
                       key={command.id}
                       value={command.id}
@@ -102,7 +95,7 @@ export const CommandPaletteDialog = () => {
                       <CommandPaletteItemContent command={command} />
                       <CommandType>{command.type}</CommandType>
                     </CommandItem>
-                  )}
+                  ))}
                 </CommandGroup>
                 {!isLastGroup && <CommandSeparator />}
               </Fragment>
@@ -110,15 +103,13 @@ export const CommandPaletteDialog = () => {
           })}
         </CommandList>
         <CommandFooter aria-hidden="true" className="h-12 px-4">
-          <div className="flex items-center justify-start w-full gap-2 text-xs text-muted-foreground">
+          <div className="text-muted-foreground flex w-full items-center justify-start gap-2 text-xs">
             <Kbd className="bg-background/50 border dark:border-none">
               <CornerDownLeft />
             </Kbd>
             <span>
               {!activeCommand || activeCommand.type === 'Command' ? 'Run' : 'Copy'}{' '}
-              <span className="font-medium">
-                {activeCommand ? activeCommand.type : 'Command'}
-              </span>
+              <span className="font-medium">{activeCommand ? activeCommand.type : 'Command'}</span>
             </span>
           </div>
         </CommandFooter>

@@ -6,7 +6,7 @@ export const useShortcut = (shortcut, callback) => {
 
   useEffect(() => {
     const handle = (e) => {
-      if (e.target.closest("input:not([cmdk-input]), textarea, [contenteditable]")) return;
+      if (e.target.closest('input:not([cmdk-input]), textarea, [contenteditable]')) return;
 
       const keys = [];
       if (e.ctrlKey || e.metaKey) keys.push('ctrl');
@@ -18,7 +18,7 @@ export const useShortcut = (shortcut, callback) => {
 
       if (keys.join('+') === shortcut.toLowerCase()) {
         e.preventDefault();
-        callbackRef.current(); 
+        callbackRef.current();
       }
     };
 

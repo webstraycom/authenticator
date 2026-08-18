@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAuthStore, useCodesStore, usePasswordsStore, useTokensStore, useUIStore } from '@store';
 import { toast } from 'sonner';
 import { useDatabase } from '@hooks/use-database';
+import { useShortcut } from '@hooks/use-shortcut';
 import { withDelay } from '@utils/delays';
 import { getTOTP } from '@utils/totp';
-import { useShortcut } from '@hooks/use-shortcut';
 
 export const useCommandPalette = () => {
   const isCommandPaletteOpen = useUIStore((state) => state.isCommandPaletteOpen);
@@ -42,7 +42,7 @@ export const useCommandPalette = () => {
 
   useShortcut('ctrl+k', toggleCommandPalette);
   useShortcut('ctrl+f', toggleCommandPalette);
-  
+
   useEffect(() => {
     loadPasswords();
     loadCodes();
@@ -53,40 +53,66 @@ export const useCommandPalette = () => {
     if (!isCommandPaletteOpen) setSelectedId('');
   }, [isCommandPaletteOpen]);
 
-  const runAction = useCallback((action) => {
-    closeCommandPalette();
-    action();
-  }, [closeCommandPalette]);
+  const runAction = useCallback(
+    (action) => {
+      closeCommandPalette();
+      action();
+    },
+    [closeCommandPalette],
+  );
 
   const dataItems = useMemo(() => {
     const sources = [
-      { items: passwords, icon: 'password', type: 'Password', message: 'Password has been copied to clipboard!', getValue: (p) => p.value },
-      { items: codes, icon: 'code', type: 'Code', message: 'Code has been copied to clipboard!', getValue: (c) => getTOTP(c.value, Date.now()).token },
-      { items: tokens, icon: 'token', type: 'Token', message: 'Token has been copied to clipboard!', getValue: (t) => t.value },
+      {
+        items: passwords,
+        icon: 'password',
+        type: 'Password',
+        message: 'Password has been copied to clipboard!',
+        getValue: (p) => p.value,
+      },
+      {
+        items: codes,
+        icon: 'code',
+        type: 'Code',
+        message: 'Code has been copied to clipboard!',
+        getValue: (c) => getTOTP(c.value, Date.now()).token,
+      },
+      {
+        items: tokens,
+        icon: 'token',
+        type: 'Token',
+        message: 'Token has been copied to clipboard!',
+        getValue: (t) => t.value,
+      },
     ];
 
-    return sources.flatMap(({ items, icon, type, message, getValue }) => 
+    return sources.flatMap(({ items, icon, type, message, getValue }) =>
       items
-        .filter(item => !item.isCorrupted)
-        .map(item => ({
+        .filter((item) => !item.isCorrupted)
+        .map((item) => ({
           id: item._id,
           label: item.site || item.service,
           hint: item.login || item.account || item.endpoint,
           icon,
           type,
-          action: () => runWithVerification(() => {
-            navigator.clipboard.writeText(getValue(item));
-            toast.success(message);
-          })
-        }))
+          action: () =>
+            runWithVerification(() => {
+              navigator.clipboard.writeText(getValue(item));
+              toast.success(message);
+            }),
+        })),
     );
   }, [passwords, codes, tokens, runWithVerification]);
 
   const groupedCommands = useMemo(() => {
-    const passwordsConfig = { type: 'password', importedItems: 'Passwords', onSuccess: loadPasswords };
+    const passwordsConfig = {
+      type: 'password',
+      importedItems: 'Passwords',
+      onSuccess: loadPasswords,
+    };
     const totpConfig = { type: 'totp', importedItems: 'Codes', onSuccess: loadCodes };
     const tokensConfig = { type: 'token', importedItems: 'Tokens', onSuccess: loadTokens };
-    
+
     const dataConfig = {
       importedItems: 'Data',
       onSuccess: async () => {
@@ -95,28 +121,172 @@ export const useCommandPalette = () => {
     };
 
     const systemCommands = [
-      { id: 'open-passwords', label: 'Open passwords', hint: 'Screens', icon: 'command', type: 'Command', action: () => setScreen('passwords') },
-      { id: 'open-codes', label: 'Open codes', hint: 'Screens', icon: 'command', type: 'Command', action: () => setScreen('totp') },
-      { id: 'open-tokens', label: 'Open tokens', hint: 'Screens', icon: 'command', type: 'Command', action: () => setScreen('tokens') },
-      { id: 'open-settings', label: 'Open settings', hint: 'Screens', icon: 'command', type: 'Command', action: () => runWithVerification(() => setScreen('settings')) },
-      
-      { id: 'add-password', label: 'Add password', hint: 'Passwords', icon: 'command', type: 'Command', action: openAddPassword },
-      { id: 'import-passwords', label: 'Import passwords', hint: 'Passwords', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement(passwordsConfig)) },
-      { id: 'export-passwords', label: 'Export passwords', hint: 'Passwords', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement({ ...passwordsConfig, mode: 'export' })) },
-      
-      { id: 'add-code', label: 'Add code', hint: 'Codes', icon: 'command', type: 'Command', action: openAddCode },
-      { id: 'import-codes', label: 'Import codes', hint: 'Codes', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement(totpConfig)) },
-      { id: 'export-codes', label: 'Export codes', hint: 'Codes', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement({ ...totpConfig, mode: 'export' })) },
-      
-      { id: 'add-token', label: 'Add token', hint: 'Tokens', icon: 'command', type: 'Command', action: openAddToken },
-      { id: 'import-tokens', label: 'Import tokens', hint: 'Tokens', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement(tokensConfig)) },
-      { id: 'export-tokens', label: 'Export tokens', hint: 'Tokens', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement({ ...tokensConfig, mode: 'export' })) },
-      
-      { id: 'import-data', label: 'Import data', hint: 'General', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement(dataConfig)) },
-      { id: 'export-data', label: 'Export data', hint: 'General', icon: 'command', type: 'Command', action: () => runWithVerification(() => openDataManagement({ ...dataConfig, mode: 'export' })) },
-      { id: 'compact-database', label: 'Compact database', hint: 'General', icon: 'command', type: 'Command', action: () => toast.promise(withDelay(compactDatabase()), { loading: 'Compacting database...', success: 'Database successfully compacted!', error: 'Compaction failed' }) },
-      { id: 'open-plugins', label: 'Open plugins', hint: 'General', icon: 'command', type: 'Command', action: () => runWithVerification(openPlugins, { force: true }) },
-      { id: 'sign-out', label: 'Sign out', hint: 'General', icon: 'command', type: 'Command', action: () => openConfirm({ title: 'Sign Out?', description: 'Are you sure you want to log out?', buttonText: 'Sign Out', onConfirm: () => { logout(); setScreen('passwords'); } }) },
+      {
+        id: 'open-passwords',
+        label: 'Open passwords',
+        hint: 'Screens',
+        icon: 'command',
+        type: 'Command',
+        action: () => setScreen('passwords'),
+      },
+      {
+        id: 'open-codes',
+        label: 'Open codes',
+        hint: 'Screens',
+        icon: 'command',
+        type: 'Command',
+        action: () => setScreen('totp'),
+      },
+      {
+        id: 'open-tokens',
+        label: 'Open tokens',
+        hint: 'Screens',
+        icon: 'command',
+        type: 'Command',
+        action: () => setScreen('tokens'),
+      },
+      {
+        id: 'open-settings',
+        label: 'Open settings',
+        hint: 'Screens',
+        icon: 'command',
+        type: 'Command',
+        action: () => runWithVerification(() => setScreen('settings')),
+      },
+
+      {
+        id: 'add-password',
+        label: 'Add password',
+        hint: 'Passwords',
+        icon: 'command',
+        type: 'Command',
+        action: openAddPassword,
+      },
+      {
+        id: 'import-passwords',
+        label: 'Import passwords',
+        hint: 'Passwords',
+        icon: 'command',
+        type: 'Command',
+        action: () => runWithVerification(() => openDataManagement(passwordsConfig)),
+      },
+      {
+        id: 'export-passwords',
+        label: 'Export passwords',
+        hint: 'Passwords',
+        icon: 'command',
+        type: 'Command',
+        action: () =>
+          runWithVerification(() => openDataManagement({ ...passwordsConfig, mode: 'export' })),
+      },
+
+      {
+        id: 'add-code',
+        label: 'Add code',
+        hint: 'Codes',
+        icon: 'command',
+        type: 'Command',
+        action: openAddCode,
+      },
+      {
+        id: 'import-codes',
+        label: 'Import codes',
+        hint: 'Codes',
+        icon: 'command',
+        type: 'Command',
+        action: () => runWithVerification(() => openDataManagement(totpConfig)),
+      },
+      {
+        id: 'export-codes',
+        label: 'Export codes',
+        hint: 'Codes',
+        icon: 'command',
+        type: 'Command',
+        action: () =>
+          runWithVerification(() => openDataManagement({ ...totpConfig, mode: 'export' })),
+      },
+
+      {
+        id: 'add-token',
+        label: 'Add token',
+        hint: 'Tokens',
+        icon: 'command',
+        type: 'Command',
+        action: openAddToken,
+      },
+      {
+        id: 'import-tokens',
+        label: 'Import tokens',
+        hint: 'Tokens',
+        icon: 'command',
+        type: 'Command',
+        action: () => runWithVerification(() => openDataManagement(tokensConfig)),
+      },
+      {
+        id: 'export-tokens',
+        label: 'Export tokens',
+        hint: 'Tokens',
+        icon: 'command',
+        type: 'Command',
+        action: () =>
+          runWithVerification(() => openDataManagement({ ...tokensConfig, mode: 'export' })),
+      },
+
+      {
+        id: 'import-data',
+        label: 'Import data',
+        hint: 'General',
+        icon: 'command',
+        type: 'Command',
+        action: () => runWithVerification(() => openDataManagement(dataConfig)),
+      },
+      {
+        id: 'export-data',
+        label: 'Export data',
+        hint: 'General',
+        icon: 'command',
+        type: 'Command',
+        action: () =>
+          runWithVerification(() => openDataManagement({ ...dataConfig, mode: 'export' })),
+      },
+      {
+        id: 'compact-database',
+        label: 'Compact database',
+        hint: 'General',
+        icon: 'command',
+        type: 'Command',
+        action: () =>
+          toast.promise(withDelay(compactDatabase()), {
+            loading: 'Compacting database...',
+            success: 'Database successfully compacted!',
+            error: 'Compaction failed',
+          }),
+      },
+      {
+        id: 'open-plugins',
+        label: 'Open plugins',
+        hint: 'General',
+        icon: 'command',
+        type: 'Command',
+        action: () => runWithVerification(openPlugins, { force: true }),
+      },
+      {
+        id: 'sign-out',
+        label: 'Sign out',
+        hint: 'General',
+        icon: 'command',
+        type: 'Command',
+        action: () =>
+          openConfirm({
+            title: 'Sign Out?',
+            description: 'Are you sure you want to log out?',
+            buttonText: 'Sign Out',
+            onConfirm: () => {
+              logout();
+              setScreen('passwords');
+            },
+          }),
+      },
     ];
 
     const allCommands = [...systemCommands, ...dataItems];
@@ -124,7 +294,9 @@ export const useCommandPalette = () => {
   }, [dataItems]);
 
   const activeCommand = selectedId
-    ? Object.values(groupedCommands).flat().find((command) => command.id === selectedId)
+    ? Object.values(groupedCommands)
+        .flat()
+        .find((command) => command.id === selectedId)
     : null;
 
   return {
