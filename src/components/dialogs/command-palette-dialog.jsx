@@ -1,130 +1,128 @@
-import {
-  ArrowLeftIcon,
-  BoltIcon,
-  ClockIcon,
-  CogIcon,
-  DownloadIcon,
-  KeyRoundIcon,
-  LockIcon,
-  PackageIcon,
-  PlusIcon,
-  UploadIcon,
+import { Fragment, memo } from 'react';
+import { 
+  KeyRoundIcon, 
+  LockIcon, 
+  CommandIcon, 
+  CornerDownLeft,
+  ClockIcon
 } from 'lucide-react';
 import {
   Command,
   CommandDialog,
   CommandEmpty,
+  CommandFooter,
   CommandGroup,
   CommandInput,
   CommandItem,
   CommandList,
   CommandSeparator,
+  CommandType,
 } from '@ui/command';
 import { useCommandPalette } from '@hooks/use-command-palette';
+import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@ui/empty';
+import { Kbd } from '@ui/kbd';
+
+const ICON_MAP = {
+  command: CommandIcon,
+  password: LockIcon,
+  code: ClockIcon,
+  token: KeyRoundIcon,
+};
+
+const CommandPaletteItemContent = memo(
+  ({ command }) => {
+    const CommandItemIcon = ICON_MAP[command.icon] || CommandIcon;
+
+    return (
+      <div className="flex gap-2 items-center min-w-0">
+        <div
+          aria-hidden="true"
+          className="size-6 shrink-0 flex items-center justify-center rounded-md bg-muted group-data-selected/command-item:bg-primary/5 dark:group-data-selected/command-item:bg-primary/10"
+        >
+          <CommandItemIcon className="size-4" />
+        </div>
+        <div className="flex gap-2 items-baseline min-w-0">
+          <span className="leading-none font-medium max-w-48 truncate">{command.label}</span>
+          <span className="text-xs/none text-muted-foreground truncate">{command.hint}</span>
+        </div>
+      </div>
+    )
+  },
+  (prevProps, nextProps) => prevProps.command.id === nextProps.command.id
+);
 
 export const CommandPaletteDialog = () => {
-  const { isOpen, closeCommandPalette, execute, actions } = useCommandPalette();
+  const { 
+    isCommandPaletteOpen, 
+    closeCommandPalette, 
+    groupedCommands,
+    runAction, 
+    selectedId,
+    setSelectedId,
+    activeCommand 
+  } = useCommandPalette();
+
+  const commandGroups = Object.entries(groupedCommands);
 
   return (
-    <div className="flex flex-col gap-4">
-      <CommandDialog
-        open={isOpen}
-        onOpenChange={(open) => !open && closeCommandPalette()}
-        className="sm:max-w-[350px]"
-      >
-        <Command>
-          <CommandInput placeholder="Type a command or search..." />
-          <CommandList>
-            <CommandEmpty className="text-muted-foreground">No results found.</CommandEmpty>
-            <CommandGroup heading="Screens">
-              <CommandItem onSelect={() => execute(actions.screens.openPasswords)}>
-                <LockIcon />
-                Open passwords
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.screens.openCodes)}>
-                <ClockIcon />
-                Open codes
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.screens.openTokens)}>
-                <KeyRoundIcon />
-                Open tokens
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.screens.openSettings)}>
-                <CogIcon />
-                Open settings
-              </CommandItem>
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Passwords">
-              <CommandItem onSelect={() => execute(actions.passwords.addPassword)}>
-                <PlusIcon />
-                Add password
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.passwords.importPasswords)}>
-                <DownloadIcon />
-                Import passwords
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.passwords.exportPasswords)}>
-                <UploadIcon />
-                Export passwords
-              </CommandItem>
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Codes">
-              <CommandItem onSelect={() => execute(actions.codes.addCode)}>
-                <PlusIcon />
-                Add code
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.codes.importCodes)}>
-                <DownloadIcon />
-                Import codes
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.codes.exportCodes)}>
-                <UploadIcon />
-                Export codes
-              </CommandItem>
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="Tokens">
-              <CommandItem onSelect={() => execute(actions.tokens.addToken)}>
-                <PlusIcon />
-                Add token
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.tokens.importTokens)}>
-                <DownloadIcon />
-                Import tokens
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.tokens.exportTokens)}>
-                <UploadIcon />
-                Export tokens
-              </CommandItem>
-            </CommandGroup>
-            <CommandSeparator />
-            <CommandGroup heading="General">
-              <CommandItem onSelect={() => execute(actions.general.importData)}>
-                <DownloadIcon />
-                Import data
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.general.exportData)}>
-                <UploadIcon />
-                Export data
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.general.compactDatabase)}>
-                <BoltIcon />
-                Compact database
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.general.openPlugins)}>
-                <PackageIcon />
-                Open plugins
-              </CommandItem>
-              <CommandItem onSelect={() => execute(actions.general.signOut)}>
-                <ArrowLeftIcon />
-                Sign out
-              </CommandItem>
-            </CommandGroup>
-          </CommandList>
-        </Command>
-      </CommandDialog>
-    </div>
+    <CommandDialog
+      open={isCommandPaletteOpen}
+      onOpenChange={(open) => !open && closeCommandPalette()}
+      className="sm:max-w-[450px]"
+    >
+      <Command value={selectedId} onValueChange={setSelectedId}>
+        <CommandInput placeholder="Search commands and secrets..." />
+        <CommandList>
+          <CommandEmpty>
+            <Empty>
+              <EmptyHeader>
+                <EmptyMedia variant="icon">
+                  <CommandIcon />
+                </EmptyMedia>
+                <EmptyTitle>No results found</EmptyTitle>
+                <EmptyDescription className="leading-normal">
+                  No matches found for this query.
+                  Check your spelling and try again.
+                </EmptyDescription>
+              </EmptyHeader>
+            </Empty>
+          </CommandEmpty>
+          {commandGroups.map(([type, items], groupIndex) => {
+            const isLastGroup = groupIndex === commandGroups.length - 1;
+            return (
+              <Fragment key={type}>
+                <CommandGroup heading={`${type}s`}>
+                  {items.map((command) => 
+                    <CommandItem
+                      key={command.id}
+                      value={command.id}
+                      keywords={[command.label, command.hint, command.type]}
+                      onSelect={() => runAction(command.action)}
+                    >
+                      <CommandPaletteItemContent command={command} />
+                      <CommandType>{command.type}</CommandType>
+                    </CommandItem>
+                  )}
+                </CommandGroup>
+                {!isLastGroup && <CommandSeparator />}
+              </Fragment>
+            );
+          })}
+        </CommandList>
+        <CommandFooter aria-hidden="true" className="h-12 px-4">
+          <div className="flex items-center justify-start w-full gap-2 text-xs text-muted-foreground">
+            <Kbd className="bg-background/50 border dark:border-none">
+              <CornerDownLeft />
+            </Kbd>
+            <span>
+              {!activeCommand || activeCommand.type === 'Command' ? 'Run' : 'Copy'}{' '}
+              <span className="font-medium">
+                {activeCommand ? activeCommand.type : 'Command'}
+              </span>
+            </span>
+          </div>
+        </CommandFooter>
+      </Command>
+    </CommandDialog>
   );
 };
