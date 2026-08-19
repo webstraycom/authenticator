@@ -31,7 +31,7 @@ const CommandPaletteItemContent = memo(
       <div className="flex min-w-0 items-center gap-2">
         <div
           aria-hidden="true"
-          className="bg-muted group-data-selected/command-item:bg-primary/5 dark:group-data-selected/command-item:bg-primary/10 flex size-6 shrink-0 items-center justify-center rounded-md"
+          className="bg-muted group-data-selected/command-item:bg-foreground/5 dark:group-data-selected/command-item:bg-foreground/10 flex size-6 shrink-0 items-center justify-center rounded-md"
         >
           <CommandItemIcon className="size-4" />
         </div>
