@@ -18,10 +18,10 @@ export const AppSidebar = () => {
 
   const runWithVerification = useUIStore((state) => state.runWithVerification);
 
-  const handleLogoutClick = () => {
+  const openLogoutConfirm = () => {
     openConfirm({
       title: 'Sign Out?',
-      description: 'Are you sure you want to log out?',
+      description: 'Are you sure you want to sign out?',
       buttonText: 'Sign Out',
       onConfirm: () => {
         logout();
@@ -56,7 +56,7 @@ export const AppSidebar = () => {
               setScreen('settings');
             }),
         },
-        { id: 'signout', label: 'Sign Out', icon: ArrowLeftIcon, action: handleLogoutClick },
+        { id: 'signout', label: 'Sign Out', icon: ArrowLeftIcon, action: openLogoutConfirm },
       ],
     },
   ];
