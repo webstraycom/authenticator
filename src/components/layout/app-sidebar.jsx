@@ -62,14 +62,13 @@ export const AppSidebar = () => {
   ];
 
   return (
-    <Sidebar side="left" className="border-r border-neutral-200 dark:border-neutral-800">
+    <Sidebar side="left">
       <SidebarContent className="pt-10">
         {menuGroups.map(({ label: groupLabel, items }) => (
           <SidebarGroup key={groupLabel} className="pt-2 pb-0">
-            <SidebarGroupLabel asChild>
-              <h3 className="text-sidebar-foreground/70">{groupLabel}</h3>
+            <SidebarGroupLabel>
+              {groupLabel}
             </SidebarGroupLabel>
-
             <SidebarGroupContent>
               <SidebarMenu>
                 {items.map(({ id, label, action, icon: Icon }) => (
