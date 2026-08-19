@@ -74,21 +74,14 @@ export const AppSidebar = () => {
               <SidebarMenu>
                 {items.map(({ id, label, action, icon: Icon }) => (
                   <SidebarMenuItem key={id}>
-                    <SidebarMenuButton
-                      asChild
-                      className="hover:bg-neutral-200 dark:bg-neutral-900 dark:hover:bg-neutral-800"
-                    >
-                      <a
-                        href="#"
-                        draggable="false"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          action();
-                        }}
+                    <SidebarMenuButton asChild>
+                      <button
+                        onClick={action}
+                        className="text-[0.8rem] font-medium"
                       >
                         <Icon />
-                        <span className="text-[0.8rem] font-medium">{label}</span>
-                      </a>
+                        {label}
+                      </button>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
