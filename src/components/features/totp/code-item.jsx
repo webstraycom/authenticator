@@ -51,10 +51,10 @@ export const CodeItem = memo(
       return (
         <Item
           variant="outline"
-          className="dark:bg-muted/30 w-full max-w-xl gap-2.5 opacity-50 transition-all"
+          className="dark:bg-muted/30 w-full max-w-xl gap-2.5 opacity-50"
         >
-          <ItemMedia variant="icon" className="bg-accent border-none">
-            <CircleAlertIcon className="text-foreground size-4" />
+          <ItemMedia variant="icon" className="bg-muted">
+            <CircleAlertIcon />
           </ItemMedia>
           <ItemContent className="gap-0">
             <ItemDescription className="text-muted-foreground pt-1 text-xs">
@@ -71,9 +71,9 @@ export const CodeItem = memo(
     }
 
     return (
-      <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5 transition-all">
-        <ItemMedia variant="icon" className="bg-accent border-none">
-          <ClockIcon className="text-foreground size-4" />
+      <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5">
+        <ItemMedia variant="icon" className="bg-muted">
+          <ClockIcon />
         </ItemMedia>
         <ItemContent className="gap-0">
           <ItemTitle>{item.service}</ItemTitle>
@@ -91,11 +91,11 @@ export const CodeItem = memo(
                 handleCopy();
               }
             }}
-            className={`group focus-visible:bg-accent ring-offset-background flex cursor-pointer items-center gap-1 rounded transition duration-200 outline-none select-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
+            className={`group focus-visible:bg-muted ring-offset-background flex cursor-pointer items-center gap-1 rounded transition duration-200 outline-none select-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
           >
             {token.split('').map((char, index) => (
               <Fragment key={index}>
-                <span className="bg-accent relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
+                <span className="bg-muted relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
                   <AnimatePresence mode="popLayout">
                     <motion.span
                       key={`${index}-${token}`}

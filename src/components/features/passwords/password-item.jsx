@@ -46,10 +46,10 @@ export const PasswordItem = ({ item }) => {
     return (
       <Item
         variant="outline"
-        className="dark:bg-muted/30 w-full max-w-xl gap-2.5 opacity-50 transition-all"
+        className="dark:bg-muted/30 w-full max-w-xl gap-2.5 opacity-50"
       >
-        <ItemMedia variant="icon" className="bg-accent border-none">
-          <CircleAlertIcon className="text-foreground size-4" />
+        <ItemMedia variant="icon" className="bg-muted">
+          <CircleAlertIcon />
         </ItemMedia>
         <ItemContent className="gap-0">
           <ItemDescription className="text-muted-foreground pt-1 text-xs">
@@ -72,9 +72,9 @@ export const PasswordItem = ({ item }) => {
   }
 
   return (
-    <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5 transition-all">
-      <ItemMedia variant="icon" className="bg-accent border-none">
-        <LockIcon className="text-foreground size-4" />
+    <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5">
+      <ItemMedia variant="icon" className="bg-muted">
+        <LockIcon />
       </ItemMedia>
       <ItemContent className="gap-0">
         <ItemTitle>{item.site}</ItemTitle>
@@ -90,7 +90,7 @@ export const PasswordItem = ({ item }) => {
               copy();
             }
           }}
-          className={`bg-accent relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:bg-neutral-800 dark:focus-visible:ring-neutral-700 ${isVisible ? 'w-fit cursor-pointer font-mono hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'font-masked w-[80px] cursor-default'} `}
+          className={`bg-muted relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:bg-neutral-800 dark:focus-visible:ring-neutral-700 ${isVisible ? 'w-fit cursor-pointer font-mono hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'font-masked w-[80px] cursor-default'} `}
         >
           <AnimatePresence mode="popLayout" initial={false}>
             <motion.span

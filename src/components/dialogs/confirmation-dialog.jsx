@@ -23,7 +23,6 @@ export const ConfirmationDialog = () => {
       <DialogContent className="mt-5 sm:max-w-[350px]">
         <DialogHeader>
           <DialogTitle>{confirmConfig.title}</DialogTitle>
-
           <DialogDescription>{confirmConfig.description}</DialogDescription>
         </DialogHeader>
         <DialogFooter>

@@ -50,7 +50,7 @@ export const NaturalDatePicker = ({ value, onChange, id }) => {
         <Popover open={open} onOpenChange={setOpen}>
           <PopoverTrigger asChild>
             <InputGroupButton variant="ghost" size="icon-xs" aria-label="Select date">
-              <CalendarIcon className="size-4" />
+              <CalendarIcon />
             </InputGroupButton>
           </PopoverTrigger>
           <PopoverContent className="w-auto overflow-hidden p-0" align="end">

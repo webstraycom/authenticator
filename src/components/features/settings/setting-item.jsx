@@ -1,9 +1,9 @@
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 
 export const SettingsItem = ({ icon: Icon, title, description, children }) => (
-  <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5 transition-all">
-    <ItemMedia variant="icon" className="bg-accent border-none">
-      <Icon className="size-4" />
+  <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5">
+    <ItemMedia variant="icon" className="bg-muted">
+      <Icon />
     </ItemMedia>
     <ItemContent className="gap-0">
       <ItemTitle>{title}</ItemTitle>

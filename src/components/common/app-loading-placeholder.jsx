@@ -5,7 +5,7 @@ export const AppLoadingPlaceholder = () => {
   return (
     <Empty className="animate-in fade-in w-full duration-250">
       <EmptyHeader>
-        <EmptyMedia className="bg-accent size-8" variant="icon">
+        <EmptyMedia variant="icon">
           <Spinner />
         </EmptyMedia>
         <EmptyTitle className="text-sm">Authenticator is loading</EmptyTitle>

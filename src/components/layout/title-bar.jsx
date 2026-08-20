@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Copy, Minus, X } from 'lucide-react';
+import { CopyIcon, MinusIcon, XIcon } from 'lucide-react';
 import { Button } from '@ui/button';
 import { Logo } from '@common/logo';
 import { cn } from '@lib/utils';
@@ -62,7 +62,7 @@ export const TitleBar = ({ className }) => {
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
         >
-          <Minus className="size-4" strokeWidth={2} />
+          <MinusIcon className='size-4' />
         </Button>
         <Button
           variant="ghost"
@@ -71,7 +71,7 @@ export const TitleBar = ({ className }) => {
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
         >
-          <Copy className="size-3 scale-x-[-1]" strokeWidth={2} />
+          <CopyIcon className="size-3 scale-x-[-1]" />
         </Button>
         <Button
           variant="ghost"
@@ -80,7 +80,7 @@ export const TitleBar = ({ className }) => {
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
         >
-          <X className="size-4" strokeWidth={2} />
+          <XIcon className='size-4' />
         </Button>
       </div>
     </nav>
