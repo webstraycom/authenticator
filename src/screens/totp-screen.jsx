@@ -1,22 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { usePluginStore } from '@sdk';
 import { useCodesStore, useUIStore } from '@store';
-import { ClockIcon, PlusIcon } from 'lucide-react';
-import { Button } from '@ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuTrigger,
-} from '@ui/dropdown-menu';
+import { ClockIcon } from 'lucide-react';
 import { Marker, MarkerContent } from '@ui/marker';
 import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { CodeItem } from '@features/totp/code-item';
 import { sorter } from '@utils/sorter';
-import { Slot } from '@sdk/plugin-system';
 import { ItemGroup } from '@ui/item';
+import { ScreenFooter } from '@common/screen-footer';
 
 export const TOTPScreen = () => {
   const openAdd = useUIStore((state) => state.openAddCode);
@@ -28,7 +19,7 @@ export const TOTPScreen = () => {
   const runWithVerification = useUIStore((state) => state.runWithVerification);
 
   const slotActions = usePluginStore((state) => state.slots['totp-screen']);
-  const activeInSlotCount = slotActions ? Object.keys(slotActions).length : 0;
+  const pluginsCount = slotActions ? Object.keys(slotActions).length : 0;
 
   useEffect(() => {
     loadCodes();
@@ -92,45 +83,14 @@ export const TOTPScreen = () => {
             </>
           )}
         </ItemGroup>
-        <div className="flex w-full justify-center p-8">
-          <div className="flex w-full max-w-xl justify-between">
-            {activeInSlotCount > 0 && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" aria-label="Open plugins menu">
-                    Plugins ({activeInSlotCount})
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-fit" align="start">
-                  <DropdownMenuLabel>Plugins</DropdownMenuLabel>
-                  <DropdownMenuGroup>
-                    <Slot slotName="totp-screen" />
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
-            <div className="flex items-center gap-2 ml-auto">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" aria-label="Open code options menu">
-                    Options
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Options</DropdownMenuLabel>
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem onSelect={handleImport}>Import</DropdownMenuItem>
-                    <DropdownMenuItem onSelect={handleExport}>Export</DropdownMenuItem>
-                  </DropdownMenuGroup>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Button onClick={openAdd} className="gap-1">
-                <PlusIcon />
-                Add New
-              </Button>
-            </div>
-          </div>
-        </div>
+        <ScreenFooter
+          pluginsCount={pluginsCount}
+          slotName="totp-screen"
+          onImport={handleImport}
+          onExport={handleExport}
+          onAdd={openAdd}
+          type="code"
+        />
       </div>
     );
   }
