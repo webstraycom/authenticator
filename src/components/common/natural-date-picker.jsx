@@ -14,7 +14,7 @@ const formatDate = (date) => {
   });
 };
 
-export const NaturalDatePicker = ({ value, onChange, id }) => {
+export const NaturalDatePicker = ({ value, onChange, id, ...props }) => {
   const [open, setOpen] = useState(false);
 
   const handleInputChange = (e) => {
@@ -45,6 +45,9 @@ export const NaturalDatePicker = ({ value, onChange, id }) => {
             setOpen(true);
           }
         }}
+        aria-haspopup="dialog"
+        aria-expanded={open}
+        {...props}
       />
       <InputGroupAddon align="inline-end">
         <Popover open={open} onOpenChange={setOpen}>

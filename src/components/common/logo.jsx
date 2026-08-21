@@ -7,6 +7,7 @@ export const Logo = ({ className }) => {
       xmlns="http://w3.org"
       version="1.1"
       viewBox="351.34 344.38 332.94 337.66"
+      aria-hidden="true"
     >
       <path
         fill="currentColor"

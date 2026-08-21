@@ -100,11 +100,11 @@ export const AddTokenDialog = () => {
                 : 'Enter the details of the token you want to save in the vault.'}
             </DialogDescription>
           </DialogHeader>
-          <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
             <div className="grid grid-cols-2 gap-4">
               <FormInput
                 label="Service"
-                id="add-service"
+                id="add-token-service"
                 placeholder="Google, GitHub, etc."
                 error={errors.service}
                 {...register('service', { required: 'Service is required' })}
@@ -112,7 +112,7 @@ export const AddTokenDialog = () => {
 
               <FormInput
                 label="Endpoint"
-                id="add-endpoint"
+                id="add-token-endpoint"
                 placeholder="api.example.com"
                 error={errors.endpoint}
                 {...register('endpoint', { required: 'Endpoint is required' })}
@@ -121,7 +121,7 @@ export const AddTokenDialog = () => {
 
             <PasswordInput
               label="Token"
-              id="add-token"
+              id="add-token-token"
               error={errors.token}
               {...register('token', { required: 'Token is required' })}
             />
@@ -134,10 +134,15 @@ export const AddTokenDialog = () => {
                 id="add-expiration"
                 value={currentExpiration}
                 onChange={handleDateChange}
+                aria-describedby="token-expiration-status"
               />
-              <ExpirationMessage expiration={currentExpiration} expires={currentExpires} />
+              <ExpirationMessage
+                id="token-expiration-status"
+                expiration={currentExpiration}
+                expires={currentExpires}
+              />
             </div>
-          </section>
+          </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={closeAddToken}>
               Cancel

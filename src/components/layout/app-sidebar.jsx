@@ -16,6 +16,8 @@ export const AppSidebar = () => {
   const logout = useAuthStore((state) => state.logout);
   const setScreen = useUIStore((state) => state.setScreen);
 
+  const currentScreen = useUIStore((state) => state.currentScreen);
+
   const runWithVerification = useUIStore((state) => state.runWithVerification);
 
   const openLogoutConfirm = () => {
@@ -77,6 +79,7 @@ export const AppSidebar = () => {
                       <button
                         onClick={action}
                         className="text-[0.8rem] font-medium"
+                        aria-current={currentScreen === id ? 'page' : null}
                       >
                         <Icon />
                         {label}

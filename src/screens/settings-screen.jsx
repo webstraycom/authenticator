@@ -16,26 +16,24 @@ export const SettingsScreen = () => {
   const { handleReset } = useSettingsLogic();
 
   return (
-    <section className="relative flex h-full w-full flex-col items-center">
-      <div className="scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
-        <ItemGroup className="flex w-full flex-col items-center gap-4 p-8">
-          <ThemeSetting />
-          <VerificationTimeoutSetting />
-          <ChangeMasterPasswordSetting />
-          <ImportSetting />
-          <ExportSetting />
-          <CompactDatabaseSetting />
-          <ClearDatabaseSetting />
-          <PluginsSetting />
-        </ItemGroup>
-      </div>
+    <div className="flex h-full w-full flex-col items-center">
+      <ItemGroup className="flex flex-col gap-4 p-8 scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
+        <ThemeSetting />
+        <VerificationTimeoutSetting />
+        <ChangeMasterPasswordSetting />
+        <ImportSetting />
+        <ExportSetting />
+        <CompactDatabaseSetting />
+        <ClearDatabaseSetting />
+        <PluginsSetting />
+      </ItemGroup>
       <div className="flex w-full justify-center p-8">
         <div className="flex w-full max-w-xl items-center justify-end gap-2">
-          <Button onClick={handleReset} variant="outline" className="gap-1">
+          <Button onClick={handleReset} variant="outline">
             Reset Settings
           </Button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

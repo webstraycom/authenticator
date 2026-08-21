@@ -41,19 +41,18 @@ export const TitleBar = ({ className }) => {
   const handleClose = () => winRef.current?.close();
 
   return (
-    <nav
+    <div
       className={cn(
-        'border-border bg-background z-100 flex h-10 w-full shrink-0 flex-nowrap items-center justify-between border-b pr-2 pl-4',
+        'bg-background z-100 flex h-10 w-full shrink-0 flex-nowrap items-center justify-between border-b pr-2 pl-4',
         className,
       )}
+      aria-label='Window title bar'
       style={{ WebkitAppRegion: 'drag' }}
     >
-      <a tabIndex={-1} className="flex items-center gap-2">
+      <div className="flex items-center gap-2 text-sm font-medium whitespace-nowrap">
         <Logo />
-        <span className="self-center text-sm font-medium whitespace-nowrap">
-          WebStray Authenticator
-        </span>
-      </a>
+        WebStray Authenticator
+      </div>
       <div className="flex gap-2">
         <Button
           variant="ghost"
@@ -61,6 +60,7 @@ export const TitleBar = ({ className }) => {
           onClick={handleMinimize}
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
+          aria-label="Minimize window"
         >
           <MinusIcon className='size-4' />
         </Button>
@@ -70,6 +70,7 @@ export const TitleBar = ({ className }) => {
           onClick={handleMaximize}
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
+          aria-label={isMaximized ? "Restore window size" : "Maximize window"} 
         >
           <CopyIcon className="size-3 scale-x-[-1]" />
         </Button>
@@ -79,10 +80,11 @@ export const TitleBar = ({ className }) => {
           onClick={handleClose}
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
+          aria-label="Close window"
         >
           <XIcon className='size-4' />
         </Button>
       </div>
-    </nav>
+    </div>
   );
 };

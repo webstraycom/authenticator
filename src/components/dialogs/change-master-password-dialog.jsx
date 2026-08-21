@@ -105,7 +105,12 @@ export const ChangeMasterPasswordDialog = () => {
             <Button type="button" variant="outline" onClick={handleClose} disabled={isSubmitting}>
               Cancel
             </Button>
-            <Button type="submit" disabled={isSubmitting} className="gap-1">
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="gap-1"
+              aria-live="polite"
+            >
               {isSubmitting ? (
                 <>
                   <Spinner />

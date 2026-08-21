@@ -16,6 +16,7 @@ import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { PasswordItem } from '@features/passwords/password-item';
 import { sorter } from '@utils/sorter';
 import { Slot } from '@sdk/plugin-system';
+import { ItemGroup } from '@ui/item';
 
 export const PasswordsScreen = () => {
   const openAdd = useUIStore((state) => state.openAddPassword);
@@ -66,30 +67,28 @@ export const PasswordsScreen = () => {
 
   if (passwords.length > 0) {
     return (
-      <section className="relative flex h-full w-full flex-col items-center">
-        <div className="scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
-          <div className="flex w-full flex-col items-center gap-4 p-8">
-            {activePasswords.map((item) => (
-              <PasswordItem key={item._id} item={item} />
-            ))}
-            {corruptedPasswords.length > 0 && (
-              <>
-                <Marker variant="separator" className="max-w-xl">
-                  <MarkerContent className="py-2 text-xs">Corrupted Passwords</MarkerContent>
-                </Marker>
-                {corruptedPasswords.map((item) => (
-                  <PasswordItem key={item._id} item={item} />
-                ))}
-              </>
-            )}
-          </div>
-        </div>
+      <div className="relative flex h-full w-full flex-col items-center">
+        <ItemGroup className="flex flex-col items-center gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
+          {activePasswords.map((item) => (
+            <PasswordItem key={item._id} item={item} />
+          ))}
+          {corruptedPasswords.length > 0 && (
+            <>
+              <Marker variant="separator" className="max-w-xl text-xs py-4" aria-hidden="true">
+                <MarkerContent>Corrupted Passwords</MarkerContent>
+              </Marker>
+              {corruptedPasswords.map((item) => (
+                <PasswordItem key={item._id} item={item} />
+              ))}
+            </>
+          )}
+        </ItemGroup>
         <div className="flex w-full justify-center p-8">
           <div className="flex w-full max-w-xl justify-between">
-            {activeInSlotCount > 0 ? (
-              <DropdownMenu modal={false}>
+            {activeInSlotCount > 0 && (
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="gap-1" variant="outline">
+                  <Button variant="outline" aria-label="Open plugins menu">
                     Plugins ({activeInSlotCount})
                   </Button>
                 </DropdownMenuTrigger>
@@ -100,13 +99,11 @@ export const PasswordsScreen = () => {
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : (
-              <div aria-hidden="true" />
             )}
-            <div className="flex items-center gap-2">
-              <DropdownMenu modal={false}>
+            <div className="flex items-center gap-2 ml-auto">
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="gap-1" variant="outline" aria-label="Open menu">
+                  <Button variant="outline" aria-label="Open password options menu">
                     Options
                   </Button>
                 </DropdownMenuTrigger>
@@ -125,7 +122,7 @@ export const PasswordsScreen = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 

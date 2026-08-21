@@ -91,6 +91,7 @@ export const CommandPaletteDialog = () => {
                       value={command.id}
                       keywords={[command.label, command.hint, command.type]}
                       onSelect={() => runAction(command.action)}
+                      aria-label={`${command.label}. ${command.hint}. ${command.type}`}
                     >
                       <CommandPaletteItemContent command={command} />
                       <CommandType>{command.type}</CommandType>

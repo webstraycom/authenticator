@@ -96,7 +96,12 @@ export const CodeItem = memo(
             </ItemDescription>
           </ItemContent>
           <ItemActions>
-            <Button variant="outline" onClick={() => handleDelete(item)} size="icon-sm">
+            <Button
+              variant="outline"
+              size="icon-sm"
+              onClick={() => handleDelete(item)}
+              aria-label="Delete corrupted code"
+            >
               <Trash2Icon />
             </Button>
           </ItemActions>
@@ -117,9 +122,9 @@ export const CodeItem = memo(
         </ItemContent>
         <ItemActions className="gap-2.5">
           <TotpCodeItem token={token} isExpiring={isExpiring} service={item.service} onCopy={handleCopy} />
-          <DropdownMenu modal={false}>
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label="Open menu" size="icon-sm">
+              <Button variant="outline" size="icon-sm" aria-label={`Open actions menu for ${item.service}`}>
                 <MoreHorizontalIcon />
               </Button>
             </DropdownMenuTrigger>

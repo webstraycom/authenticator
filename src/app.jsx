@@ -48,15 +48,15 @@ function App() {
           <div className="flex h-full w-full overflow-hidden">
             <SidebarProvider className="min-h-full">
               <AppSidebar />
-              <main className="bg-background flex h-full flex-1 flex-col overflow-hidden">
+              <div className="bg-background flex h-full flex-1 flex-col overflow-hidden">
                 <Header />
-                <div className="flex-1 overflow-hidden overflow-x-hidden">
+                <main className="flex-1 overflow-hidden" aria-live='polite' aria-atomic="true">
                   {screen === 'passwords' && <PasswordsScreen />}
                   {screen === 'totp' && <TOTPScreen />}
                   {screen === 'tokens' && <TokensScreen />}
                   {screen === 'settings' && <SettingsScreen />}
-                </div>
-              </main>
+                </main>
+              </div>
             </SidebarProvider>
             <AddPasswordDialog />
             <AddCodeDialog />

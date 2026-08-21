@@ -75,10 +75,11 @@ export const TokenItem = ({ item }) => {
         <ItemActions>
           <Button
             variant="outline"
+            size="icon-sm"
             onClick={() => {
               handleDelete(item);
             }}
-            size="icon-sm"
+            aria-label="Delete corrupted token"
           >
             <Trash2Icon />
           </Button>
@@ -110,9 +111,9 @@ export const TokenItem = ({ item }) => {
           onCopy={copy}
           type="token"
         />
-        <DropdownMenu modal={false}>
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="outline" aria-label="Open menu" size="icon-sm">
+            <Button variant="outline" size="icon-sm" aria-label={`Open actions menu for ${item.service}`}>
               <MoreHorizontalIcon />
             </Button>
           </DropdownMenuTrigger>

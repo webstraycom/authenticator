@@ -90,7 +90,7 @@ function CommandInput({
         <InputGroupAddon>
           <SearchIcon className="size-4 shrink-0 opacity-50" />
         </InputGroupAddon>
-        <InputGroupAddon align="inline-end" className="pr-1">
+        <InputGroupAddon align="inline-end" className="pr-1" aria-hidden="true">
           <Kbd>Esc</Kbd>
         </InputGroupAddon>
       </InputGroup>

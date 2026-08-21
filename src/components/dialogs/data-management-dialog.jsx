@@ -56,28 +56,26 @@ const DataTypesList = ({ mode, preview, selectedTypes, toggleType, handleFile, i
   }
 
   return (
-    <div className="flex flex-col gap-3">
-      <FieldGroup className="max-h-27.5 gap-3 overflow-y-auto py-0.5">
-        {Object.entries(preview.stats).map(([type, count]) => (
-          <FieldLabel key={`${mode}-${type}`} htmlFor={`${mode}-check-${type}`}>
-            <Field orientation="horizontal" className="!p-3">
-              <Checkbox
-                id={`${mode}-check-${type}`}
-                checked={!!selectedTypes[type]}
-                onCheckedChange={() => toggleType(type)}
-                disabled={isSubmitting}
-              />
-              <FieldContent className="flex-row items-center gap-1">
-                <FieldTitle>{TYPE_LABELS[type] || type}</FieldTitle>
-                <FieldDescription>
-                  ({count} {count > 1 ? 'items' : 'item'})
-                </FieldDescription>
-              </FieldContent>
-            </Field>
-          </FieldLabel>
-        ))}
-      </FieldGroup>
-    </div>
+    <FieldGroup className="max-h-27.5 gap-3 overflow-y-auto py-0.5">
+      {Object.entries(preview.stats).map(([type, count]) => (
+        <FieldLabel key={`${mode}-${type}`} htmlFor={`${mode}-check-${type}`}>
+          <Field orientation="horizontal" className="!p-3">
+            <Checkbox
+              id={`${mode}-check-${type}`}
+              checked={!!selectedTypes[type]}
+              onCheckedChange={() => toggleType(type)}
+              disabled={isSubmitting}
+            />
+            <FieldContent className="flex-row items-center gap-1">
+              <FieldTitle>{TYPE_LABELS[type] || type}</FieldTitle>
+              <FieldDescription>
+                ({count} {count > 1 ? 'items' : 'item'})
+              </FieldDescription>
+            </FieldContent>
+          </Field>
+        </FieldLabel>
+      ))}
+    </FieldGroup>
   );
 };
 
@@ -162,11 +160,19 @@ export const DataManagementDialog = () => {
               Cancel
             </Button>
             {mode === 'import' ? (
-              <Button type="submit" disabled={isSubmitting || isNothingSelected}>
+              <Button
+                type="submit"
+                disabled={isSubmitting || isNothingSelected}
+                aria-live="polite"
+              >
                 {!isSubmitting ? 'Import' : 'Importing...'}
               </Button>
             ) : (
-              <Button type="submit" disabled={isSubmitting || isNothingSelected}>
+              <Button
+                type="submit"
+                disabled={isSubmitting || isNothingSelected}
+                aria-live="polite"
+              >
                 {!isSubmitting ? 'Export' : 'Exporting...'}
               </Button>
             )}

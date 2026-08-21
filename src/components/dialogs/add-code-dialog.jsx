@@ -80,10 +80,10 @@ export const AddCodeDialog = () => {
                 : 'Enter the details of the code you want to save in the vault.'}
             </DialogDescription>
           </DialogHeader>
-          <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
             <FormInput
               label="Service"
-              id="add-service"
+              id="add-code-service"
               placeholder="Google, GitHub, etc."
               error={errors.service}
               {...register('service', { required: 'Service is required' })}
@@ -91,7 +91,7 @@ export const AddCodeDialog = () => {
 
             <FormInput
               label="Account"
-              id="add-account"
+              id="add-code-account"
               placeholder="user@example.com"
               error={errors.account}
               {...register('account', { required: 'Account is required' })}
@@ -99,14 +99,14 @@ export const AddCodeDialog = () => {
 
             <PasswordInput
               label="Secret"
-              id="add-secret"
+              id="add-code-secret"
               error={errors.secret}
               {...register('secret', {
                 required: 'Secret is required',
                 validate: (value) => isValidBase32(value) || 'Invalid secret',
               })}
             />
-          </section>
+          </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={closeAddCode}>
               Cancel

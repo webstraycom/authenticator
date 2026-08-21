@@ -16,6 +16,7 @@ import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { CodeItem } from '@features/totp/code-item';
 import { sorter } from '@utils/sorter';
 import { Slot } from '@sdk/plugin-system';
+import { ItemGroup } from '@ui/item';
 
 export const TOTPScreen = () => {
   const openAdd = useUIStore((state) => state.openAddCode);
@@ -75,30 +76,28 @@ export const TOTPScreen = () => {
 
   if (codes.length > 0) {
     return (
-      <section className="relative flex h-full w-full flex-col items-center">
-        <div className="scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
-          <div className="flex w-full flex-col items-center gap-4 p-8">
-            {activeCodes.map((item) => (
-              <CodeItem key={item._id} item={item} tick={globalTick} />
-            ))}
-            {corruptedCodes.length > 0 && (
-              <>
-                <Marker variant="separator" className="max-w-xl">
-                  <MarkerContent className="py-2 text-xs">Corrupted Codes</MarkerContent>
-                </Marker>
-                {corruptedCodes.map((item) => (
-                  <CodeItem key={item._id} item={item} tick={globalTick} />
-                ))}
-              </>
-            )}
-          </div>
-        </div>
+      <div className="relative flex h-full w-full flex-col items-center">
+        <ItemGroup className="flex flex-col items-center gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
+          {activeCodes.map((item) => (
+            <CodeItem key={item._id} item={item} tick={globalTick} />
+          ))}
+          {corruptedCodes.length > 0 && (
+            <>
+              <Marker variant="separator" className="max-w-xl text-xs py-4" aria-hidden="true">
+                <MarkerContent>Corrupted Codes</MarkerContent>
+              </Marker>
+              {corruptedCodes.map((item) => (
+                <CodeItem key={item._id} item={item} tick={globalTick} />
+              ))}
+            </>
+          )}
+        </ItemGroup>
         <div className="flex w-full justify-center p-8">
           <div className="flex w-full max-w-xl justify-between">
-            {activeInSlotCount > 0 ? (
-              <DropdownMenu modal={false}>
+            {activeInSlotCount > 0 && (
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="gap-1" variant="outline">
+                  <Button variant="outline" aria-label="Open plugins menu">
                     Plugins ({activeInSlotCount})
                   </Button>
                 </DropdownMenuTrigger>
@@ -109,13 +108,11 @@ export const TOTPScreen = () => {
                   </DropdownMenuGroup>
                 </DropdownMenuContent>
               </DropdownMenu>
-            ) : (
-              <div aria-hidden="true" />
             )}
-            <div className="flex items-center gap-2">
-              <DropdownMenu modal={false}>
+            <div className="flex items-center gap-2 ml-auto">
+              <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button className="gap-1" variant="outline" aria-label="Open menu">
+                  <Button variant="outline" aria-label="Open code options menu">
                     Options
                   </Button>
                 </DropdownMenuTrigger>
@@ -134,7 +131,7 @@ export const TOTPScreen = () => {
             </div>
           </div>
         </div>
-      </section>
+      </div>
     );
   }
 

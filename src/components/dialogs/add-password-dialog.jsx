@@ -68,10 +68,10 @@ export const AddPasswordDialog = () => {
                 : 'Enter the details of the password you want to save in the vault.'}
             </DialogDescription>
           </DialogHeader>
-          <section className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4">
             <FormInput
               label="Site"
-              id="add-site"
+              id="add-password-site"
               placeholder="Google, GitHub, etc."
               error={errors.site}
               {...register('site', { required: 'Site is required' })}
@@ -79,7 +79,7 @@ export const AddPasswordDialog = () => {
 
             <FormInput
               label="Login"
-              id="add-login"
+              id="add-password-login"
               placeholder="user@example.com"
               error={errors.login}
               {...register('login', { required: 'Login is required' })}
@@ -87,11 +87,11 @@ export const AddPasswordDialog = () => {
 
             <PasswordInput
               label="Password"
-              id="add-password"
+              id="add-password-password"
               error={errors.password}
               {...register('password', { required: 'Password is required' })}
             />
-          </section>
+          </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={closeAddPassword}>
               Cancel

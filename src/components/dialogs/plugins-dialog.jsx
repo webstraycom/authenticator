@@ -80,10 +80,7 @@ export const PluginsDialog = () => {
         )}
         <DialogFooter>
           <Button variant="outline" onClick={closePlugins}>
-            Cancel
-          </Button>
-          <Button variant="default" onClick={closePlugins}>
-            Done
+            Close
           </Button>
         </DialogFooter>
       </DialogContent>
