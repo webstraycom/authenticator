@@ -13,6 +13,7 @@ import {
 } from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useSensitiveData } from '@hooks/use-sensitive-data';
+import { SensitiveValue } from '@common/sensitive-value';
 
 export const PasswordItem = ({ item }) => {
   const openEdit = useUIStore((state) => state.openEditPassword);
@@ -81,34 +82,12 @@ export const PasswordItem = ({ item }) => {
         <ItemDescription className="text-muted-foreground text-xs">{item.login}</ItemDescription>
       </ItemContent>
       <ItemActions>
-        <code
-          tabIndex={isVisible ? 0 : -1}
-          onClick={copy}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              copy();
-            }
-          }}
-          className={`bg-muted relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:bg-neutral-800 dark:focus-visible:ring-neutral-700 ${isVisible ? 'w-fit cursor-pointer font-mono hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'font-masked w-[80px] cursor-default'} `}
-        >
-          <AnimatePresence mode="popLayout" initial={false}>
-            <motion.span
-              key={isVisible ? 'pass' : 'dots'}
-              initial={{ opacity: 0, y: 5, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -5, filter: 'blur(4px)' }}
-              transition={{ duration: 0.3 }}
-              className="inline-block whitespace-nowrap select-none"
-            >
-              {isVisible
-                ? item.value.length > 20
-                  ? `${item.value.slice(0, 20)}...`
-                  : item.value
-                : '••••••••'}
-            </motion.span>
-          </AnimatePresence>
-        </code>
+        <SensitiveValue
+          value={item.value}
+          isVisible={isVisible}
+          onCopy={copy}
+          type="password"
+        />
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" aria-label="Open menu" size="icon-sm">
