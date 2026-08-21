@@ -1,4 +1,4 @@
-import { Fragment, memo } from 'react';
+import { memo } from 'react';
 import { useCodesStore, useUIStore } from '@store';
 import { CircleAlertIcon, ClockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
@@ -14,6 +14,40 @@ import {
 } from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useTOTP } from '@hooks/use-totp';
+
+const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
+  <button
+    type="button"
+    onClick={onCopy}
+    className={`group focus-visible:bg-muted ring-offset-background flex items-center gap-1 rounded transition duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
+    aria-label={`Copy code for ${service}`}
+  >
+    <span className="sr-only">{token}</span>
+    <div className='flex items-center gap-1' aria-hidden="true">
+      {[...token].map((char, index) => (
+        <span key={index} className={`bg-muted relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700 ${index === 2 ? 'mr-1.5' : ''}`}>
+          <AnimatePresence>
+            <motion.span
+              key={`${index}-${token}`}
+              initial={{ y: '100%' }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: '-100%' }}
+              transition={{
+                type: 'spring',
+                stiffness: 300,
+                damping: 20,
+                delay: index * 0.05,
+              }}
+              className="absolute inset-0 flex items-center justify-center text-sm font-medium will-change-transform"
+            >
+              {char}
+            </motion.span>
+          </AnimatePresence>
+        </span>
+      ))}
+    </div>
+  </button>
+);
 
 export const CodeItem = memo(
   ({ item, tick }) => {
@@ -82,42 +116,7 @@ export const CodeItem = memo(
           </ItemDescription>
         </ItemContent>
         <ItemActions className="gap-2.5">
-          <div
-            tabIndex={0}
-            onClick={handleCopy}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                handleCopy();
-              }
-            }}
-            className={`group focus-visible:bg-muted ring-offset-background flex cursor-pointer items-center gap-1 rounded transition duration-200 outline-none select-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
-          >
-            {token.split('').map((char, index) => (
-              <Fragment key={index}>
-                <span className="bg-muted relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700">
-                  <AnimatePresence mode="popLayout">
-                    <motion.span
-                      key={`${index}-${token}`}
-                      initial={{ y: '100%' }}
-                      animate={{ y: 0, opacity: 1 }}
-                      exit={{ y: '-100%' }}
-                      transition={{
-                        type: 'spring',
-                        stiffness: 300,
-                        damping: 20,
-                        delay: index * 0.05,
-                      }}
-                      className="absolute inset-0 flex items-center justify-center text-sm font-medium will-change-transform"
-                    >
-                      {char}
-                    </motion.span>
-                  </AnimatePresence>
-                </span>
-                {index === 2 && <div className="w-0.5" />}
-              </Fragment>
-            ))}
-          </div>
+          <TotpCodeItem token={token} isExpiring={isExpiring} service={item.service} onCopy={handleCopy} />
           <DropdownMenu modal={false}>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" aria-label="Open menu" size="icon-sm">
