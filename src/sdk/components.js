@@ -24,6 +24,7 @@ export * as Card from '@ui/card';
 export * as Select from '@ui/select';
 export * as Tabs from '@ui/tabs';
 export * as ToggleGroup from '@ui/toggle-group';
+export * as Marker from '@ui/marker';
 export * as Popover from '@ui/popover';
 export * as RadioGroup from '@ui/radio-group';
 export * as Tooltip from '@ui/tooltip';
