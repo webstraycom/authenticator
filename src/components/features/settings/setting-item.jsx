@@ -6,7 +6,7 @@ export const SettingsItem = ({ icon: Icon, title, description, children }) => (
       <Icon />
     </ItemMedia>
     <ItemContent className="gap-0">
-      <ItemTitle>{title}</ItemTitle>
+      <ItemTitle><span className='truncate'>{title}</span></ItemTitle>
       <ItemDescription className="text-muted-foreground text-xs">{description}</ItemDescription>
     </ItemContent>
     <ItemActions>{children}</ItemActions>

@@ -95,7 +95,7 @@ export const TokenItem = ({ item }) => {
       </ItemMedia>
       <ItemContent className="gap-0">
         <div className="flex flex-row items-center gap-1">
-          <ItemTitle>{item.service}</ItemTitle>
+          <ItemTitle><span className='truncate'>{item.service}</span></ItemTitle>
           <Badge
             variant={status.isCritical ? 'destructive' : status.isWarning ? 'outline' : 'secondary'}
           >

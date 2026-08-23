@@ -115,7 +115,7 @@ export const CodeItem = memo(
           <ClockIcon />
         </ItemMedia>
         <ItemContent className="gap-0">
-          <ItemTitle>{item.service}</ItemTitle>
+          <ItemTitle><span className='truncate'>{item.service}</span></ItemTitle>
           <ItemDescription className="text-muted-foreground text-xs">
             {item.account}
           </ItemDescription>

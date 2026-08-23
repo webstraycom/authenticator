@@ -79,7 +79,7 @@ export const PasswordItem = ({ item }) => {
         <LockIcon />
       </ItemMedia>
       <ItemContent className="gap-0">
-        <ItemTitle>{item.site}</ItemTitle>
+        <ItemTitle><span className='truncate'>{item.site}</span></ItemTitle>
         <ItemDescription className="text-muted-foreground text-xs">{item.login}</ItemDescription>
       </ItemContent>
       <ItemActions>
