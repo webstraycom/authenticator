@@ -21,7 +21,7 @@ export const Header = () => {
       className="flex h-12 w-full shrink-0 items-center justify-center border-b px-6.5"
       aria-label='Application toolbar'
     >
-      <div className="flex w-full max-w-xl items-center justify-between">
+      <div className="flex w-full items-center justify-between">
         <div className="text-muted-foreground flex items-center gap-1.5">
           <SidebarTrigger />
           <Separator orientation="vertical" className="mr-1.5 size-4 !self-center" />

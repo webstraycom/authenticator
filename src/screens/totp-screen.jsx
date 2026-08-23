@@ -68,13 +68,13 @@ export const TOTPScreen = () => {
   if (codes.length > 0) {
     return (
       <div className="relative flex h-full w-full flex-col items-center">
-        <ItemGroup className="flex flex-col items-center gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
+        <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
           {activeCodes.map((item) => (
             <CodeItem key={item._id} item={item} tick={globalTick} />
           ))}
           {corruptedCodes.length > 0 && (
             <>
-              <Marker variant="separator" className="max-w-xl text-xs py-4" aria-hidden="true">
+              <Marker variant="separator" className="text-xs py-4 col-span-full" aria-hidden="true">
                 <MarkerContent>Corrupted Codes</MarkerContent>
               </Marker>
               {corruptedCodes.map((item) => (

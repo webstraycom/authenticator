@@ -13,7 +13,7 @@ import { Slot } from '@sdk/plugin-system';
 export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd, type }) => {
   return (
     <div className="flex w-full justify-center p-8">
-      <div className="flex w-full max-w-xl justify-between">
+      <div className="flex w-full justify-between">
         {pluginsCount > 0 && (
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

@@ -1,6 +1,5 @@
 import { useTokensStore, useUIStore } from '@store';
 import { CircleAlertIcon, KeyRoundIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
-import { AnimatePresence, motion } from 'motion/react';
 import { Badge } from '@ui/badge';
 import { Button } from '@ui/button';
 import {
@@ -62,7 +61,7 @@ export const TokenItem = ({ item }) => {
     return (
       <Item
         variant="outline"
-        className="dark:bg-muted/30 w-full max-w-xl gap-2.5 opacity-50"
+        className="dark:bg-muted/30 w-full gap-2.5 opacity-50"
       >
         <ItemMedia variant="icon" className="bg-muted">
           <CircleAlertIcon />
@@ -89,7 +88,7 @@ export const TokenItem = ({ item }) => {
   }
 
   return (
-    <Item variant="outline" className="dark:bg-muted/30 w-full max-w-xl gap-2.5">
+    <Item variant="outline" className="dark:bg-muted/30 w-full gap-2.5">
       <ItemMedia variant="icon" className="bg-muted">
         <KeyRoundIcon />
       </ItemMedia>

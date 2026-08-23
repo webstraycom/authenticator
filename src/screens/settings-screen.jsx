@@ -17,7 +17,7 @@ export const SettingsScreen = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center">
-      <ItemGroup className="flex flex-col gap-4 p-8 scroll-fade scroll-fade-24 w-full flex-1 overflow-y-auto">
+      <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
         <ThemeSetting />
         <VerificationTimeoutSetting />
         <ChangeMasterPasswordSetting />
@@ -28,7 +28,7 @@ export const SettingsScreen = () => {
         <PluginsSetting />
       </ItemGroup>
       <div className="flex w-full justify-center p-8">
-        <div className="flex w-full max-w-xl items-center justify-end gap-2">
+        <div className="flex w-full items-center justify-end gap-2">
           <Button onClick={handleReset} variant="outline">
             Reset Settings
           </Button>
