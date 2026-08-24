@@ -37,13 +37,13 @@ export const TokenItem = ({ item }) => {
 
   const { isVisible, show, copy } = useSensitiveData(item.value, 'Token');
 
-  const handleEdit = (item) => {
+  const handleEdit = () => {
     runWithVerification(() => {
       openEdit(item);
     });
   };
 
-  const handleDelete = (item) => {
+  const handleDelete = () => {
     openConfirm({
       description: (
         <>
@@ -76,9 +76,7 @@ export const TokenItem = ({ item }) => {
           <Button
             variant="outline"
             size="icon-sm"
-            onClick={() => {
-              handleDelete(item);
-            }}
+            onClick={handleDelete}
             aria-label="Delete corrupted token"
           >
             <Trash2Icon />
@@ -122,8 +120,8 @@ export const TokenItem = ({ item }) => {
             <DropdownMenuGroup>
               <DropdownMenuItem onSelect={show}>Show</DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={() => handleEdit(item)}>Edit</DropdownMenuItem>
-              <DropdownMenuItem onSelect={() => handleDelete(item)} variant="destructive">
+              <DropdownMenuItem onSelect={handleEdit}>Edit</DropdownMenuItem>
+              <DropdownMenuItem onSelect={handleDelete} variant="destructive">
                 Delete
               </DropdownMenuItem>
             </DropdownMenuGroup>

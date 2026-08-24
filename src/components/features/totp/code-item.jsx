@@ -63,13 +63,13 @@ export const CodeItem = memo(
       toast.success('Code has been copied to clipboard!');
     };
 
-    const handleEdit = (item) => {
+    const handleEdit = () => {
       runWithVerification(() => {
         openEdit(item);
       });
     };
 
-    const handleDelete = (item) => {
+    const handleDelete = () => {
       openConfirm({
         description: (
           <>
@@ -100,7 +100,7 @@ export const CodeItem = memo(
             <Button
               variant="outline"
               size="icon-sm"
-              onClick={() => handleDelete(item)}
+              onClick={handleDelete}
               aria-label="Delete corrupted code"
             >
               <Trash2Icon />
@@ -132,8 +132,8 @@ export const CodeItem = memo(
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuGroup>
-                <DropdownMenuItem onSelect={() => handleEdit(item)}>Edit</DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => handleDelete(item)} variant="destructive">
+                <DropdownMenuItem onSelect={handleEdit}>Edit</DropdownMenuItem>
+                <DropdownMenuItem onSelect={handleDelete} variant="destructive">
                   Delete
                 </DropdownMenuItem>
               </DropdownMenuGroup>
