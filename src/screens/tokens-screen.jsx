@@ -2,11 +2,10 @@ import { useEffect, useMemo } from 'react';
 import { usePluginStore } from '@sdk';
 import { useTokensStore, useUIStore } from '@store';
 import { KeyRoundIcon } from 'lucide-react';
-import { Marker, MarkerContent } from '@ui/marker';
 import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { TokenItem } from '@features/tokens/token-item';
 import { sorter } from '@utils/sorter';
-import { ItemGroup } from '@ui/item';
+import { ItemGroup, ItemGroupHeader } from '@ui/item';
 import { ScreenFooter } from '@common/screen-footer';
 
 export const TokensScreen = () => {
@@ -69,16 +68,9 @@ export const TokensScreen = () => {
           </ItemGroup>
           {expiredTokens.length > 0 && (
             <>
-              <Marker
-                id="expired-token-heading"
-                variant="separator"
-                className="min-h-fit text-xs py-2"
-                asChild
-              >
-                <h2>
-                  <MarkerContent>Expired Tokens</MarkerContent>
-                </h2>
-              </Marker>
+              <ItemGroupHeader id="expired-token-heading">
+                Expired Tokens
+              </ItemGroupHeader>
               <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="expired-token-heading">
                 {expiredTokens.map((item) => (
                   <TokenItem key={item._id} item={item} />
@@ -88,16 +80,9 @@ export const TokensScreen = () => {
           )}
           {corruptedTokens.length > 0 && (
             <>
-              <Marker
-                id="corrupted-token-heading"
-                variant="separator"
-                className="min-h-fit text-xs py-2"
-                asChild
-              >
-                <h2>
-                  <MarkerContent>Corrupted Tokens</MarkerContent>
-                </h2>
-              </Marker>
+              <ItemGroupHeader id="corrupted-token-heading">
+                Corrupted Tokens
+              </ItemGroupHeader>
               <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-token-heading">
                 {corruptedTokens.map((item) => (
                   <TokenItem key={item._id} item={item} />

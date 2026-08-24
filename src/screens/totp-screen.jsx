@@ -2,11 +2,10 @@ import { useEffect, useMemo, useState } from 'react';
 import { usePluginStore } from '@sdk';
 import { useCodesStore, useUIStore } from '@store';
 import { ClockIcon } from 'lucide-react';
-import { Marker, MarkerContent } from '@ui/marker';
 import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { CodeItem } from '@features/totp/code-item';
 import { sorter } from '@utils/sorter';
-import { ItemGroup } from '@ui/item';
+import { ItemGroup, ItemGroupHeader } from '@ui/item';
 import { ScreenFooter } from '@common/screen-footer';
 
 export const TOTPScreen = () => {
@@ -76,16 +75,9 @@ export const TOTPScreen = () => {
           </ItemGroup>
           {corruptedCodes.length > 0 && (
             <>
-              <Marker
-                id="corrupted-code-heading"
-                variant="separator"
-                className="min-h-fit text-xs py-2"
-                asChild
-              >
-                <h2>
-                  <MarkerContent>Corrupted Codes</MarkerContent>
-                </h2>
-              </Marker>
+              <ItemGroupHeader id="corrupted-code-heading">
+                Corrupted Codes
+              </ItemGroupHeader>
               <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-code-heading">
                 {corruptedCodes.map((item) => (
                   <CodeItem key={item._id} item={item} tick={globalTick} />

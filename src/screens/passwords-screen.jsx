@@ -2,11 +2,10 @@ import { useEffect, useMemo } from 'react';
 import { usePluginStore } from '@sdk';
 import { usePasswordsStore, useUIStore } from '@store';
 import { LockIcon } from 'lucide-react';
-import { Marker, MarkerContent } from '@ui/marker';
 import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { PasswordItem } from '@features/passwords/password-item';
 import { sorter } from '@utils/sorter';
-import { ItemGroup } from '@ui/item';
+import { ItemGroup, ItemGroupHeader } from '@ui/item';
 import { ScreenFooter } from '@common/screen-footer';
 
 export const PasswordsScreen = () => {
@@ -67,16 +66,9 @@ export const PasswordsScreen = () => {
           </ItemGroup>
           {corruptedPasswords.length > 0 && (
             <>
-              <Marker
-                id="corrupted-password-heading"
-                variant="separator"
-                className="min-h-fit text-xs py-2"
-                asChild
-              >
-                <h2>
-                  <MarkerContent>Corrupted Passwords</MarkerContent>
-                </h2>
-              </Marker>
+              <ItemGroupHeader id="corrupted-password-heading">
+                Corrupted Passwords
+              </ItemGroupHeader>
               <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-password-heading">
                 {corruptedPasswords.map((item) => (
                   <PasswordItem key={item._id} item={item} />
