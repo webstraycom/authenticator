@@ -9,15 +9,24 @@ import {
 } from '@ui/dropdown-menu';
 import { PlusIcon } from 'lucide-react';
 import { Slot } from '@sdk/plugin-system';
+import { useState } from 'react';
+import { useShortcut } from '@hooks/use-shortcut';
 
 export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd, type }) => {
+  const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+  const [isPluginsOpen, setIsPluginsOpen] = useState(false);
+
+  useShortcut('ctrl+o', () => setIsOptionsOpen(open => !open));
+  useShortcut('ctrl+p', () => setIsPluginsOpen(open => !open));
+  useShortcut('ctrl+n', () => onAdd());
+
   return (
     <div className="flex w-full justify-center p-8">
       <div className="flex w-full justify-between">
         {pluginsCount > 0 && (
-          <DropdownMenu>
+          <DropdownMenu open={isPluginsOpen} onOpenChange={setIsPluginsOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label="Open plugins menu">
+              <Button variant="outline" aria-label="Open plugins menu" aria-keyshortcuts="Control+p">
                 Plugins ({pluginsCount})
               </Button>
             </DropdownMenuTrigger>
@@ -30,9 +39,9 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
           </DropdownMenu>
         )}
         <div className="flex items-center gap-2 ml-auto">
-          <DropdownMenu>
+          <DropdownMenu open={isOptionsOpen} onOpenChange={setIsOptionsOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label={`Open ${type} options menu`}>
+              <Button variant="outline" aria-label={`Open ${type} options menu`} aria-keyshortcuts="Control+o">
                 Options
               </Button>
             </DropdownMenuTrigger>
@@ -44,7 +53,7 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button onClick={onAdd} className="gap-1">
+          <Button onClick={onAdd} className="gap-1" aria-keyshortcuts="Control+n">
             <PlusIcon />
             Add New
           </Button>
