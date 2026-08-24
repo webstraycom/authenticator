@@ -51,6 +51,7 @@ export const TokenItem = ({ item }) => {
           <strong>{item?.service}</strong> entry from your vault.
         </>
       ),
+      buttonText: "Delete",
       onConfirm: async () => await deleteToken(item._id),
     });
   };

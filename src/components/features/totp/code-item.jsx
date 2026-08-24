@@ -77,6 +77,7 @@ export const CodeItem = memo(
             <strong>{item?.service}</strong> entry from your vault.
           </>
         ),
+        buttonText: "Delete",
         onConfirm: async () => await deleteCode(item._id),
       });
     };

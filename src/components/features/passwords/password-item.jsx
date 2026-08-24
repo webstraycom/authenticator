@@ -38,6 +38,7 @@ export const PasswordItem = ({ item }) => {
           <strong>{item?.site}</strong> entry from your vault.
         </>
       ),
+      buttonText: "Delete",
       onConfirm: async () => await deletePassword(item._id),
     });
   };
