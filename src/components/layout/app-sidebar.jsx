@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@ui/sidebar';
+import { useShortcut } from '@hooks/use-shortcut';
 
 export const AppSidebar = () => {
   const openConfirm = useUIStore((state) => state.openConfirm);
@@ -19,6 +20,11 @@ export const AppSidebar = () => {
   const currentScreen = useUIStore((state) => state.currentScreen);
 
   const runWithVerification = useUIStore((state) => state.runWithVerification);
+
+  const openPasswords = () => setScreen('passwords');
+  const openTotp = () => setScreen('totp');
+  const openTokens = () => setScreen('tokens');
+  const openSettings = () => runWithVerification(() => setScreen('settings'));
 
   const openLogoutConfirm = () => {
     openConfirm({
@@ -40,10 +46,11 @@ export const AppSidebar = () => {
           id: 'passwords',
           label: 'Passwords',
           icon: LockIcon,
-          action: () => setScreen('passwords'),
+          shortcut: 'control+1',
+          action: openPasswords,
         },
-        { id: 'totp', label: 'TOTP', icon: ClockIcon, action: () => setScreen('totp') },
-        { id: 'tokens', label: 'Tokens', icon: KeyRoundIcon, action: () => setScreen('tokens') },
+        { id: 'totp', label: 'TOTP', icon: ClockIcon, shortcut: 'control+2', action: openTotp },
+        { id: 'tokens', label: 'Tokens', icon: KeyRoundIcon, shortcut: 'control+3', action: openTokens },
       ],
     },
     {
@@ -53,15 +60,19 @@ export const AppSidebar = () => {
           id: 'settings',
           label: 'Settings',
           icon: CogIcon,
-          action: () =>
-            runWithVerification(() => {
-              setScreen('settings');
-            }),
+          shortcut: 'control+,',
+          action: openSettings,
         },
-        { id: 'signout', label: 'Sign Out', icon: ArrowLeftIcon, action: openLogoutConfirm },
+        { id: 'signout', label: 'Sign Out', icon: ArrowLeftIcon, shortcut: 'control+l', action: openLogoutConfirm },
       ],
     },
   ];
+
+  useShortcut('ctrl+1', openPasswords);
+  useShortcut('ctrl+2', openTotp);
+  useShortcut('ctrl+3', openTokens);
+  useShortcut('ctrl+comma', openSettings);
+  useShortcut('ctrl+l', openLogoutConfirm);
 
   return (
     <Sidebar side="left">
@@ -73,13 +84,14 @@ export const AppSidebar = () => {
             </SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {items.map(({ id, label, action, icon: Icon }) => (
+                {items.map(({ id, label, icon: Icon, shortcut, action, }) => (
                   <SidebarMenuItem key={id}>
                     <SidebarMenuButton asChild>
                       <button
                         onClick={action}
                         className="text-[0.8rem] font-medium"
                         aria-current={currentScreen === id ? 'page' : null}
+                        aria-keyshortcuts={shortcut}
                       >
                         <Icon />
                         {label}
