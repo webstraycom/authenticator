@@ -1,9 +1,9 @@
-export * from './setting-item';
-export * from './theme-setting';
-export * from './change-master-password-setting';
-export * from './verification-timeout-setting';
-export * from './import-setting';
-export * from './export-setting';
-export * from './compact-database-setting';
-export * from './clear-database-setting';
-export * from './plugins-setting';
+export { SettingItem } from './setting-item';
+export { ThemeSetting } from './theme-setting';
+export { ChangeMasterPasswordSetting } from './change-master-password-setting';
+export { VerificationTimeoutSetting } from './verification-timeout-setting';
+export { ImportSetting } from './import-setting';
+export { ExportSetting } from './export-setting';
+export { CompactDatabaseSetting } from './compact-database-setting';
+export { ClearDatabaseSetting } from './clear-database-setting';
+export { PluginsSetting } from './plugins-setting';

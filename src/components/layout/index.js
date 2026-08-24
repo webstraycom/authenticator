@@ -1,3 +1,3 @@
-export * from './app-sidebar';
-export * from './title-bar';
-export * from './header';
+export { AppSidebar } from './app-sidebar';
+export { TitleBar } from './title-bar';
+export { Header } from './header';
