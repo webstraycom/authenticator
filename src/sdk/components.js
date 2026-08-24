@@ -12,7 +12,6 @@ export { Skeleton } from '@ui/skeleton';
 export { Spinner } from '@ui/spinner';
 export { Toggle } from '@ui/toggle';
 
-export * as Combobox from '@ui/combobox';
 export * as Command from '@ui/command';
 export * as Empty from '@ui/empty';
 export * as Field from '@ui/field';
