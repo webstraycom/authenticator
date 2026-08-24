@@ -26,7 +26,7 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
         {pluginsCount > 0 && (
           <DropdownMenu open={isPluginsOpen} onOpenChange={setIsPluginsOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label="Open plugins menu" aria-keyshortcuts="Control+p">
+              <Button variant="outline" aria-label="Open plugins menu" aria-keyshortcuts="control+p">
                 Plugins ({pluginsCount})
               </Button>
             </DropdownMenuTrigger>
@@ -41,7 +41,7 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
         <div className="flex items-center gap-2 ml-auto">
           <DropdownMenu open={isOptionsOpen} onOpenChange={setIsOptionsOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label={`Open ${type} options menu`} aria-keyshortcuts="Control+o">
+              <Button variant="outline" aria-label={`Open ${type} options menu`} aria-keyshortcuts="control+o">
                 Options
               </Button>
             </DropdownMenuTrigger>
@@ -53,7 +53,7 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
               </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button onClick={onAdd} className="gap-1" aria-keyshortcuts="Control+n">
+          <Button onClick={onAdd} className="gap-1" aria-keyshortcuts="control+n">
             <PlusIcon />
             Add New
           </Button>
