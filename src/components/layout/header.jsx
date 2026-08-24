@@ -23,7 +23,7 @@ export const Header = () => {
     >
       <div className="flex w-full items-center justify-between">
         <div className="text-muted-foreground flex items-center gap-1.5">
-          <SidebarTrigger />
+          <SidebarTrigger aria-keyshortcuts="control+b" />
           <Separator orientation="vertical" className="mr-1.5 size-4 !self-center" />
           <h1 className="text-sm font-medium">{screenTitles[screen]}</h1>
         </div>
@@ -32,6 +32,7 @@ export const Header = () => {
           onClick={openCommandPalette}
           className="group text-muted-foreground px-1.5"
           aria-label="Open command palette"
+          aria-keyshortcuts="control+k"
         >
           <div className='flex items-center gap-1.5' aria-hidden="true">
             <SearchIcon />
