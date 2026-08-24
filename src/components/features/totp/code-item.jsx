@@ -14,7 +14,7 @@ import {
 } from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useTOTP } from '@hooks/use-totp';
-import { CorruptedItem } from '../corrupted-item';
+import { CorruptedItem } from '@features/corrupted-item';
 
 const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
   <button

@@ -13,7 +13,7 @@ import {
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useSensitiveData } from '@hooks/use-sensitive-data';
 import { SensitiveValue } from '@common/sensitive-value';
-import { CorruptedItem } from '../corrupted-item';
+import { CorruptedItem } from '@features/corrupted-item';
 
 export const PasswordItem = ({ item }) => {
   const openEdit = useUIStore((state) => state.openEditPassword);
