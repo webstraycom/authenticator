@@ -1,5 +1,5 @@
 import { usePasswordsStore, useUIStore } from '@store';
-import { CircleAlertIcon, LockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
+import { LockIcon, MoreHorizontalIcon } from 'lucide-react';
 import { Button } from '@ui/button';
 import {
   DropdownMenu,
@@ -13,6 +13,7 @@ import {
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useSensitiveData } from '@hooks/use-sensitive-data';
 import { SensitiveValue } from '@common/sensitive-value';
+import { CorruptedItem } from '../corrupted-item';
 
 export const PasswordItem = ({ item }) => {
   const openEdit = useUIStore((state) => state.openEditPassword);
@@ -45,29 +46,7 @@ export const PasswordItem = ({ item }) => {
 
   if (item.isCorrupted) {
     return (
-      <Item
-        variant="outline"
-        className="dark:bg-muted/30 w-full gap-2.5 opacity-50"
-      >
-        <ItemMedia variant="icon" className="bg-muted">
-          <CircleAlertIcon />
-        </ItemMedia>
-        <ItemContent className="gap-0">
-          <ItemDescription className="text-muted-foreground pt-1 text-xs">
-            Password for <strong>{item.site}</strong> is corrupted and cannot be read.
-          </ItemDescription>
-        </ItemContent>
-        <ItemActions>
-          <Button
-            variant="outline"
-            size="icon-sm"
-            onClick={handleDelete}
-            aria-label="Delete corrupted password"
-          >
-            <Trash2Icon />
-          </Button>
-        </ItemActions>
-      </Item>
+      <CorruptedItem type="Password" service={item.site} onDelete={handleDelete} />
     );
   }
 

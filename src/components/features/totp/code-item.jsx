@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import { useCodesStore, useUIStore } from '@store';
-import { CircleAlertIcon, ClockIcon, MoreHorizontalIcon, Trash2Icon } from 'lucide-react';
+import { ClockIcon, MoreHorizontalIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { toast } from 'sonner';
 import { Button } from '@ui/button';
@@ -14,6 +14,7 @@ import {
 } from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useTOTP } from '@hooks/use-totp';
+import { CorruptedItem } from '../corrupted-item';
 
 const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
   <button
@@ -84,29 +85,7 @@ export const CodeItem = memo(
 
     if (item.isCorrupted) {
       return (
-        <Item
-          variant="outline"
-          className="dark:bg-muted/30 w-full gap-2.5 opacity-50"
-        >
-          <ItemMedia variant="icon" className="bg-muted">
-            <CircleAlertIcon />
-          </ItemMedia>
-          <ItemContent className="gap-0">
-            <ItemDescription className="text-muted-foreground pt-1 text-xs">
-              Code for <strong>{item.service}</strong> is corrupted and cannot be read.
-            </ItemDescription>
-          </ItemContent>
-          <ItemActions>
-            <Button
-              variant="outline"
-              size="icon-sm"
-              onClick={handleDelete}
-              aria-label="Delete corrupted code"
-            >
-              <Trash2Icon />
-            </Button>
-          </ItemActions>
-        </Item>
+        <CorruptedItem type="Code" service={item.service} onDelete={handleDelete} />
       );
     }
 
