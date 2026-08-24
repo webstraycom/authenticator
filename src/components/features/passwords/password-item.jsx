@@ -1,19 +1,10 @@
 import { usePasswordsStore, useUIStore } from '@store';
-import { LockIcon, MoreHorizontalIcon } from 'lucide-react';
-import { Button } from '@ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@ui/dropdown-menu';
+import { LockIcon } from 'lucide-react';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useSensitiveData } from '@hooks/use-sensitive-data';
 import { SensitiveValue } from '@common/sensitive-value';
 import { CorruptedItem } from '@features/corrupted-item';
+import { ItemActionsMenu } from '@common/item-actions-menu';
 
 export const PasswordItem = ({ item }) => {
   const openEdit = useUIStore((state) => state.openEditPassword);
@@ -66,24 +57,12 @@ export const PasswordItem = ({ item }) => {
           onCopy={copy}
           type="password"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon-sm" aria-label={`Open actions menu for ${item.site}`}>
-              <MoreHorizontalIcon />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem onSelect={show}>Show</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={handleEdit}>Edit</DropdownMenuItem>
-              <DropdownMenuItem onSelect={handleDelete} variant="destructive">
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ItemActionsMenu
+          service={item.site}
+          onShow={show}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       </ItemActions>
     </Item>
   );

@@ -1,20 +1,11 @@
 import { useTokensStore, useUIStore } from '@store';
-import { KeyRoundIcon, MoreHorizontalIcon } from 'lucide-react';
+import { KeyRoundIcon } from 'lucide-react';
 import { Badge } from '@ui/badge';
-import { Button } from '@ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 import { useSensitiveData } from '@hooks/use-sensitive-data';
 import { SensitiveValue } from '@common/sensitive-value';
 import { CorruptedItem } from '@features/corrupted-item';
+import { ItemActionsMenu } from '@common/item-actions-menu';
 
 const getStatus = (expires) => {
   if (!expires) return { label: 'Unsecure', isWarning: true };
@@ -88,24 +79,12 @@ export const TokenItem = ({ item }) => {
           onCopy={copy}
           type="token"
         />
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="outline" size="icon-sm" aria-label={`Open actions menu for ${item.service}`}>
-              <MoreHorizontalIcon />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuGroup>
-              <DropdownMenuItem onSelect={show}>Show</DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onSelect={handleEdit}>Edit</DropdownMenuItem>
-              <DropdownMenuItem onSelect={handleDelete} variant="destructive">
-                Delete
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <ItemActionsMenu
+          service={item.service}
+          onShow={show}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
       </ItemActions>
     </Item>
   );
