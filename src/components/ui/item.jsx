@@ -4,6 +4,7 @@ import { Slot } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { Separator } from "@/components/ui/separator"
+import { Marker, MarkerContent } from "@/components/ui/marker"
 
 function ItemGroup({
   className,
@@ -19,6 +20,24 @@ function ItemGroup({
       )}
       {...props} />
   );
+}
+
+function ItemGroupHeader({
+  children,
+  ...props
+}) {
+  return (
+    <Marker
+      {...props}
+      variant="separator"
+      className="min-h-fit text-xs py-2"
+      asChild
+    >
+      <h2>
+        <MarkerContent>{children}</MarkerContent>
+      </h2>
+    </Marker>
+  )
 }
 
 function ItemSeparator({
@@ -192,6 +211,7 @@ export {
   ItemContent,
   ItemActions,
   ItemGroup,
+  ItemGroupHeader,
   ItemSeparator,
   ItemTitle,
   ItemDescription,
