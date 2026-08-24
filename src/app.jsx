@@ -50,7 +50,7 @@ function App() {
               <AppSidebar />
               <div className="bg-background flex h-full flex-1 flex-col overflow-hidden">
                 <Header />
-                <main className="flex-1 overflow-hidden" aria-live='polite' aria-atomic="true">
+                <main className="flex flex-1 overflow-hidden" aria-live='polite' aria-atomic="true">
                   {screen === 'passwords' && <PasswordsScreen />}
                   {screen === 'totp' && <TOTPScreen />}
                   {screen === 'tokens' && <TokensScreen />}
