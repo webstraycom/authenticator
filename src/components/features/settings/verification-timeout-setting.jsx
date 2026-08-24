@@ -5,7 +5,7 @@ import { InputGroup, InputGroupAddon, InputGroupInput } from '@ui/input-group';
 import { Label } from '@ui/label';
 import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover';
 import { Switch } from '@ui/switch';
-import { SettingsItem } from '@features/settings/setting-item';
+import { SettingItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 
 export const VerificationTimeoutSetting = () => {
@@ -13,7 +13,7 @@ export const VerificationTimeoutSetting = () => {
   const isDisabled = !settings.requireVerification;
 
   return (
-    <SettingsItem
+    <SettingItem
       icon={ClockFadingIcon}
       title="Verification Timeout"
       description="Change verification timeout"
@@ -82,6 +82,6 @@ export const VerificationTimeoutSetting = () => {
           </div>
         </PopoverContent>
       </Popover>
-    </SettingsItem>
+    </SettingItem>
   );
 };

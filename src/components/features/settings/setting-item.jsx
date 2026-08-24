@@ -1,6 +1,6 @@
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
 
-export const SettingsItem = ({ icon: Icon, title, description, children }) => (
+export const SettingItem = ({ icon: Icon, title, description, children }) => (
   <Item variant="outline" className="dark:bg-muted/30 w-full gap-2.5">
     <ItemMedia variant="icon" className="bg-muted">
       <Icon />

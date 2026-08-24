@@ -8,14 +8,14 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
-import { SettingsItem } from '@features/settings/setting-item';
+import { SettingItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 
 export const ThemeSetting = () => {
   const { settings, updateSetting } = useSettingsLogic();
 
   return (
-    <SettingsItem icon={PaletteIcon} title="Theme" description="Change appearance">
+    <SettingItem icon={PaletteIcon} title="Theme" description="Change appearance">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="w-20" variant="outline">
@@ -34,6 +34,6 @@ export const ThemeSetting = () => {
           </DropdownMenuRadioGroup>
         </DropdownMenuContent>
       </DropdownMenu>
-    </SettingsItem>
+    </SettingItem>
   );
 };
