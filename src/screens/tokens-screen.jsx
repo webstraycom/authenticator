@@ -60,32 +60,52 @@ export const TokensScreen = () => {
 
   if (tokens.length > 0) {
     return (
-      <div className="relative flex h-full w-full flex-col items-center">
-        <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
-          {activeTokens.map((item) => (
-            <TokenItem key={item._id} item={item} />
-          ))}
+      <div className="flex flex-col flex-1">
+        <div className='flex flex-col flex-1 gap-4 scroll-fade scroll-fade-24 overflow-y-auto w-full p-8'>
+          <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start">
+            {activeTokens.map((item) => (
+              <TokenItem key={item._id} item={item} />
+            ))}
+          </ItemGroup>
           {expiredTokens.length > 0 && (
             <>
-              <Marker variant="separator" className="text-xs py-4 col-span-full" aria-hidden="true">
-                <MarkerContent>Expired Tokens</MarkerContent>
+              <Marker
+                id="expired-token-heading"
+                variant="separator"
+                className="min-h-fit text-xs py-2"
+                asChild
+              >
+                <h2>
+                  <MarkerContent>Expired Tokens</MarkerContent>
+                </h2>
               </Marker>
-              {expiredTokens.map((item) => (
-                <TokenItem key={item._id} item={item} />
-              ))}
+              <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="expired-token-heading">
+                {expiredTokens.map((item) => (
+                  <TokenItem key={item._id} item={item} />
+                ))}
+              </ItemGroup>
             </>
           )}
           {corruptedTokens.length > 0 && (
             <>
-              <Marker variant="separator" className="text-xs py-4 col-span-full" aria-hidden="true">
-                <MarkerContent>Corrupted Tokens</MarkerContent>
+              <Marker
+                id="corrupted-token-heading"
+                variant="separator"
+                className="min-h-fit text-xs py-2"
+                asChild
+              >
+                <h2>
+                  <MarkerContent>Corrupted Tokens</MarkerContent>
+                </h2>
               </Marker>
-              {corruptedTokens.map((item) => (
-                <TokenItem key={item._id} item={item} />
-              ))}
+              <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-token-heading">
+                {corruptedTokens.map((item) => (
+                  <TokenItem key={item._id} item={item} />
+                ))}
+              </ItemGroup>
             </>
           )}
-        </ItemGroup>
+        </div>
         <ScreenFooter
           pluginsCount={pluginsCount}
           slotName="tokens-screen"

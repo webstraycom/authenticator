@@ -58,22 +58,33 @@ export const PasswordsScreen = () => {
 
   if (passwords.length > 0) {
     return (
-      <div className="relative flex h-full w-full flex-col items-center">
-        <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
-          {activePasswords.map((item) => (
-            <PasswordItem key={item._id} item={item} />
-          ))}
+      <div className="flex flex-col flex-1">
+        <div className='flex flex-col flex-1 gap-4 scroll-fade scroll-fade-24 overflow-y-auto w-full p-8'>
+          <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start">
+            {activePasswords.map((item) => (
+              <PasswordItem key={item._id} item={item} />
+            ))}
+          </ItemGroup>
           {corruptedPasswords.length > 0 && (
             <>
-              <Marker variant="separator" className="text-xs py-4 col-span-full" aria-hidden="true">
-                <MarkerContent>Corrupted Passwords</MarkerContent>
+              <Marker
+                id="corrupted-password-heading"
+                variant="separator"
+                className="min-h-fit text-xs py-2"
+                asChild
+              >
+                <h2>
+                  <MarkerContent>Corrupted Passwords</MarkerContent>
+                </h2>
               </Marker>
-              {corruptedPasswords.map((item) => (
-                <PasswordItem key={item._id} item={item} />
-              ))}
+              <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-password-heading">
+                {corruptedPasswords.map((item) => (
+                  <PasswordItem key={item._id} item={item} />
+                ))}
+              </ItemGroup>
             </>
           )}
-        </ItemGroup>
+        </div>
         <ScreenFooter
           pluginsCount={pluginsCount}
           slotName="passwords-screen"

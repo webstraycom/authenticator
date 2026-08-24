@@ -67,22 +67,33 @@ export const TOTPScreen = () => {
 
   if (codes.length > 0) {
     return (
-      <div className="relative flex h-full w-full flex-col items-center">
-        <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
-          {activeCodes.map((item) => (
-            <CodeItem key={item._id} item={item} tick={globalTick} />
-          ))}
+      <div className="flex flex-col flex-1">
+        <div className='flex flex-col flex-1 gap-4 scroll-fade scroll-fade-24 overflow-y-auto w-full p-8'>
+          <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start">
+            {activeCodes.map((item) => (
+              <CodeItem key={item._id} item={item} tick={globalTick} />
+            ))}
+          </ItemGroup>
           {corruptedCodes.length > 0 && (
             <>
-              <Marker variant="separator" className="text-xs py-4 col-span-full" aria-hidden="true">
-                <MarkerContent>Corrupted Codes</MarkerContent>
+              <Marker
+                id="corrupted-code-heading"
+                variant="separator"
+                className="min-h-fit text-xs py-2"
+                asChild
+              >
+                <h2>
+                  <MarkerContent>Corrupted Codes</MarkerContent>
+                </h2>
               </Marker>
-              {corruptedCodes.map((item) => (
-                <CodeItem key={item._id} item={item} tick={globalTick} />
-              ))}
+              <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-code-heading">
+                {corruptedCodes.map((item) => (
+                  <CodeItem key={item._id} item={item} tick={globalTick} />
+                ))}
+              </ItemGroup>
             </>
           )}
-        </ItemGroup>
+        </div>
         <ScreenFooter
           pluginsCount={pluginsCount}
           slotName="totp-screen"
