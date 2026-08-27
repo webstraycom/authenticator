@@ -1,4 +1,4 @@
-import { PaletteIcon } from 'lucide-react';
+import { EclipseIcon } from 'lucide-react';
 import { Button } from '@ui/button';
 import {
   DropdownMenu,
@@ -15,7 +15,7 @@ export const ThemeSetting = () => {
   const { settings, updateSetting } = useSettingsLogic();
 
   return (
-    <SettingItem icon={PaletteIcon} title="Theme" description="Change appearance">
+    <SettingItem icon={EclipseIcon} title="Theme" description="Change appearance">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="w-20" variant="outline">
