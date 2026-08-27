@@ -1,4 +1,4 @@
-import { BoltIcon } from 'lucide-react';
+import { BrushCleaningIcon } from 'lucide-react';
 import { Button } from '@ui/button';
 import { SettingItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
@@ -8,7 +8,7 @@ export const CompactDatabaseSetting = () => {
 
   return (
     <SettingItem
-      icon={BoltIcon}
+      icon={BrushCleaningIcon}
       title="Compact Database"
       description="Compact application database"
     >
