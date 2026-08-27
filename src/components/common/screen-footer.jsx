@@ -16,9 +16,22 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
   const [isPluginsOpen, setIsPluginsOpen] = useState(false);
 
-  useShortcut('ctrl+o', () => setIsOptionsOpen(open => !open));
-  useShortcut('ctrl+p', () => setIsPluginsOpen(open => !open));
-  useShortcut('ctrl+n', () => onAdd());
+  const documentHasOpenDialog = () => !!document.querySelector('[role="dialog"]');
+
+  useShortcut('ctrl+o', () => {
+    setIsPluginsOpen(false);
+    setIsOptionsOpen(open => !open);
+  }, { disabled: documentHasOpenDialog });
+
+  useShortcut('ctrl+p', () => {
+    setIsOptionsOpen(false);
+    setIsPluginsOpen(open => !open);
+  }, { disabled: documentHasOpenDialog });
+
+  useShortcut('ctrl+n', () => {
+    if (isOptionsOpen || isPluginsOpen) return;
+    onAdd();
+  }, { disabled: documentHasOpenDialog });
 
   return (
     <div className="flex w-full justify-center p-8">
