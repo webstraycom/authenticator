@@ -12,7 +12,7 @@ export const CorruptedItem = ({ type, service, onDelete }) => (
     </ItemMedia>
     <ItemContent className="gap-0">
       <ItemDescription className="text-muted-foreground pt-1 text-xs">
-        {type} for <strong>{service}</strong> is corrupted and cannot be read.
+        {type} for <strong className='font-semibold'>{service}</strong> is corrupted and cannot be read.
       </ItemDescription>
     </ItemContent>
     <ItemActions>
