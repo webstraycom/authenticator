@@ -22,7 +22,7 @@ export const ThemeSetting = () => {
             Set
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-40" align="end">
+        <DropdownMenuContent align="end">
           <DropdownMenuLabel>Select theme</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={settings.theme}
