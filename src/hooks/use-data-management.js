@@ -31,25 +31,31 @@ export const useDataManagement = () => {
   const toggleType = (type) => setSelectedTypes((prev) => ({ ...prev, [type]: !prev[type] }));
   const globalError = errors.root?.globalError?.message;
 
-  const setGlobalError = (message) => setError('root.globalError', { type: 'manual', message });
+  const setGlobalError = useCallback(
+    (message) => setError('root.globalError', { type: 'manual', message }),
+    [setError],
+  );
 
-  const loadPreview = async (fetchPromise, isImportMode) => {
-    clearErrors('root');
-    try {
-      const res = await fetchPromise;
-      if (!res || res.total === 0) {
-        setPreview(null);
-        setSelectedTypes({});
-        if (isImportMode) setGlobalError('No compatible entries found');
-        return;
+  const loadPreview = useCallback(
+    async (fetchPromise, isImportMode) => {
+      clearErrors('root');
+      try {
+        const res = await fetchPromise;
+        if (!res || res.total === 0) {
+          setPreview(null);
+          setSelectedTypes({});
+          if (isImportMode) setGlobalError('No compatible entries found');
+          return;
+        }
+
+        setPreview(res);
+        setSelectedTypes(Object.fromEntries(Object.keys(res.stats).map((k) => [k, true])));
+      } catch (err) {
+        setGlobalError(err.message || 'Failed to load data');
       }
-
-      setPreview(res);
-      setSelectedTypes(Object.fromEntries(Object.keys(res.stats).map((k) => [k, true])));
-    } catch (err) {
-      setGlobalError(err.message || 'Failed to load data');
-    }
-  };
+    },
+    [clearErrors, setGlobalError],
+  );
 
   const handleFile = (e) => {
     const file = e.target.files?.[0];
@@ -102,9 +108,12 @@ export const useDataManagement = () => {
 
   useEffect(() => {
     if (dataManagementConfig.isOpen && mode === 'export') {
-      loadPreview(dataService.previewExport(type), false);
+      const loadExportPreview = async () => {
+        await loadPreview(dataService.previewExport(type), false);
+      };
+      loadExportPreview();
     }
-  }, [dataManagementConfig.isOpen, type, mode]);
+  }, [dataManagementConfig.isOpen, type, mode, loadPreview]);
 
   return {
     dataManagementConfig,

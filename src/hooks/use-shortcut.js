@@ -1,18 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useEffectEvent } from 'react';
 
 export const useShortcut = (shortcut, callback, options = {}) => {
   const { disabled = () => false } = options;
 
-  const callbackRef = useRef(callback);
-  callbackRef.current = callback;
-
-  const disabledRef = useRef(disabled);
-  disabledRef.current = disabled;
+  const callbackEvent = useEffectEvent(callback);
+  const disabledEvent = useEffectEvent(disabled);
 
   useEffect(() => {
     const handle = (e) => {
       if (e.target.closest('input:not([cmdk-input]), textarea, [contenteditable]')) return;
-      if (disabledRef.current()) return;
+      if (disabledEvent()) return;
 
       const keys = [];
       if (e.ctrlKey || e.metaKey) keys.push('ctrl');
@@ -24,7 +21,7 @@ export const useShortcut = (shortcut, callback, options = {}) => {
 
       if (keys.join('+') === shortcut.toLowerCase()) {
         e.preventDefault();
-        callbackRef.current();
+        callbackEvent();
       }
     };
 

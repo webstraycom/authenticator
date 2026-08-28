@@ -98,7 +98,7 @@ export const dataService = {
         stats,
         total: dataArray.length,
       };
-    } catch (err) {
+    } catch {
       throw new Error('Failed to read database');
     }
   },

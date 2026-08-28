@@ -43,7 +43,7 @@ export const ChangeMasterPasswordDialog = () => {
       } else {
         setError('oldPassword', { type: 'manual', message: result.error || 'An error occurred' });
       }
-    } catch (err) {
+    } catch {
       setError('oldPassword', { type: 'manual', message: 'System error' });
     }
   };

@@ -40,7 +40,7 @@ export const TOTPScreen = () => {
     );
   }, [codes]);
 
-  const [globalTick, setGlobalTick] = useState(Date.now());
+  const [globalTick, setGlobalTick] = useState(() => Date.now());
 
   useEffect(() => {
     const timer = setInterval(() => {

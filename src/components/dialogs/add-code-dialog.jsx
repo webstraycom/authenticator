@@ -18,7 +18,7 @@ const isValidBase32 = (secret) => {
   try {
     OTPAuth.Secret.fromBase32(secret);
     return true;
-  } catch (error) {
+  } catch {
     return false;
   }
 };

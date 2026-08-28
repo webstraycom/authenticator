@@ -47,7 +47,7 @@ export const useCommandPalette = () => {
     loadPasswords();
     loadCodes();
     loadTokens();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!isCommandPaletteOpen) setSelectedId('');
@@ -75,7 +75,7 @@ export const useCommandPalette = () => {
         icon: 'code',
         type: 'Code',
         message: 'Code has been copied to clipboard!',
-        getValue: (c) => getTOTP(c.value, Date.now()).token,
+        getValue: (c) => getTOTP(c.value, Date.now()).token, // eslint-disable-line react-hooks/purity
       },
       {
         items: tokens,
@@ -102,7 +102,7 @@ export const useCommandPalette = () => {
             }),
         })),
     );
-  }, [passwords, codes, tokens, runWithVerification]);
+  }, [passwords, codes, tokens]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const groupedCommands = useMemo(() => {
     const passwordsConfig = {
@@ -291,7 +291,7 @@ export const useCommandPalette = () => {
 
     const allCommands = [...systemCommands, ...dataItems];
     return Object.groupBy(allCommands, (command) => command.type);
-  }, [dataItems]);
+  }, [dataItems, compactDatabase]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const activeCommand = selectedId
     ? Object.values(groupedCommands)

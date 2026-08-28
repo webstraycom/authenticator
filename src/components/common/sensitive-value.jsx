@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react'; // eslint-disable-line no-unused-vars
 
 export const SensitiveValue = ({ value, isVisible, onCopy, type = 'password' }) => {
   return (

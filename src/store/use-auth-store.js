@@ -88,7 +88,7 @@ export const useAuthStore = create((set) => ({
       const doc = await db.findOneAsync({ type: 'master_password' });
       if (!doc) return false;
       return await bcrypt.compare(password, doc.hash);
-    } catch (error) {
+    } catch {
       return false;
     }
   },
