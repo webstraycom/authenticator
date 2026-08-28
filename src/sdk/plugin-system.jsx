@@ -1,11 +1,11 @@
 import { useMemo } from 'react';
-import { usePluginStore } from '@sdk';
 import { CircleAlertIcon } from 'lucide-react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { Badge } from '@ui/badge';
 import { DropdownMenuItem } from '@ui/dropdown-menu';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@ui/sheet';
 import { Separator } from '@ui/separator';
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@ui/sheet';
+import { usePluginStore } from '@sdk';
 
 export const Slot = ({ slotName }) => {
   const slotData = usePluginStore((state) => state.slots[slotName]);
@@ -80,7 +80,10 @@ export const PluginProvider = () => {
             </div>
           </div>
         )}
-        <Separator orientation='vertical' className="absolute left-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-border to-transparent hidden modern:block" />
+        <Separator
+          orientation="vertical"
+          className="via-border modern:block absolute top-0 bottom-0 left-0 hidden bg-gradient-to-b from-transparent to-transparent"
+        />
       </SheetContent>
     </Sheet>
   );

@@ -15,13 +15,13 @@ export const useSettingsStore = create((set, get) => ({
   loadSettings: async () => {
     try {
       const doc = await db.findOneAsync({ type: 'settings_config' });
-      
+
       let mergedSettings = get().settings;
       if (doc) {
         const { _id, type, ...savedSettings } = doc;
         mergedSettings = { ...get().settings, ...savedSettings };
       }
-      
+
       set({ settings: mergedSettings });
       applyAppearance(mergedSettings);
     } catch (error) {
@@ -74,7 +74,7 @@ function applyAppearance({ theme, style }) {
   if (theme === 'system') {
     themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-  
+
   if (!root.classList.contains(themeToApply)) {
     root.classList.remove('light', 'dark');
     root.classList.add(themeToApply);

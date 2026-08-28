@@ -1,5 +1,5 @@
-import { useAuthStore, useUIStore } from '@store';
 import { ArrowLeftIcon, ClockIcon, CogIcon, KeyRoundIcon, LockIcon } from 'lucide-react';
+import { Separator } from '@ui/separator';
 import {
   Sidebar,
   SidebarContent,
@@ -10,8 +10,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from '@ui/sidebar';
+import { useAuthStore, useUIStore } from '@store';
 import { useShortcut } from '@hooks/use-shortcut';
-import { Separator } from '@ui/separator';
 
 export const AppSidebar = () => {
   const openConfirm = useUIStore((state) => state.openConfirm);
@@ -51,7 +51,13 @@ export const AppSidebar = () => {
           action: openPasswords,
         },
         { id: 'totp', label: 'TOTP', icon: ClockIcon, shortcut: 'control+2', action: openTotp },
-        { id: 'tokens', label: 'Tokens', icon: KeyRoundIcon, shortcut: 'control+3', action: openTokens },
+        {
+          id: 'tokens',
+          label: 'Tokens',
+          icon: KeyRoundIcon,
+          shortcut: 'control+3',
+          action: openTokens,
+        },
       ],
     },
     {
@@ -64,7 +70,13 @@ export const AppSidebar = () => {
           shortcut: 'control+,',
           action: openSettings,
         },
-        { id: 'signout', label: 'Sign Out', icon: ArrowLeftIcon, shortcut: 'control+l', action: openLogoutConfirm },
+        {
+          id: 'signout',
+          label: 'Sign Out',
+          icon: ArrowLeftIcon,
+          shortcut: 'control+l',
+          action: openLogoutConfirm,
+        },
       ],
     },
   ];
@@ -80,12 +92,10 @@ export const AppSidebar = () => {
       <SidebarContent className="pt-10">
         {menuGroups.map(({ label: groupLabel, items }) => (
           <SidebarGroup key={groupLabel} className="pt-2 pb-0">
-            <SidebarGroupLabel>
-              {groupLabel}
-            </SidebarGroupLabel>
+            <SidebarGroupLabel>{groupLabel}</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {items.map(({ id, label, icon: Icon, shortcut, action, }) => (
+                {items.map(({ id, label, icon: Icon, shortcut, action }) => (
                   <SidebarMenuItem key={id}>
                     <SidebarMenuButton asChild>
                       <button
@@ -104,7 +114,10 @@ export const AppSidebar = () => {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
-        <Separator orientation='vertical' className="absolute right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-border dark:via-border/50 to-transparent hidden modern:block" />
+        <Separator
+          orientation="vertical"
+          className="via-border dark:via-border/50 modern:block absolute top-0 right-0 bottom-0 hidden bg-gradient-to-b from-transparent to-transparent"
+        />
       </SidebarContent>
     </Sidebar>
   );

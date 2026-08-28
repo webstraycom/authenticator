@@ -1,66 +1,57 @@
-import * as React from "react"
-import { cva } from "class-variance-authority";
-import { Slot } from "radix-ui"
-
-import { cn } from "@/lib/utils"
+import * as React from 'react';
+import { cva } from 'class-variance-authority';
+import { Slot } from 'radix-ui';
+import { cn } from '@/lib/utils';
 
 const markerVariants = cva(
   "group/marker relative flex min-h-4 w-full items-center gap-2 text-left text-sm text-muted-foreground [&_svg:not([class*='size-'])]:size-4 [a]:underline [a]:underline-offset-3 [a]:hover:text-foreground",
   {
     variants: {
       variant: {
-        default: "",
+        default: '',
         separator:
-          "before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border modern:before:bg-transparent modern:before:[background-image:linear-gradient(to_right,transparent_0%,var(--border)_75%)] after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border modern:after:bg-transparent modern:after:[background-image:linear-gradient(to_left,transparent_0%,var(--border)_75%)]",
-        border: "border-b border-border pb-2",
+          'before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border modern:before:bg-transparent modern:before:[background-image:linear-gradient(to_right,transparent_0%,var(--border)_75%)] after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border modern:after:bg-transparent modern:after:[background-image:linear-gradient(to_left,transparent_0%,var(--border)_75%)]',
+        border: 'border-b border-border pb-2',
       },
     },
-  }
-)
+  },
+);
 
-function Marker({
-  className,
-  variant = "default",
-  asChild = false,
-  ...props
-}) {
-  const Comp = asChild ? Slot.Root : "div"
+function Marker({ className, variant = 'default', asChild = false, ...props }) {
+  const Comp = asChild ? Slot.Root : 'div';
 
   return (
     <Comp
       data-slot="marker"
       data-variant={variant}
       className={cn(markerVariants({ variant, className }))}
-      {...props} />
+      {...props}
+    />
   );
 }
 
-function MarkerIcon({
-  className,
-  ...props
-}) {
+function MarkerIcon({ className, ...props }) {
   return (
     <span
       data-slot="marker-icon"
       aria-hidden="true"
       className={cn("size-4 shrink-0 [&_svg:not([class*='size-'])]:size-4", className)}
-      {...props} />
+      {...props}
+    />
   );
 }
 
-function MarkerContent({
-  className,
-  ...props
-}) {
+function MarkerContent({ className, ...props }) {
   return (
     <span
       data-slot="marker-content"
       className={cn(
-        "min-w-0 wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3 *:[a]:hover:text-foreground",
-        className
+        '*:[a]:hover:text-foreground min-w-0 wrap-break-word group-data-[variant=separator]/marker:flex-none group-data-[variant=separator]/marker:text-center *:[a]:underline *:[a]:underline-offset-3',
+        className,
       )}
-      {...props} />
+      {...props}
+    />
   );
 }
 
-export { Marker, MarkerIcon, MarkerContent, markerVariants }
+export { Marker, MarkerIcon, MarkerContent, markerVariants };

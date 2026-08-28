@@ -160,19 +160,11 @@ export const DataManagementDialog = () => {
               Cancel
             </Button>
             {mode === 'import' ? (
-              <Button
-                type="submit"
-                disabled={isSubmitting || isNothingSelected}
-                aria-live="polite"
-              >
+              <Button type="submit" disabled={isSubmitting || isNothingSelected} aria-live="polite">
                 {!isSubmitting ? 'Import' : 'Importing...'}
               </Button>
             ) : (
-              <Button
-                type="submit"
-                disabled={isSubmitting || isNothingSelected}
-                aria-live="polite"
-              >
+              <Button type="submit" disabled={isSubmitting || isNothingSelected} aria-live="polite">
                 {!isSubmitting ? 'Export' : 'Exporting...'}
               </Button>
             )}

@@ -1,4 +1,3 @@
-import { useUIStore } from '@store';
 import { CircleAlertIcon } from 'lucide-react';
 import { Badge } from '@ui/badge';
 import { Button } from '@ui/button';
@@ -19,6 +18,7 @@ import {
   FieldTitle,
 } from '@ui/field';
 import { Switch } from '@ui/switch';
+import { useUIStore } from '@store';
 import { usePluginsLogic } from '@hooks/use-plugins-logic';
 import { pluginManager } from '@sdk/plugin-manager';
 

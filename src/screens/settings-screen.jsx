@@ -18,7 +18,7 @@ export const SettingsScreen = () => {
 
   return (
     <div className="flex h-full w-full flex-col items-center">
-      <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
+      <ItemGroup className="scroll-fade scroll-fade-24 grid flex-1 grid-cols-1 content-start gap-4 overflow-y-auto p-8 lg:grid-cols-2 2xl:grid-cols-3">
         <ThemeSetting />
         <StyleSetting />
         <VerificationTimeoutSetting />

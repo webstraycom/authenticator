@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { usePasswordsStore, useUIStore } from '@store';
 import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import {
@@ -12,6 +11,7 @@ import {
 } from '@ui/dialog';
 import { FormInput } from '@common/form-input';
 import { PasswordInput } from '@common/password-input';
+import { usePasswordsStore, useUIStore } from '@store';
 
 export const AddPasswordDialog = () => {
   const addPassword = usePasswordsStore((state) => state.addPassword);

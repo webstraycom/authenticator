@@ -5,7 +5,7 @@ export const useShortcut = (shortcut, callback, options = {}) => {
 
   const callbackRef = useRef(callback);
   callbackRef.current = callback;
-  
+
   const disabledRef = useRef(disabled);
   disabledRef.current = disabled;
 

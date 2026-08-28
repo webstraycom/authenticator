@@ -1,10 +1,10 @@
-import { usePasswordsStore, useUIStore } from '@store';
 import { LockIcon } from 'lucide-react';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
-import { useSensitiveData } from '@hooks/use-sensitive-data';
+import { ItemActionsMenu } from '@common/item-actions-menu';
 import { SensitiveValue } from '@common/sensitive-value';
 import { CorruptedItem } from '@features/corrupted-item';
-import { ItemActionsMenu } from '@common/item-actions-menu';
+import { usePasswordsStore, useUIStore } from '@store';
+import { useSensitiveData } from '@hooks/use-sensitive-data';
 
 export const PasswordItem = ({ item }) => {
   const openEdit = useUIStore((state) => state.openEditPassword);
@@ -30,15 +30,13 @@ export const PasswordItem = ({ item }) => {
           <strong>{item?.site}</strong> entry from your vault.
         </>
       ),
-      buttonText: "Delete",
+      buttonText: 'Delete',
       onConfirm: async () => await deletePassword(item._id),
     });
   };
 
   if (item.isCorrupted) {
-    return (
-      <CorruptedItem type="Password" service={item.site} onDelete={handleDelete} />
-    );
+    return <CorruptedItem type="Password" service={item.site} onDelete={handleDelete} />;
   }
 
   return (
@@ -47,16 +45,13 @@ export const PasswordItem = ({ item }) => {
         <LockIcon />
       </ItemMedia>
       <ItemContent className="gap-0">
-        <ItemTitle><span className='truncate'>{item.site}</span></ItemTitle>
+        <ItemTitle>
+          <span className="truncate">{item.site}</span>
+        </ItemTitle>
         <ItemDescription className="text-muted-foreground text-xs">{item.login}</ItemDescription>
       </ItemContent>
       <ItemActions>
-        <SensitiveValue
-          value={item.value}
-          isVisible={isVisible}
-          onCopy={copy}
-          type="password"
-        />
+        <SensitiveValue value={item.value} isVisible={isVisible} onCopy={copy} type="password" />
         <ItemActionsMenu
           service={item.site}
           onShow={show}

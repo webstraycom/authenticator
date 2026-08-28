@@ -1,3 +1,4 @@
+import { toast } from 'sonner';
 import {
   useCodesStore,
   usePasswordsStore,
@@ -5,7 +6,6 @@ import {
   useTokensStore,
   useUIStore,
 } from '@store';
-import { toast } from 'sonner';
 import { useClearDatabase } from '@hooks/use-clear-database';
 import { useDatabase } from '@hooks/use-database';
 import { withDelay } from '@utils/delays';

@@ -1,5 +1,4 @@
 import { memo } from 'react';
-import { useCodesStore, useUIStore } from '@store';
 import { ClockIcon, MoreHorizontalIcon } from 'lucide-react';
 import { AnimatePresence, motion } from 'motion/react';
 import { toast } from 'sonner';
@@ -13,8 +12,9 @@ import {
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
-import { useTOTP } from '@hooks/use-totp';
 import { CorruptedItem } from '@features/corrupted-item';
+import { useCodesStore, useUIStore } from '@store';
+import { useTOTP } from '@hooks/use-totp';
 
 const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
   <button
@@ -24,9 +24,12 @@ const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
     aria-label={`Copy code for ${service}`}
   >
     <span className="sr-only">{token}</span>
-    <div className='flex items-center gap-1' aria-hidden="true">
+    <div className="flex items-center gap-1" aria-hidden="true">
       {[...token].map((char, index) => (
-        <span key={index} className={`bg-muted relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700 ${index === 2 ? 'mr-1.5' : ''}`}>
+        <span
+          key={index}
+          className={`bg-muted relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700 ${index === 2 ? 'mr-1.5' : ''}`}
+        >
           <AnimatePresence>
             <motion.span
               key={`${index}-${token}`}
@@ -78,15 +81,13 @@ export const CodeItem = memo(
             <strong>{item?.service}</strong> entry from your vault.
           </>
         ),
-        buttonText: "Delete",
+        buttonText: 'Delete',
         onConfirm: async () => await deleteCode(item._id),
       });
     };
 
     if (item.isCorrupted) {
-      return (
-        <CorruptedItem type="Code" service={item.service} onDelete={handleDelete} />
-      );
+      return <CorruptedItem type="Code" service={item.service} onDelete={handleDelete} />;
     }
 
     return (
@@ -95,16 +96,27 @@ export const CodeItem = memo(
           <ClockIcon />
         </ItemMedia>
         <ItemContent className="gap-0">
-          <ItemTitle><span className='truncate'>{item.service}</span></ItemTitle>
+          <ItemTitle>
+            <span className="truncate">{item.service}</span>
+          </ItemTitle>
           <ItemDescription className="text-muted-foreground text-xs">
             {item.account}
           </ItemDescription>
         </ItemContent>
         <ItemActions className="gap-2.5">
-          <TotpCodeItem token={token} isExpiring={isExpiring} service={item.service} onCopy={handleCopy} />
+          <TotpCodeItem
+            token={token}
+            isExpiring={isExpiring}
+            service={item.service}
+            onCopy={handleCopy}
+          />
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon-sm" aria-label={`Open actions menu for ${item.service}`}>
+              <Button
+                variant="outline"
+                size="icon-sm"
+                aria-label={`Open actions menu for ${item.service}`}
+              >
                 <MoreHorizontalIcon />
               </Button>
             </DropdownMenuTrigger>

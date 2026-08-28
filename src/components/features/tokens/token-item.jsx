@@ -1,11 +1,11 @@
-import { useTokensStore, useUIStore } from '@store';
 import { KeyRoundIcon } from 'lucide-react';
 import { Badge } from '@ui/badge';
 import { Item, ItemActions, ItemContent, ItemDescription, ItemMedia, ItemTitle } from '@ui/item';
-import { useSensitiveData } from '@hooks/use-sensitive-data';
+import { ItemActionsMenu } from '@common/item-actions-menu';
 import { SensitiveValue } from '@common/sensitive-value';
 import { CorruptedItem } from '@features/corrupted-item';
-import { ItemActionsMenu } from '@common/item-actions-menu';
+import { useTokensStore, useUIStore } from '@store';
+import { useSensitiveData } from '@hooks/use-sensitive-data';
 
 const getStatus = (expires) => {
   if (!expires) return { label: 'Unsecure', isWarning: true };
@@ -43,7 +43,7 @@ export const TokenItem = ({ item }) => {
           <strong>{item?.service}</strong> entry from your vault.
         </>
       ),
-      buttonText: "Delete",
+      buttonText: 'Delete',
       onConfirm: async () => await deleteToken(item._id),
     });
   };
@@ -51,9 +51,7 @@ export const TokenItem = ({ item }) => {
   const status = getStatus(item.expires);
 
   if (item.isCorrupted) {
-    return (
-      <CorruptedItem type="Token" service={item.service} onDelete={handleDelete} />
-    );
+    return <CorruptedItem type="Token" service={item.service} onDelete={handleDelete} />;
   }
 
   return (
@@ -63,7 +61,9 @@ export const TokenItem = ({ item }) => {
       </ItemMedia>
       <ItemContent className="gap-0">
         <div className="flex flex-row items-center gap-1">
-          <ItemTitle><span className='truncate'>{item.service}</span></ItemTitle>
+          <ItemTitle>
+            <span className="truncate">{item.service}</span>
+          </ItemTitle>
           <Badge
             variant={status.isCritical ? 'destructive' : status.isWarning ? 'outline' : 'secondary'}
           >
@@ -73,12 +73,7 @@ export const TokenItem = ({ item }) => {
         <ItemDescription className="text-muted-foreground text-xs">{item.endpoint}</ItemDescription>
       </ItemContent>
       <ItemActions>
-        <SensitiveValue
-          value={item.value}
-          isVisible={isVisible}
-          onCopy={copy}
-          type="token"
-        />
+        <SensitiveValue value={item.value} isVisible={isVisible} onCopy={copy} type="token" />
         <ItemActionsMenu
           service={item.service}
           onShow={show}

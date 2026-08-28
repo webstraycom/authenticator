@@ -1,4 +1,3 @@
-import { useAuthStore, useUIStore } from '@store';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { Button } from '@ui/button';
@@ -12,6 +11,7 @@ import {
 } from '@ui/dialog';
 import { Spinner } from '@ui/spinner';
 import { PasswordInput } from '@common/password-input';
+import { useAuthStore, useUIStore } from '@store';
 
 export const ChangeMasterPasswordDialog = () => {
   const isChangeMasterPasswordOpen = useUIStore((state) => state.isChangeMasterPasswordOpen);
@@ -105,12 +105,7 @@ export const ChangeMasterPasswordDialog = () => {
             <Button type="button" variant="outline" onClick={handleClose} disabled={isSubmitting}>
               Cancel
             </Button>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="gap-1"
-              aria-live="polite"
-            >
+            <Button type="submit" disabled={isSubmitting} className="gap-1" aria-live="polite">
               {isSubmitting ? (
                 <>
                   <Spinner />

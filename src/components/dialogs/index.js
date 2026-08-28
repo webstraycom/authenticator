@@ -1,9 +1,9 @@
 export { AddPasswordDialog } from './add-password-dialog';
-export { AddCodeDialog} from './add-code-dialog';
+export { AddCodeDialog } from './add-code-dialog';
 export { AddTokenDialog } from './add-token-dialog';
 export { ChangeMasterPasswordDialog } from './change-master-password-dialog';
 export { ConfirmationDialog } from './confirmation-dialog';
 export { VerificationDialog } from './verification-dialog';
-export { DataManagementDialog} from './data-management-dialog';
+export { DataManagementDialog } from './data-management-dialog';
 export { PluginsDialog } from './plugins-dialog';
 export { CommandPaletteDialog } from './command-palette-dialog';

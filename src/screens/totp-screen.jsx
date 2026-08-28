@@ -1,12 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
-import { usePluginStore } from '@sdk';
-import { useCodesStore, useUIStore } from '@store';
 import { ClockIcon } from 'lucide-react';
-import { NoItemsPlaceholder } from '@common/no-items-placeholder';
-import { CodeItem } from '@features/totp/code-item';
-import { sorter } from '@utils/sorter';
 import { ItemGroup, ItemGroupHeader } from '@ui/item';
+import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { ScreenFooter } from '@common/screen-footer';
+import { CodeItem } from '@features/totp/code-item';
+import { useCodesStore, useUIStore } from '@store';
+import { sorter } from '@utils/sorter';
+import { usePluginStore } from '@sdk';
 
 export const TOTPScreen = () => {
   const openAdd = useUIStore((state) => state.openAddCode);
@@ -66,19 +66,20 @@ export const TOTPScreen = () => {
 
   if (codes.length > 0) {
     return (
-      <div className="flex flex-col flex-1">
-        <div className='flex flex-col flex-1 gap-4 scroll-fade scroll-fade-24 overflow-y-auto w-full p-8'>
-          <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start">
+      <div className="flex flex-1 flex-col">
+        <div className="scroll-fade scroll-fade-24 flex w-full flex-1 flex-col gap-4 overflow-y-auto p-8">
+          <ItemGroup className="grid grid-cols-1 content-start lg:grid-cols-2 2xl:grid-cols-3">
             {activeCodes.map((item) => (
               <CodeItem key={item._id} item={item} tick={globalTick} />
             ))}
           </ItemGroup>
           {corruptedCodes.length > 0 && (
             <>
-              <ItemGroupHeader id="corrupted-code-heading">
-                Corrupted Codes
-              </ItemGroupHeader>
-              <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-code-heading">
+              <ItemGroupHeader id="corrupted-code-heading">Corrupted Codes</ItemGroupHeader>
+              <ItemGroup
+                className="grid grid-cols-1 content-start lg:grid-cols-2 2xl:grid-cols-3"
+                aria-labelledby="corrupted-code-heading"
+              >
                 {corruptedCodes.map((item) => (
                   <CodeItem key={item._id} item={item} tick={globalTick} />
                 ))}

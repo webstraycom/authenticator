@@ -1,7 +1,6 @@
-import { usePluginStore } from '@sdk';
-import { useSettingsStore, useUIStore } from '@store';
 import bcrypt from 'bcryptjs';
 import { create } from 'zustand';
+import { useSettingsStore, useUIStore } from '@store';
 import {
   clearKey,
   decrypt,
@@ -14,6 +13,7 @@ import {
   initKey,
 } from '@utils/crypto';
 import { db } from '@utils/db';
+import { usePluginStore } from '@sdk';
 import { pluginManager } from '@sdk/plugin-manager';
 
 export const useAuthStore = create((set) => ({

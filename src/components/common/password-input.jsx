@@ -27,7 +27,7 @@ export const PasswordInput = ({ id, ref, label, description, error, ...props }) 
             type="button"
             size="icon-xs"
             onClick={toggleShow}
-            aria-label={!showPassword ? "Show secret" : "Hide secret"}
+            aria-label={!showPassword ? 'Show secret' : 'Hide secret'}
           >
             {showPassword ? <EyeOffIcon /> : <EyeIcon />}
           </InputGroupButton>

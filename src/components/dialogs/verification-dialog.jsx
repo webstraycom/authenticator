@@ -1,4 +1,3 @@
-import { useAuthStore, useUIStore } from '@store';
 import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import {
@@ -10,6 +9,7 @@ import {
   DialogTitle,
 } from '@ui/dialog';
 import { PasswordInput } from '@common/password-input';
+import { useAuthStore, useUIStore } from '@store';
 
 export const VerificationDialog = () => {
   const verificationConfig = useUIStore((state) => state.verificationConfig);

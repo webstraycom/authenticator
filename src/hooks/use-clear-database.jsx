@@ -1,8 +1,8 @@
-import { usePluginStore } from '@sdk';
-import { useAuthStore, useUIStore } from '@store';
 import { toast } from 'sonner';
+import { useAuthStore, useUIStore } from '@store';
 import { useDatabase } from '@hooks/use-database';
 import { withDelay } from '@utils/delays';
+import { usePluginStore } from '@sdk';
 
 export const useClearDatabase = () => {
   const runWithVerification = useUIStore((state) => state.runWithVerification);

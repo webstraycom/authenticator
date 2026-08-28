@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { CopyIcon, MinusIcon, XIcon } from 'lucide-react';
 import { Button } from '@ui/button';
-import { Logo } from '@common/logo';
 import { Separator } from '@ui/separator';
+import { Logo } from '@common/logo';
 import { cn } from '@lib/utils';
 
 export const TitleBar = ({ className }) => {
@@ -44,10 +44,10 @@ export const TitleBar = ({ className }) => {
   return (
     <div
       className={cn(
-        'relative bg-background z-100 flex h-10 w-full shrink-0 flex-nowrap items-center justify-between border-b modern:border-none pr-2 pl-4',
+        'bg-background modern:border-none relative z-100 flex h-10 w-full shrink-0 flex-nowrap items-center justify-between border-b pr-2 pl-4',
         className,
       )}
-      aria-label='Window title bar'
+      aria-label="Window title bar"
       style={{ WebkitAppRegion: 'drag' }}
     >
       <div className="flex items-center gap-2 text-sm font-medium whitespace-nowrap">
@@ -63,7 +63,7 @@ export const TitleBar = ({ className }) => {
           style={{ WebkitAppRegion: 'no-drag' }}
           aria-label="Minimize window"
         >
-          <MinusIcon className='size-4' />
+          <MinusIcon className="size-4" />
         </Button>
         <Button
           variant="ghost"
@@ -71,7 +71,7 @@ export const TitleBar = ({ className }) => {
           onClick={handleMaximize}
           className="text-muted-foreground hover:text-foreground"
           style={{ WebkitAppRegion: 'no-drag' }}
-          aria-label={isMaximized ? "Restore window size" : "Maximize window"} 
+          aria-label={isMaximized ? 'Restore window size' : 'Maximize window'}
         >
           <CopyIcon className="size-3 scale-x-[-1]" />
         </Button>
@@ -83,10 +83,13 @@ export const TitleBar = ({ className }) => {
           style={{ WebkitAppRegion: 'no-drag' }}
           aria-label="Close window"
         >
-          <XIcon className='size-4' />
+          <XIcon className="size-4" />
         </Button>
       </div>
-      <Separator orientation='horizontal' className="absolute bottom-0 bg-gradient-to-r from-transparent via-border to-transparent hidden modern:block" />
+      <Separator
+        orientation="horizontal"
+        className="via-border modern:block absolute bottom-0 hidden bg-gradient-to-r from-transparent to-transparent"
+      />
     </div>
   );
 };

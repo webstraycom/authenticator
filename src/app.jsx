@@ -1,4 +1,8 @@
 import { useEffect } from 'react';
+import { SidebarProvider } from '@ui/sidebar';
+import { Toaster } from '@ui/sonner';
+import { AppSidebar, Header, TitleBar } from '@layout';
+import { AppLoadingPlaceholder } from '@common/app-loading-placeholder';
 import {
   AddCodeDialog,
   AddPasswordDialog,
@@ -10,12 +14,8 @@ import {
   PluginsDialog,
   VerificationDialog,
 } from '@dialogs';
-import { AppSidebar, Header, TitleBar } from '@layout';
 import { LoginScreen, PasswordsScreen, SettingsScreen, TokensScreen, TOTPScreen } from '@screens';
 import { useAuthStore, useSettingsStore, useUIStore } from '@store';
-import { SidebarProvider } from '@ui/sidebar';
-import { Toaster } from '@ui/sonner';
-import { AppLoadingPlaceholder } from '@common/app-loading-placeholder';
 import { useAppLoaded } from '@hooks/use-app-loaded';
 import { PluginProvider } from '@sdk/plugin-system';
 
@@ -50,7 +50,7 @@ function App() {
               <AppSidebar />
               <div className="bg-background flex h-full flex-1 flex-col overflow-hidden">
                 <Header />
-                <main className="flex flex-1 overflow-hidden" aria-live='polite' aria-atomic="true">
+                <main className="flex flex-1 overflow-hidden" aria-live="polite" aria-atomic="true">
                   {screen === 'passwords' && <PasswordsScreen />}
                   {screen === 'totp' && <TOTPScreen />}
                   {screen === 'tokens' && <TokensScreen />}

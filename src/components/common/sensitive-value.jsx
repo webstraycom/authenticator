@@ -19,11 +19,7 @@ export const SensitiveValue = ({ value, isVisible, onCopy, type = 'password' }) 
           transition={{ duration: 0.3 }}
           className="inline-block whitespace-nowrap select-none"
         >
-          {isVisible
-            ? value.length > 20
-              ? `${value.slice(0, 20)}...`
-              : value
-            : '••••••••'}
+          {isVisible ? (value.length > 20 ? `${value.slice(0, 20)}...` : value) : '••••••••'}
         </motion.span>
       </AnimatePresence>
     </button>

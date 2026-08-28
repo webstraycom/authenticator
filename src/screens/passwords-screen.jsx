@@ -1,12 +1,12 @@
 import { useEffect, useMemo } from 'react';
-import { usePluginStore } from '@sdk';
-import { usePasswordsStore, useUIStore } from '@store';
 import { LockIcon } from 'lucide-react';
-import { NoItemsPlaceholder } from '@common/no-items-placeholder';
-import { PasswordItem } from '@features/passwords/password-item';
-import { sorter } from '@utils/sorter';
 import { ItemGroup, ItemGroupHeader } from '@ui/item';
+import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { ScreenFooter } from '@common/screen-footer';
+import { PasswordItem } from '@features/passwords/password-item';
+import { usePasswordsStore, useUIStore } from '@store';
+import { sorter } from '@utils/sorter';
+import { usePluginStore } from '@sdk';
 
 export const PasswordsScreen = () => {
   const openAdd = useUIStore((state) => state.openAddPassword);
@@ -57,19 +57,20 @@ export const PasswordsScreen = () => {
 
   if (passwords.length > 0) {
     return (
-      <div className="flex flex-col flex-1">
-        <div className='flex flex-col flex-1 gap-4 scroll-fade scroll-fade-24 overflow-y-auto w-full p-8'>
-          <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start">
+      <div className="flex flex-1 flex-col">
+        <div className="scroll-fade scroll-fade-24 flex w-full flex-1 flex-col gap-4 overflow-y-auto p-8">
+          <ItemGroup className="grid grid-cols-1 content-start lg:grid-cols-2 2xl:grid-cols-3">
             {activePasswords.map((item) => (
               <PasswordItem key={item._id} item={item} />
             ))}
           </ItemGroup>
           {corruptedPasswords.length > 0 && (
             <>
-              <ItemGroupHeader id="corrupted-password-heading">
-                Corrupted Passwords
-              </ItemGroupHeader>
-              <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start" aria-labelledby="corrupted-password-heading">
+              <ItemGroupHeader id="corrupted-password-heading">Corrupted Passwords</ItemGroupHeader>
+              <ItemGroup
+                className="grid grid-cols-1 content-start lg:grid-cols-2 2xl:grid-cols-3"
+                aria-labelledby="corrupted-password-heading"
+              >
                 {corruptedPasswords.map((item) => (
                   <PasswordItem key={item._id} item={item} />
                 ))}

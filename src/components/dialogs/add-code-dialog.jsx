@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useCodesStore, useUIStore } from '@store';
 import * as OTPAuth from 'otpauth';
 import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
@@ -13,6 +12,7 @@ import {
 } from '@ui/dialog';
 import { FormInput } from '@common/form-input';
 import { PasswordInput } from '@common/password-input';
+import { useCodesStore, useUIStore } from '@store';
 
 const isValidBase32 = (secret) => {
   try {

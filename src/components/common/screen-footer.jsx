@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { PlusIcon } from 'lucide-react';
 import { Button } from '@ui/button';
 import {
   DropdownMenu,
@@ -7,10 +9,8 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@ui/dropdown-menu';
-import { PlusIcon } from 'lucide-react';
-import { Slot } from '@sdk/plugin-system';
-import { useState } from 'react';
 import { useShortcut } from '@hooks/use-shortcut';
+import { Slot } from '@sdk/plugin-system';
 
 export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd, type }) => {
   const [isOptionsOpen, setIsOptionsOpen] = useState(false);
@@ -18,20 +18,32 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
 
   const documentHasOpenDialog = () => !!document.querySelector('[role="dialog"]');
 
-  useShortcut('ctrl+o', () => {
-    setIsPluginsOpen(false);
-    setIsOptionsOpen(open => !open);
-  }, { disabled: documentHasOpenDialog });
+  useShortcut(
+    'ctrl+o',
+    () => {
+      setIsPluginsOpen(false);
+      setIsOptionsOpen((open) => !open);
+    },
+    { disabled: documentHasOpenDialog },
+  );
 
-  useShortcut('ctrl+p', () => {
-    setIsOptionsOpen(false);
-    setIsPluginsOpen(open => !open);
-  }, { disabled: documentHasOpenDialog });
+  useShortcut(
+    'ctrl+p',
+    () => {
+      setIsOptionsOpen(false);
+      setIsPluginsOpen((open) => !open);
+    },
+    { disabled: documentHasOpenDialog },
+  );
 
-  useShortcut('ctrl+n', () => {
-    if (isOptionsOpen || isPluginsOpen) return;
-    onAdd();
-  }, { disabled: documentHasOpenDialog });
+  useShortcut(
+    'ctrl+n',
+    () => {
+      if (isOptionsOpen || isPluginsOpen) return;
+      onAdd();
+    },
+    { disabled: documentHasOpenDialog },
+  );
 
   return (
     <div className="flex w-full justify-center p-8">
@@ -39,7 +51,11 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
         {pluginsCount > 0 && (
           <DropdownMenu open={isPluginsOpen} onOpenChange={setIsPluginsOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label="Open plugins menu" aria-keyshortcuts="control+p">
+              <Button
+                variant="outline"
+                aria-label="Open plugins menu"
+                aria-keyshortcuts="control+p"
+              >
                 Plugins ({pluginsCount})
               </Button>
             </DropdownMenuTrigger>
@@ -51,10 +67,14 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
             </DropdownMenuContent>
           </DropdownMenu>
         )}
-        <div className="flex items-center gap-2 ml-auto">
+        <div className="ml-auto flex items-center gap-2">
           <DropdownMenu open={isOptionsOpen} onOpenChange={setIsOptionsOpen}>
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" aria-label={`Open ${type} options menu`} aria-keyshortcuts="control+o">
+              <Button
+                variant="outline"
+                aria-label={`Open ${type} options menu`}
+                aria-keyshortcuts="control+o"
+              >
                 Options
               </Button>
             </DropdownMenuTrigger>
@@ -73,5 +93,5 @@ export const ScreenFooter = ({ pluginsCount, slotName, onImport, onExport, onAdd
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

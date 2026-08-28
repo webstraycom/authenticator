@@ -28,5 +28,9 @@ export const ExpirationMessage = ({ id, expiration, expires }) => {
     );
   }
 
-  return <p id={id} aria-live="polite" className="text-destructive text-sm">Please enter a valid date.</p>;
+  return (
+    <p id={id} aria-live="polite" className="text-destructive text-sm">
+      Please enter a valid date.
+    </p>
+  );
 };

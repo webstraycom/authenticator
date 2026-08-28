@@ -1,4 +1,3 @@
-import { useUIStore } from '@store';
 import { Button } from '@ui/button';
 import {
   Dialog,
@@ -8,6 +7,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@ui/dialog';
+import { useUIStore } from '@store';
 
 export const ConfirmationDialog = () => {
   const confirmConfig = useUIStore((state) => state.confirmConfig);

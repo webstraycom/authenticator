@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useTokensStore, useUIStore } from '@store';
 import { useForm } from 'react-hook-form';
 import { Button } from '@ui/button';
 import {
@@ -15,6 +14,7 @@ import { ExpirationMessage } from '@common/expiration-message';
 import { FormInput } from '@common/form-input';
 import { NaturalDatePicker } from '@common/natural-date-picker';
 import { PasswordInput } from '@common/password-input';
+import { useTokensStore, useUIStore } from '@store';
 
 const getExpirationString = (date) => {
   return date
