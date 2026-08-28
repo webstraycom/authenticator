@@ -18,7 +18,7 @@ export const VerificationTimeoutSetting = () => {
       title="Verification Timeout"
       description="Change verification timeout"
     >
-      <Popover>
+      <Popover modal={true}>
         <PopoverTrigger asChild>
           <Button className="w-20" variant="outline">
             Set
