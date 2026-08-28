@@ -18,7 +18,7 @@ export const Header = () => {
 
   return (
     <header
-      className="flex h-12 w-full shrink-0 items-center justify-center border-b px-6.5"
+      className="relative flex h-12 w-full shrink-0 items-center justify-center border-b px-6.5 modern:border-none"
       aria-label='Application toolbar'
     >
       <div className="flex w-full items-center justify-between">
@@ -45,6 +45,7 @@ export const Header = () => {
           </div>
         </Button>
       </div>
+      <Separator orientation='horizontal' className="absolute bottom-0 bg-gradient-to-r from-transparent via-border to-transparent hidden modern:block" />
     </header>
   );
 };

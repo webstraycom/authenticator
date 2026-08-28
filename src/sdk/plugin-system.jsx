@@ -5,6 +5,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { Badge } from '@ui/badge';
 import { DropdownMenuItem } from '@ui/dropdown-menu';
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@ui/sheet';
+import { Separator } from '@ui/separator';
 
 export const Slot = ({ slotName }) => {
   const slotData = usePluginStore((state) => state.slots[slotName]);
@@ -79,6 +80,7 @@ export const PluginProvider = () => {
             </div>
           </div>
         )}
+        <Separator orientation='vertical' className="absolute left-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-border to-transparent hidden modern:block" />
       </SheetContent>
     </Sheet>
   );

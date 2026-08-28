@@ -11,6 +11,7 @@ import {
   SidebarMenuItem,
 } from '@ui/sidebar';
 import { useShortcut } from '@hooks/use-shortcut';
+import { Separator } from '@ui/separator';
 
 export const AppSidebar = () => {
   const openConfirm = useUIStore((state) => state.openConfirm);
@@ -103,6 +104,7 @@ export const AppSidebar = () => {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+        <Separator orientation='vertical' className="absolute right-0 top-0 bottom-0 bg-gradient-to-b from-transparent via-border dark:via-border/50 to-transparent hidden modern:block" />
       </SidebarContent>
     </Sidebar>
   );

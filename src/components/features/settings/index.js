@@ -1,5 +1,6 @@
 export { SettingItem } from './setting-item';
 export { ThemeSetting } from './theme-setting';
+export { StyleSetting } from './style-setting';
 export { ChangeMasterPasswordSetting } from './change-master-password-setting';
 export { VerificationTimeoutSetting } from './verification-timeout-setting';
 export { ImportSetting } from './import-setting';

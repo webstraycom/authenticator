@@ -11,7 +11,7 @@ const markerVariants = cva(
       variant: {
         default: "",
         separator:
-          "before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border",
+          "before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border modern:before:bg-transparent modern:before:[background-image:linear-gradient(to_right,transparent_0%,var(--border)_75%)] after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border modern:after:bg-transparent modern:after:[background-image:linear-gradient(to_left,transparent_0%,var(--border)_75%)]",
         border: "border-b border-border pb-2",
       },
     },

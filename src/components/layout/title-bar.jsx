@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { CopyIcon, MinusIcon, XIcon } from 'lucide-react';
 import { Button } from '@ui/button';
 import { Logo } from '@common/logo';
+import { Separator } from '@ui/separator';
 import { cn } from '@lib/utils';
 
 export const TitleBar = ({ className }) => {
@@ -43,7 +44,7 @@ export const TitleBar = ({ className }) => {
   return (
     <div
       className={cn(
-        'bg-background z-100 flex h-10 w-full shrink-0 flex-nowrap items-center justify-between border-b pr-2 pl-4',
+        'relative bg-background z-100 flex h-10 w-full shrink-0 flex-nowrap items-center justify-between border-b modern:border-none pr-2 pl-4',
         className,
       )}
       aria-label='Window title bar'
@@ -85,6 +86,7 @@ export const TitleBar = ({ className }) => {
           <XIcon className='size-4' />
         </Button>
       </div>
+      <Separator orientation='horizontal' className="absolute bottom-0 bg-gradient-to-r from-transparent via-border to-transparent hidden modern:block" />
     </div>
   );
 };

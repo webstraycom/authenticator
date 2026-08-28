@@ -7,6 +7,7 @@ import {
   ExportSetting,
   ImportSetting,
   PluginsSetting,
+  StyleSetting,
   ThemeSetting,
   VerificationTimeoutSetting,
 } from '@features/settings';
@@ -19,6 +20,7 @@ export const SettingsScreen = () => {
     <div className="flex h-full w-full flex-col items-center">
       <ItemGroup className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 content-start gap-4 p-8 scroll-fade scroll-fade-24 flex-1 overflow-y-auto">
         <ThemeSetting />
+        <StyleSetting />
         <VerificationTimeoutSetting />
         <ChangeMasterPasswordSetting />
         <ImportSetting />

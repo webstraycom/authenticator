@@ -7,6 +7,7 @@
 @import "@fontsource-variable/geist-mono";
 
 @custom-variant dark (&:is(.dark *));
+@custom-variant modern ([data-style="modern"] &);
 
 @theme inline {
   --font-sans: 'Geist Variable', sans-serif;

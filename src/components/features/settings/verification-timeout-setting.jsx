@@ -53,7 +53,7 @@ export const VerificationTimeoutSetting = () => {
                 <InputGroupAddon align="inline-end">minutes</InputGroupAddon>
               </InputGroup>
               <Button
-                className="w-8"
+                className="w-8 modern:dark:border-border"
                 variant="outline"
                 aria-label="Decrease timeout by 1 minute"
                 onClick={() => adjustTimeout(-1)}
@@ -62,7 +62,7 @@ export const VerificationTimeoutSetting = () => {
                 <MinusIcon />
               </Button>
               <Button
-                className="w-8"
+                className="w-8 modern:dark:border-border"
                 variant="outline"
                 aria-label="Increase timeout by 1 minute"
                 onClick={() => adjustTimeout(+1)}

@@ -4,42 +4,46 @@ import { runViewTransition } from '@utils/view-transition';
 
 const DEFAULT_SETTINGS = {
   theme: 'dark',
+  style: 'classic',
   verificationTimeout: 5,
   requireVerification: true,
 };
 
 export const useSettingsStore = create((set, get) => ({
-  settings: DEFAULT_SETTINGS,
+  settings: { ...DEFAULT_SETTINGS },
 
   loadSettings: async () => {
     try {
       const doc = await db.findOneAsync({ type: 'settings_config' });
+      
+      let mergedSettings = get().settings;
       if (doc) {
         const { _id, type, ...savedSettings } = doc;
-        set({ settings: { ...get().settings, ...savedSettings } });
-
-        applyTheme(savedSettings.theme);
-      } else {
-        applyTheme(get().settings.theme);
+        mergedSettings = { ...get().settings, ...savedSettings };
       }
+      
+      set({ settings: mergedSettings });
+      applyAppearance(mergedSettings);
     } catch (error) {
       console.error('Failed to load settings:', error);
-      applyTheme('dark');
+      applyAppearance(DEFAULT_SETTINGS);
     }
   },
 
   updateSetting: async (key, value) => {
     try {
-      const newSettings = { ...get().settings, [key]: value };
+      const updatedSettings = { ...get().settings, [key]: value };
 
       const update = async () => {
         await db.updateAsync(
           { type: 'settings_config' },
-          { $set: { ...newSettings, type: 'settings_config' } },
+          { $set: { ...updatedSettings, type: 'settings_config' } },
           { upsert: true },
         );
-        set({ settings: newSettings });
-        if (key === 'theme') applyTheme(value);
+        set({ settings: updatedSettings });
+        if (key === 'theme' || key === 'style') {
+          applyAppearance(updatedSettings);
+        }
       };
 
       if (key === 'theme') {
@@ -58,19 +62,26 @@ export const useSettingsStore = create((set, get) => ({
       { $set: { ...DEFAULT_SETTINGS, type: 'settings_config' } },
       { upsert: true },
     );
-    set({ settings: DEFAULT_SETTINGS });
+    set({ settings: { ...DEFAULT_SETTINGS } });
     applyAppearance(DEFAULT_SETTINGS);
   },
 }));
 
-function applyTheme(theme) {
+function applyAppearance({ theme, style }) {
   const root = window.document.documentElement;
+
   let themeToApply = theme;
   if (theme === 'system') {
     themeToApply = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-  if (root.classList.contains(themeToApply)) return;
-  root.classList.remove('light', 'dark');
-  root.classList.add(themeToApply);
-  root.style.colorScheme = themeToApply;
+  
+  if (!root.classList.contains(themeToApply)) {
+    root.classList.remove('light', 'dark');
+    root.classList.add(themeToApply);
+    root.style.colorScheme = themeToApply;
+  }
+
+  if (root.getAttribute('data-style') !== style) {
+    root.setAttribute('data-style', style);
+  }
 }
