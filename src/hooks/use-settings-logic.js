@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { useClearDatabase } from '@hooks/use-clear-database';
 import { useDatabase } from '@hooks/use-database';
 import { withDelay } from '@utils/delays';
+import { runViewTransition } from '@utils/view-transition';
 
 export const useSettingsLogic = () => {
   const settings = useSettingsStore((state) => state.settings);
@@ -65,7 +66,9 @@ export const useSettingsLogic = () => {
       buttonText: 'Reset',
       onConfirm: async () => {
         try {
-          await initializeDefaultSettings();
+          runViewTransition(async () => {
+            await initializeDefaultSettings();
+          });
           toast.success('Settings reset to defaults');
         } catch (err) {
           console.error(err);

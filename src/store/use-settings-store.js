@@ -59,7 +59,7 @@ export const useSettingsStore = create((set, get) => ({
       { upsert: true },
     );
     set({ settings: DEFAULT_SETTINGS });
-    runViewTransition(() => applyTheme(DEFAULT_SETTINGS.theme));
+    applyAppearance(DEFAULT_SETTINGS);
   },
 }));
 
