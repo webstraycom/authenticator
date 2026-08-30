@@ -9,12 +9,18 @@ import {
   EmptyTitle,
 } from '@ui/empty';
 import { Popover, PopoverContent, PopoverTrigger } from '@ui/popover';
+import { useShortcut } from '@hooks/use-shortcut';
 
 export const NoItemsPlaceholder = ({
   onAdd,
   onImport,
   options: { icon, header, description, buttonText },
 }) => {
+  const documentHasOpenDialog = () => !!document.querySelector('[role="dialog"]');
+
+  useShortcut('ctrl+n', onAdd, { disabled: documentHasOpenDialog });
+  useShortcut('ctrl+i', onImport, { disabled: documentHasOpenDialog });
+
   return (
     <Empty className="h-full w-full">
       <EmptyHeader>
