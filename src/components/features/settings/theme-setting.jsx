@@ -12,7 +12,7 @@ import { SettingItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 
 export const ThemeSetting = () => {
-  const { settings, updateSetting } = useSettingsLogic();
+  const { settings, updateSettings } = useSettingsLogic();
 
   return (
     <SettingItem icon={EclipseIcon} title="Theme" description="Change appearance">
@@ -26,7 +26,7 @@ export const ThemeSetting = () => {
           <DropdownMenuLabel>Select theme</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={settings.theme}
-            onValueChange={(val) => updateSetting('theme', val)}
+            onValueChange={(val) => updateSettings({ theme: val })}
           >
             <DropdownMenuRadioItem value="dark">Dark</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="light">Light</DropdownMenuRadioItem>

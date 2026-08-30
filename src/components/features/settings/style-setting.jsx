@@ -12,7 +12,7 @@ import { SettingItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 
 export const StyleSetting = () => {
-  const { settings, updateSetting } = useSettingsLogic();
+  const { settings, updateSettings } = useSettingsLogic();
 
   return (
     <SettingItem icon={PaletteIcon} title="Style" description="Change application style">
@@ -26,7 +26,7 @@ export const StyleSetting = () => {
           <DropdownMenuLabel>Select style</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={settings.style}
-            onValueChange={(val) => updateSetting('style', val)}
+            onValueChange={(val) => updateSettings({ style: val })}
           >
             <DropdownMenuRadioItem value="classic">Classic</DropdownMenuRadioItem>
             <DropdownMenuRadioItem value="modern">Modern</DropdownMenuRadioItem>

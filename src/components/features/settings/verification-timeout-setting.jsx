@@ -9,7 +9,7 @@ import { SettingItem } from '@features/settings/setting-item';
 import { useSettingsLogic } from '@hooks/use-settings-logic';
 
 export const VerificationTimeoutSetting = () => {
-  const { settings, updateSetting, adjustTimeout } = useSettingsLogic();
+  const { settings, updateSettings, adjustTimeout } = useSettingsLogic();
   const isDisabled = !settings.requireVerification;
 
   return (
@@ -45,7 +45,7 @@ export const VerificationTimeoutSetting = () => {
                   min="0"
                   value={settings.verificationTimeout}
                   onChange={(e) =>
-                    updateSetting('verificationTimeout', Math.max(0, Number(e.target.value)))
+                    updateSettings({ verificationTimeout: Math.max(0, Number(e.target.value)) })
                   }
                   disabled={isDisabled}
                   aria-label="Verification timeout in minutes"
@@ -74,7 +74,7 @@ export const VerificationTimeoutSetting = () => {
             <div className="flex flex-row items-center gap-2">
               <Switch
                 checked={settings.requireVerification}
-                onCheckedChange={(val) => updateSetting('requireVerification', val)}
+                onCheckedChange={(val) => updateSettings({ requireVerification: val })}
                 id="require-verification"
               />
               <Label htmlFor="require-verification">Enable Verification Timeout</Label>

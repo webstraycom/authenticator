@@ -30,9 +30,9 @@ export const useSettingsStore = create((set, get) => ({
     }
   },
 
-  updateSetting: async (key, value) => {
+  updateSettings: async (updates) => {
     try {
-      const updatedSettings = { ...get().settings, [key]: value };
+      const updatedSettings = { ...get().settings, ...updates };
 
       const update = async () => {
         await db.updateAsync(
@@ -41,18 +41,18 @@ export const useSettingsStore = create((set, get) => ({
           { upsert: true },
         );
         set({ settings: updatedSettings });
-        if (key === 'theme' || key === 'style') {
+        if ('theme' in updates || 'style' in updates) {
           applyAppearance(updatedSettings);
         }
       };
 
-      if (key === 'theme') {
+      if ('theme' in updates) {
         runViewTransition(update);
       } else {
         await update();
       }
     } catch (error) {
-      console.error(`Failed to update setting ${key}:`, error);
+      console.error('Failed to update settings:', error);
     }
   },
 

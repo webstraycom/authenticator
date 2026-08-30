@@ -13,7 +13,7 @@ import { runViewTransition } from '@utils/view-transition';
 
 export const useSettingsLogic = () => {
   const settings = useSettingsStore((state) => state.settings);
-  const updateSetting = useSettingsStore((state) => state.updateSetting);
+  const updateSettings = useSettingsStore((state) => state.updateSettings);
   const initializeDefaultSettings = useSettingsStore((state) => state.initializeDefaultSettings);
   const openDataManagement = useUIStore((state) => state.openDataManagement);
   const openConfirm = useUIStore((state) => state.openConfirm);
@@ -38,7 +38,7 @@ export const useSettingsLogic = () => {
 
   const adjustTimeout = (delta) => {
     const currentValue = Number(settings.verificationTimeout) || 0;
-    updateSetting('verificationTimeout', Math.max(0, currentValue + delta));
+    updateSettings({ verificationTimeout: Math.max(0, currentValue + delta) });
   };
 
   const handleMasterPasswordChange = () => {
@@ -80,7 +80,7 @@ export const useSettingsLogic = () => {
 
   return {
     settings,
-    updateSetting,
+    updateSettings,
     adjustTimeout,
     handleMasterPasswordChange,
     handleCompaction,
