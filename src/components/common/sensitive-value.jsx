@@ -6,7 +6,7 @@ export const SensitiveValue = ({ value, isVisible, onCopy, type = 'password' }) 
       type="button"
       disabled={!isVisible}
       onClick={onCopy}
-      className={`bg-muted relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 dark:bg-neutral-800 dark:focus-visible:ring-neutral-700 ${isVisible ? 'w-fit font-mono hover:bg-neutral-200 active:scale-90 dark:hover:bg-neutral-700' : 'font-masked w-[80px]'} `}
+      className={`bg-secondary modern:dark:focus-visible:border-transparent focus-visible:border-ring focus-visible:ring-ring/50 relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md border border-transparent bg-clip-padding px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-3 ${isVisible ? 'hover:bg-secondary/80 w-fit font-mono active:scale-90' : 'font-masked w-[80px]'}`}
       aria-label={isVisible ? `Copy ${type}` : null}
       aria-hidden={!isVisible ? 'true' : null}
     >
