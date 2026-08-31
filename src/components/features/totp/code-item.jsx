@@ -20,7 +20,7 @@ const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
   <button
     type="button"
     onClick={onCopy}
-    className={`group focus-visible:bg-muted ring-offset-background flex items-center gap-1 rounded transition duration-200 outline-none focus-visible:ring-4 focus-visible:ring-neutral-300 active:scale-90 dark:focus-visible:ring-neutral-700 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
+    className={`group focus-visible:bg-secondary modern:dark:focus-visible:border-ring/30 focus-visible:ring-ring/50 focus-visible:border-ring flex items-center gap-1 rounded-md border border-transparent transition-all duration-200 outline-none focus-visible:ring-3 active:scale-90 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
     aria-label={`Copy code for ${service}`}
   >
     <span className="sr-only">{token}</span>
@@ -28,7 +28,7 @@ const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
       {[...token].map((char, index) => (
         <span
           key={index}
-          className={`bg-muted relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all group-hover:bg-neutral-200 dark:bg-neutral-800 dark:group-hover:bg-neutral-700 ${index === 2 ? 'mr-1.5' : ''}`}
+          className={`bg-secondary group-hover:group-not-focus-visible:bg-secondary/80 relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-sm font-mono text-sm font-medium transition-all ${index === 2 ? 'mr-1.5' : ''}`}
         >
           <AnimatePresence>
             <motion.span
