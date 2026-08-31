@@ -32,6 +32,7 @@ export const useUIStore = create((set, get) => ({
   isChangeMasterPasswordOpen: false,
   isPluginsOpen: false,
   isCommandPaletteOpen: false,
+  isShortcutsOpen: false,
 
   confirmConfig: CONFIRM_DEFAULTS,
 
@@ -141,6 +142,16 @@ export const useUIStore = create((set, get) => ({
   closeCommandPalette: () =>
     set({
       isCommandPaletteOpen: false,
+    }),
+
+  openShortcuts: () =>
+    set({
+      isShortcutsOpen: true,
+    }),
+
+  closeShortcuts: () =>
+    set({
+      isShortcutsOpen: false,
     }),
 
   openConfirm: (config) =>

@@ -12,6 +12,7 @@ import {
   ConfirmationDialog,
   DataManagementDialog,
   PluginsDialog,
+  ShortcutsDialog,
   VerificationDialog,
 } from '@dialogs';
 import { LoginScreen, PasswordsScreen, SettingsScreen, TokensScreen, TOTPScreen } from '@screens';
@@ -66,6 +67,7 @@ function App() {
             <ChangeMasterPasswordDialog />
             <PluginsDialog />
             <CommandPaletteDialog />
+            <ShortcutsDialog />
             <PluginProvider />
           </div>
         )}

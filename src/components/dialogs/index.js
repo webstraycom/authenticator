@@ -7,3 +7,4 @@ export { VerificationDialog } from './verification-dialog';
 export { DataManagementDialog } from './data-management-dialog';
 export { PluginsDialog } from './plugins-dialog';
 export { CommandPaletteDialog } from './command-palette-dialog';
+export { ShortcutsDialog } from './shortcuts-dialog';

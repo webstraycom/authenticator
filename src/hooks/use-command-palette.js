@@ -26,6 +26,7 @@ export const useCommandPalette = () => {
   const codes = useCodesStore((state) => state.codes);
   const tokens = useTokensStore((state) => state.tokens);
 
+  const openShortcuts = useUIStore((state) => state.openShortcuts);
   const openDataManagement = useUIStore((state) => state.openDataManagement);
   const openPlugins = useUIStore((state) => state.openPlugins);
   const openConfirm = useUIStore((state) => state.openConfirm);
@@ -232,6 +233,14 @@ export const useCommandPalette = () => {
           runWithVerification(() => openDataManagement({ ...tokensConfig, mode: 'export' })),
       },
 
+      {
+        id: 'open-shortcuts',
+        label: 'Open shortcuts',
+        hint: 'General',
+        icon: 'command',
+        type: 'Command',
+        action: openShortcuts,
+      },
       {
         id: 'import-data',
         label: 'Import data',
