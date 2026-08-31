@@ -22,10 +22,13 @@ export const AppSidebar = () => {
 
   const runWithVerification = useUIStore((state) => state.runWithVerification);
 
-  const openPasswords = () => setScreen('passwords');
-  const openTotp = () => setScreen('totp');
-  const openTokens = () => setScreen('tokens');
-  const openSettings = () => runWithVerification(() => setScreen('settings'));
+  const openPasswords = () => currentScreen !== 'passwords' && setScreen('passwords');
+  const openTotp = () => currentScreen !== 'totp' && setScreen('totp');
+  const openTokens = () => currentScreen !== 'tokens' && setScreen('tokens');
+  const openSettings = () => {
+    if (currentScreen === 'settings') return;
+    runWithVerification(() => setScreen('settings'));
+  };
 
   const openLogoutConfirm = () => {
     openConfirm({
