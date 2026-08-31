@@ -56,7 +56,7 @@ function CommandFooter({ className, ...props }) {
   return (
     <DialogFooter
       data-slot="command-footer"
-      className={cn('-mx-1 mx-0 mt-auto -mb-1 mb-0 p-2', className)}
+      className={cn('-mx-1 mt-auto -mb-1 p-2', className)}
       {...props}
     />
   );
