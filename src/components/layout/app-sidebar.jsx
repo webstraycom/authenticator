@@ -22,6 +22,8 @@ export const AppSidebar = () => {
 
   const runWithVerification = useUIStore((state) => state.runWithVerification);
 
+  const documentHasOpenDialog = () => !!document.querySelector('[role="dialog"]');
+
   const openPasswords = () => currentScreen !== 'passwords' && setScreen('passwords');
   const openTotp = () => currentScreen !== 'totp' && setScreen('totp');
   const openTokens = () => currentScreen !== 'tokens' && setScreen('tokens');
@@ -84,11 +86,11 @@ export const AppSidebar = () => {
     },
   ];
 
-  useShortcut('ctrl+1', openPasswords);
-  useShortcut('ctrl+2', openTotp);
-  useShortcut('ctrl+3', openTokens);
-  useShortcut('ctrl+comma', openSettings);
-  useShortcut('ctrl+l', openLogoutConfirm);
+  useShortcut('ctrl+1', openPasswords, { disabled: documentHasOpenDialog });
+  useShortcut('ctrl+2', openTotp, { disabled: documentHasOpenDialog });
+  useShortcut('ctrl+3', openTokens, { disabled: documentHasOpenDialog });
+  useShortcut('ctrl+comma', openSettings, { disabled: documentHasOpenDialog });
+  useShortcut('ctrl+l', openLogoutConfirm, { disabled: documentHasOpenDialog });
 
   return (
     <Sidebar side="left">
