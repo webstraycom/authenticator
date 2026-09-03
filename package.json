@@ -1,7 +1,7 @@
 {
   "name": "webstray-authenticator",
   "private": true,
-  "version": "1.6.2",
+  "version": "1.6.6",
   "main": "http://localhost:5173",
   "node-remote": "http://localhost:5173",
   "type": "module",
