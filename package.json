@@ -9,7 +9,7 @@
   "window": {
     "title": "WebStray Authenticator",
     "frame": false,
-    "icon": "src/assets/images/favicon/default.png",
+    "icon": "src/assets/app-icon.png",
     "width": 800,
     "height": 600,
     "toolbar": false,
