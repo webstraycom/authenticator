@@ -43,7 +43,7 @@ export const decrypt = (text, customKey = null) => {
     let decrypted = decipher.update(encryptedText, 'hex', 'utf8');
     decrypted += decipher.final('utf8');
     return decrypted;
-  } catch (e) {
+  } catch {
     return null;
   }
 };
@@ -53,7 +53,7 @@ export const encryptWithHardwareId = (text, salt) => {
     const hardwareId = machineIdSync();
     const key = deriveKey(hardwareId, salt);
     return encrypt(text, key);
-  } catch (e) {
+  } catch {
     return null;
   }
 };
@@ -63,7 +63,7 @@ export const decryptWithHardwareId = (text, salt) => {
     const hardwareId = machineIdSync();
     const key = deriveKey(hardwareId, salt);
     return decrypt(text, key);
-  } catch (e) {
+  } catch {
     return null;
   }
 };

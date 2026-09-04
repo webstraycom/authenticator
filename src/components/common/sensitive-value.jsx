@@ -1,0 +1,27 @@
+import { AnimatePresence, motion } from 'motion/react'; // eslint-disable-line no-unused-vars
+
+export const SensitiveValue = ({ value, isVisible, onCopy, type = 'password' }) => {
+  return (
+    <button
+      type="button"
+      disabled={!isVisible}
+      onClick={onCopy}
+      className={`bg-secondary modern:dark:focus-visible:border-transparent focus-visible:border-ring focus-visible:ring-ring/50 relative flex max-w-50 min-w-[80px] items-center justify-center overflow-hidden rounded-md border border-transparent bg-clip-padding px-2 py-1 text-xs transition-all duration-200 outline-none focus-visible:ring-3 ${isVisible ? 'hover:bg-secondary/80 w-fit font-mono active:scale-90' : 'font-masked w-[80px]'}`}
+      aria-label={isVisible ? `Copy ${type}` : null}
+      aria-hidden={!isVisible ? 'true' : null}
+    >
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={isVisible ? 'visible' : 'masked'}
+          initial={{ opacity: 0, y: 5, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, y: -5, filter: 'blur(4px)' }}
+          transition={{ duration: 0.3 }}
+          className="inline-block whitespace-nowrap select-none"
+        >
+          {isVisible ? (value.length > 20 ? `${value.slice(0, 20)}...` : value) : '••••••••'}
+        </motion.span>
+      </AnimatePresence>
+    </button>
+  );
+};

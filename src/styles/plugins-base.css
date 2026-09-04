@@ -24,3 +24,11 @@
 @source inline("ease-{in,out,in-out,linear}");
 @source inline("animate-{none,spin,ping,pulse,bounce,in,fade-in}");
 @source inline("cursor-{pointer,default,not-allowed,text,wait}");
+
+@source inline("scroll-fade{,-y,-x,-t,-b,-l,-r,-s,-e,-none}");
+@source inline("scroll-fade-{0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+@source inline("scroll-fade-{t,b,s,e,l,r,x,y}-{0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");
+
+@source inline("shimmer{,-once,-none}");
+@source inline("shimmer-duration-{500,1000,1500,2000,2500,3000,4000,5000}");
+@source inline("shimmer-spread-{0,0.5,1,1.5,2,2.5,3,3.5,4,5,6,7,8,9,10,11,12,14,16,20,24,28,32,36,40,44,48,52,56,60,64,72,80,96}");

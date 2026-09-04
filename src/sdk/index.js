@@ -1,43 +1,12 @@
 import React from 'react';
+import * as Icons from 'lucide-react';
 import { toast } from 'sonner';
-import * as LucideIcons from 'lucide-react';
 import { create } from 'zustand';
-import { decrypt } from '@utils/crypto';
+import { cn } from '@lib/utils';
+import { decrypt, encrypt } from '@utils/crypto';
 import { sorter } from '@utils/sorter';
 import { getTOTP } from '@utils/totp';
-import { cn } from '@lib/utils';
-
-import { Button } from '@ui/Button';
-import { Badge } from '@ui/Badge';
-import { Checkbox } from '@ui/Checkbox';
-import { Input } from '@ui/Input';
-import { Label } from '@ui/Label';
-import { Progress } from '@ui/Progress';
-import { Switch } from '@ui/Switch';
-import { Slider } from '@ui/Slider';
-import { Separator } from '@ui/Separator';
-import { ScrollArea } from '@ui/ScrollArea';
-import { Skeleton } from '@ui/Skeleton';
-import { Spinner } from '@ui/Spinner';
-import { Toggle } from '@ui/Toggle';
-import { ToggleGroup } from '@ui/ToggleGroup';
-
-import * as Combobox from '@ui/Combobox';
-import * as Command from '@ui/Command';
-import * as Empty from '@ui/Empty';
-import * as Field from '@ui/Field';
-import * as Kbd from '@ui/Kbd';
-import * as Item from '@ui/Item';
-import * as InputGroup from '@ui/InputGroup';
-import * as ButtonGroup from '@ui/ButtonGroup';
-import * as Card from '@ui/Card';
-import * as Select from '@ui/Select';
-import * as Tabs from '@ui/Tabs';
-import * as Popover from '@ui/Popover';
-import * as RadioGroup from '@ui/RadioGroup';
-import * as Tooltip from '@ui/Tooltip';
-import * as HoverCard from '@ui/HoverCard';
-import * as DropdownMenu from '@ui/DropdownMenu';
+import * as components from '@sdk/components';
 
 export const usePluginStore = create((set, get) => ({
   slots: {},
@@ -98,61 +67,31 @@ export const usePluginStore = create((set, get) => ({
 
 export const createSDK = (pkg, db) => ({
   React,
-  Icons: LucideIcons,
-  components: {
-    Badge,
-    Button,
-    ButtonGroup,
-    Card,
-    Checkbox,
-    Combobox,
-    Command,
-    DropdownMenu,
-    Empty,
-    Field,
-    Input,
-    Item,
-    Kbd,
-    InputGroup,
-    Separator,
-    Label,
-    Progress,
-    RadioGroup,
-    Popover,
-    ScrollArea,
-    Select,
-    Skeleton,
-    Slider,
-    Spinner,
-    HoverCard,
-    Switch,
-    Tabs,
-    Tooltip,
-    Toggle,
-    ToggleGroup,
-  },
+  Icons,
+  components,
   pkg,
   db,
   crypto: {
+    encrypt: (text) => {
+      const result = encrypt(text);
+      if (!result) throw new Error('Encryption failed. The vault may be locked.');
+      return result;
+    },
     decrypt: (text) => {
       const result = decrypt(text);
-      if (result === null || result === undefined) {
-        console.error(
-          `[SDK] ${pkg.id}: Decryption failed. The vault may be locked or the password may be corrupted.`,
-        );
+      if (result == null)
         throw new Error(
           'Decryption failed. The vault may be locked or the password may be corrupted.',
         );
-      }
       return result;
     },
   },
   ui: {
     openSheet: (Content) => usePluginStore.getState().openSheet(pkg, Content),
     closeSheet: () => usePluginStore.getState().closeSheet(),
-    notify: (message, type = 'success') => {
-      if (type === 'error') toast.error(message);
-      else toast.success(message);
+    notify: (messageOrPromise, type = 'default', options = {}) => {
+      if (messageOrPromise instanceof Promise) return toast.promise(messageOrPromise, options);
+      return (toast[type] || toast)(messageOrPromise, options);
     },
   },
   utils: {

@@ -19,7 +19,7 @@ export const getTOTP = (secret, tick) => {
       isExpiring: secondsLeft <= 5,
       period: totp.period,
     };
-  } catch (err) {
+  } catch {
     return { token: 'ERR!!', secondsLeft: 0, isExpiring: false, period: 30 };
   }
 };

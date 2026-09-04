@@ -1,0 +1,105 @@
+import { useEffect, useMemo } from 'react';
+import { LockIcon } from 'lucide-react';
+import { ItemGroup, ItemGroupHeader } from '@ui/item';
+import { NoItemsPlaceholder } from '@common/no-items-placeholder';
+import { ScreenFooter } from '@common/screen-footer';
+import { PasswordItem } from '@features/passwords/password-item';
+import { usePasswordsStore, useUIStore } from '@store';
+import { sorter } from '@utils/sorter';
+import { usePluginStore } from '@sdk';
+
+export const PasswordsScreen = () => {
+  const openAdd = useUIStore((state) => state.openAddPassword);
+  const openDataManagement = useUIStore((state) => state.openDataManagement);
+  const passwords = usePasswordsStore((state) => state.passwords);
+  const loadPasswords = usePasswordsStore((state) => state.loadPasswords);
+  const isLoading = usePasswordsStore((state) => state.isLoading);
+
+  const runWithVerification = useUIStore((state) => state.runWithVerification);
+
+  const slotActions = usePluginStore((state) => state.slots['passwords-screen']);
+  const pluginsCount = slotActions ? Object.keys(slotActions).length : 0;
+
+  useEffect(() => {
+    loadPasswords();
+  }, [loadPasswords]);
+
+  const { activePasswords, corruptedPasswords } = useMemo(() => {
+    const sortedPasswords = [...passwords].sort(sorter);
+
+    return sortedPasswords.reduce(
+      (acc, item) => {
+        if (item.isCorrupted) {
+          acc.corruptedPasswords.push(item);
+        } else {
+          acc.activePasswords.push(item);
+        }
+        return acc;
+      },
+      { activePasswords: [], corruptedPasswords: [] },
+    );
+  }, [passwords]);
+
+  const baseConfig = {
+    type: 'password',
+    importedItems: 'Passwords',
+    onSuccess: () => loadPasswords(),
+  };
+
+  const handleImport = () => runWithVerification(() => openDataManagement(baseConfig));
+
+  const handleExport = () =>
+    runWithVerification(() => openDataManagement({ ...baseConfig, mode: 'export' }));
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (passwords.length > 0) {
+    return (
+      <div className="flex flex-1 flex-col">
+        <div className="scroll-fade scroll-fade-24 flex w-full flex-1 flex-col gap-4 overflow-y-auto p-8">
+          <ItemGroup className="grid grid-cols-1 content-start lg:grid-cols-2 2xl:grid-cols-3">
+            {activePasswords.map((item) => (
+              <PasswordItem key={item._id} item={item} />
+            ))}
+          </ItemGroup>
+          {corruptedPasswords.length > 0 && (
+            <>
+              <ItemGroupHeader id="corrupted-password-heading">Corrupted Passwords</ItemGroupHeader>
+              <ItemGroup
+                className="grid grid-cols-1 content-start lg:grid-cols-2 2xl:grid-cols-3"
+                aria-labelledby="corrupted-password-heading"
+              >
+                {corruptedPasswords.map((item) => (
+                  <PasswordItem key={item._id} item={item} />
+                ))}
+              </ItemGroup>
+            </>
+          )}
+        </div>
+        <ScreenFooter
+          pluginsCount={pluginsCount}
+          slotName="passwords-screen"
+          onImport={handleImport}
+          onExport={handleExport}
+          onAdd={openAdd}
+          type="password"
+        />
+      </div>
+    );
+  }
+
+  return (
+    <NoItemsPlaceholder
+      onAdd={openAdd}
+      onImport={handleImport}
+      options={{
+        icon: <LockIcon />,
+        header: 'No Passwords Yet',
+        description: `You haven't added any passwords yet. Get started by adding your first password.`,
+        buttonText: 'Add Password',
+      }}
+    />
+  );
+};

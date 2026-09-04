@@ -1,5 +1,5 @@
-export * from './PasswordsScreen';
-export * from './TOTPScreen';
-export * from './TokensScreen';
-export * from './SettingsScreen';
-export * from './LoginScreen';
+export { PasswordsScreen } from './passwords-screen';
+export { TOTPScreen } from './totp-screen';
+export { TokensScreen } from './tokens-screen';
+export { SettingsScreen } from './settings-screen';
+export { LoginScreen } from './login-screen';
