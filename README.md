@@ -1,4 +1,8 @@
-![WebStray Authenticator Preview](.github/assets/authenticator.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/assets/og-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset=".github/assets/og-light.png">
+  <img alt="WebStray Authenticator Preview" src=".github/assets/og-dark.png">
+</picture>
 
 # WebStray Authenticator
 
