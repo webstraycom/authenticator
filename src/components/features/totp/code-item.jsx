@@ -20,7 +20,7 @@ const TotpCodeItem = ({ token, isExpiring, service, onCopy }) => (
   <button
     type="button"
     onClick={onCopy}
-    className={`group focus-visible:bg-secondary modern:dark:focus-visible:border-ring/30 focus-visible:ring-ring/50 focus-visible:border-ring flex items-center gap-1 rounded-md border border-transparent transition-all duration-200 outline-none focus-visible:ring-3 active:scale-90 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
+    className={`group focus-visible:bg-secondary modern:dark:focus-visible:border-ring/30 focus-visible:ring-ring/50 focus-visible:border-ring flex items-center gap-1 rounded-md border border-transparent transition-all duration-200 outline-none select-none focus-visible:ring-3 active:scale-97 ${isExpiring ? 'will-change-opacity animate-pulse' : ''} `}
     aria-label={`Copy code for ${service}`}
   >
     <span className="sr-only">{token}</span>
