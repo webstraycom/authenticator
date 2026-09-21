@@ -30,7 +30,7 @@ export const Header = () => {
         <Button
           variant="ghost"
           onClick={openCommandPalette}
-          className="group text-muted-foreground px-1.5"
+          className="group text-muted-foreground px-1.5 active:!scale-100"
           aria-label="Open command palette"
           aria-keyshortcuts="control+k"
         >
