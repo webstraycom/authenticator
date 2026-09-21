@@ -75,9 +75,9 @@ function App() {
         <Toaster
           className="z-150"
           toastOptions={{
-            style: { right: '7px', bottom: '7px', fontFamily: 'Geist, sans-serif' },
             classNames: {
-              toast: '[&_[data-icon]]:!self-start [&_[data-icon]]:!mt-0.25',
+              toast:
+                '[&_[data-icon]]:!self-start [&_[data-icon]]:!mt-0.25 !right-[7px] !bottom-[7px] font-sans',
               description: '!text-muted-foreground',
               actionButton: '!font-medium !rounded-md',
             },
