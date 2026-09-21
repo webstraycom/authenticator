@@ -5,6 +5,7 @@ import { NoItemsPlaceholder } from '@common/no-items-placeholder';
 import { ScreenFooter } from '@common/screen-footer';
 import { CodeItem } from '@features/totp/code-item';
 import { useCodesStore, useUIStore } from '@store';
+import { useFocusOnMount } from '@hooks/use-focus-on-mount';
 import { sorter } from '@utils/sorter';
 import { usePluginStore } from '@sdk';
 
@@ -23,6 +24,8 @@ export const TOTPScreen = () => {
   useEffect(() => {
     loadCodes();
   }, [loadCodes]);
+
+  const listRef = useFocusOnMount();
 
   const { activeCodes, corruptedCodes } = useMemo(() => {
     const sortedCodes = [...codes].sort(sorter);
@@ -67,7 +70,13 @@ export const TOTPScreen = () => {
   if (codes.length > 0) {
     return (
       <div className="flex flex-1 flex-col">
-        <div className="scroll-fade scroll-fade-24 flex w-full flex-1 flex-col gap-4 overflow-y-auto p-8">
+        <div
+          ref={listRef}
+          tabIndex={0}
+          className="scroll-fade scroll-fade-24 flex w-full flex-1 flex-col gap-4 overflow-y-auto p-8 focus-visible:outline-none"
+          role="region"
+          aria-label="Code list"
+        >
           <ItemGroup className="grid grid-cols-1 content-start lg:grid-cols-2 2xl:grid-cols-3">
             {activeCodes.map((item) => (
               <CodeItem key={item._id} item={item} tick={globalTick} />
