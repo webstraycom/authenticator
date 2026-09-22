@@ -9,11 +9,11 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-  CommandSeparator,
   CommandType,
 } from '@ui/command';
 import { Empty, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@ui/empty';
 import { Kbd } from '@ui/kbd';
+import { Separator } from '@ui/separator';
 import { useCommandPalette } from '@hooks/use-command-palette';
 
 const ICON_MAP = {
@@ -66,6 +66,10 @@ export const CommandPaletteDialog = () => {
     >
       <Command value={selectedId} onValueChange={setSelectedId}>
         <CommandInput placeholder="Search commands and secrets..." />
+        <Separator
+          orientation="horizontal"
+          className="modern:dark:!bg-transparent modern:dark:bg-gradient-to-r modern:dark:from-transparent modern:dark:via-border modern:dark:to-transparent"
+        />
         <CommandList>
           <CommandEmpty>
             <Empty>
@@ -80,8 +84,7 @@ export const CommandPaletteDialog = () => {
               </EmptyHeader>
             </Empty>
           </CommandEmpty>
-          {commandGroups.map(([type, items], groupIndex) => {
-            const isLastGroup = groupIndex === commandGroups.length - 1;
+          {commandGroups.map(([type, items]) => {
             return (
               <Fragment key={type}>
                 <CommandGroup heading={`${type}s`}>
@@ -98,7 +101,6 @@ export const CommandPaletteDialog = () => {
                     </CommandItem>
                   ))}
                 </CommandGroup>
-                {!isLastGroup && <CommandSeparator />}
               </Fragment>
             );
           })}
