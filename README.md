@@ -1,80 +1,43 @@
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/assets/og-dark.png">
   <source media="(prefers-color-scheme: light)" srcset=".github/assets/og-light.png">
-  <img alt="WebStray Authenticator Preview" src=".github/assets/og-dark.png">
+  <img alt="WebStray Authenticator interface preview" src=".github/assets/og-dark.png">
 </picture>
 
 # WebStray Authenticator
 
 Secure, hardware-bound desktop password manager.
-Built for privacy. Engineered for extensibility. Powered by NW.js.
-
-## About
-
-WebStray Authenticator is a desktop password manager built using JavaScript, React, Vite, and NW.js.
+Built for privacy. Engineered for extensibility. Completely open source.
 
 ## Documentation
 
-Detailed documentation for WebStray Authenticator is available on the [official WebStray website](https://webstray.com/docs/authenticator).
+Read the documentation on the [official website](https://webstray.com/docs/authenticator).
 
-## Key Features
+## Features
 
-### Security Architecture
+### Security
 
-- **Data Encryption:** Implementation of the `AES-256-GCM` authenticated encryption algorithm for all sensitive data.
-- **Hardware Binding:** Database access is cryptographically tied to a unique **machine ID**, preventing decryption on unauthorized devices even if the database file is compromised.
-- **Zero-Knowledge Model:** All sensitive data is encrypted locally and never stored in plaintext. Your data never leaves your machine by default (excluding activity from third-party plugins installed by the user).
-- **Secure Data Portability:** Built-in utilities for importing and exporting JSON with encryption and decryption support.
+- **Data Encryption:** Sensitive data is encrypted using the `AES-256-GCM` authenticated encryption algorithm.
+- **Hardware Binding:** Hardware-bound sessions are cryptographically tied to a unique machine ID, preventing them from being reused on unauthorized devices.
+- **Zero-Knowledge Architecture:** Sensitive data is encrypted and processed locally and does not leave your machine by default.
+- **Secure Data Portability:** Import and export JSON data with encrypted sensitive values.
 
-### Engineering & Extensibility
+### User Experience
 
-- **Extensible Plugin System:** A robust core architecture implementing **Dependency Injection (DI)** and **Inversion of Control (IoC)** patterns.
-- **State Management:** Powered by **Zustand** for a lightweight, scalable, and high-performance global state.
-- **Persistent Storage:** High-performance, **NeDB**-based storage engine for a reliable offline-first experience.
-
-### Interface & UX
-
-- **Command-Driven Navigation:** Built-in **Command Palette** for instant access to global actions via keyboard-centric workflows.
-- **Modern Component Architecture:** UI layer built on **Radix UI** primitives and **shadcn/ui** for maximum accessibility and design consistency.
-- **Hardware-Accelerated UI:** Fluid interface transitions and state-driven animations using **Framer Motion**.
-
-## Built With
-
-WebStray Authenticator leverages a modern tech stack designed for security, performance, and a native desktop experience:
-
-### Desktop & Core
-
-- **[NW.js](https://github.com/nwjs/nw.js/)** – A desktop runtime that allows calling Node.js modules directly from DOM.
-- **[React 19](https://github.com/facebook/react)** – Declarative UI framework for building a fast and reactive user interface.
-- **[Vite 7](https://github.com/vitejs/vite)** – Next-generation frontend tooling providing an ultra-fast development experience.
-- **[Zustand](https://github.com/pmndrs/zustand)** – Minimalistic and scalable state management.
-
-### UI & UX
-
-- **[Tailwind CSS v4](https://github.com/tailwindlabs/tailwindcss)** – Utility-first CSS framework for UI styling.
-- **[shadcn/ui](https://github.com/shadcn-ui/ui)** – Accessible, high-quality components built with Radix UI.
-- **[Framer Motion](https://github.com/motiondivision/motion)** – Motion library for fluid interface transitions.
-- **[Sonner](https://github.com/emilkowalski/sonner)** – An opinionated, lightweight toast component for real-time user feedback.
-
-### Security & Data
-
-- **[@seald-io/nedb](https://github.com/seald/nedb)** – Embedded persistent database for local storage.
-- **[otpauth](https://github.com/hectorm/otpauth)** – Comprehensive RFC-compliant library for generating HOTP and TOTP tokens.
-- **[bcryptjs](https://github.com/dcodeIO/bcrypt.js)** – Password hashing to ensure secure master password derivation.
-- **[node-machine-id](https://github.com/automation-stack/node-machine-id)** – Unique hardware identification for cryptographic data binding.
+- **Modern Interface:** Clean, minimal design with fluid transitions and subtle visual feedback.
+- **Keyboard-Driven Navigation:** Command palette and keyboard shortcuts for efficient navigation and faster access to application actions.
+- **Accessibility:** Designed with accessibility in mind.
+- **Plugin System:** Extensible architecture for integrating additional functionality through plugins.
 
 ## Installation
 
-### Desktop Application (Windows)
+### Desktop Application
 
-You can download the WebStray Authenticator installer for Windows from the [official download page](https://github.com/webstraycom/authenticator/releases/latest).
+Download WebStray Authenticator for Windows from [GitHub Releases](https://github.com/webstraycom/authenticator/releases/latest).
 
-### Manual Build (Windows, macOS, Linux)
+### Build from Source
 
-You can build **WebStray Authenticator from source** for any supported platform using `nw-builder`.
-
-> [!NOTE]
-> The runtime is usually fetched automatically by `nw-builder`, but can also be downloaded manually from the [official NW.js website](https://nwjs.io/downloads/).
+Build from source for any supported platform using `nw-builder`.
 
 1. **Clone the repository**
 
@@ -105,7 +68,7 @@ npx nw-builder . --mode=build --platform=win --arch=x64 --outDir=./dist/win
 # Intel
 npx nw-builder . --mode=build --platform=osx --arch=x64 --outDir=./dist/mac
 
-# Apple Silicon (M1/M2/M3)
+# Apple Silicon
 npx nw-builder . --mode=build --platform=osx --arch=arm64 --outDir=./dist/mac
 ```
 
@@ -115,39 +78,30 @@ npx nw-builder . --mode=build --platform=osx --arch=arm64 --outDir=./dist/mac
 npx nw-builder . --mode=build --platform=linux --arch=x64 --outDir=./dist/linux
 ```
 
-## Local Development
+## Development
 
-To run the application in development mode with **Hot Module Replacement (HMR)**, follow these steps:
+Run the application in development mode:
 
-1. **Start the Vite development server**
-
-This will start the frontend with live-reloading on `localhost:5173`.
+1. **Start the development server**
 
 ```bash
 npm run dev
 ```
 
-2. **Launch the Desktop Environment**
+2. **Launch the desktop application**
 
-In a **new terminal window**, run the following command to open the NW.js window:
+In a new terminal, run:
 
 ```bash
-npm run start
+npm start
 ```
 
 ## Security Policy
 
 We take the security of WebStray Authenticator seriously. If you find a security vulnerability, please help us by reporting it responsibly.
 
-### Reporting a Vulnerability
-
-- **Standard Vulnerabilities:** For general security bugs, please [open a new Issue](https://github.com/webstraycom/authenticator/issues/new) using the **Security Report** label.
-- **Critical Vulnerabilities:** If the vulnerability compromises the core encryption logic, we encourage you to provide a detailed **Proof of Concept (PoC)** in the issue description.
-
-### Security Guarantees
-
-- **Zero-Knowledge:** We do not have access to your master password or unencrypted database.
-- **Local-First:** Your data is processed and stored exclusively on your machine.
+- **Standard Vulnerabilities:** For general security bugs, please [open a new issue](https://github.com/webstraycom/authenticator/issues/new) using the `security report` label.
+- **Critical Vulnerabilities:** Please report security issues responsibly and avoid publicly disclosing sensitive exploit details before a fix is available.
 
 ## Disclaimer
 
@@ -155,10 +109,10 @@ We take the security of WebStray Authenticator seriously. If you find a security
 
 By using this software, you acknowledge and agree that:
 
-1. **User Responsibility:** You are solely responsible for the safety of your master password. If lost, your data cannot be recovered.
-2. **Third-Party Plugins:** The use of community-made or third-party plugins is at your own risk. Plugins have the technical capability to access your decrypted data. **We are not responsible for any data leaks or security breaches caused by third-party extensions.**
-3. **No Liability:** The developers shall not be held liable for any data loss, hardware damage, or security breaches resulting from the use or inability to use this software.
-4. **Active Development:** This project is in beta. While we prioritize security, you use it at your own risk.
+1. **User Responsibility:** You are solely responsible for the safety of your master password. If you lose it, your data cannot be recovered.
+2. **Third-Party Plugins:** The use of community-made plugins is at your own risk. Plugins have the technical capability to access your decrypted data. **We are not responsible for any data leaks or security breaches resulting from their use.**
+3. **No Liability:** The developers shall not be held liable for any data loss, hardware damage, or security breaches arising from the use of or inability to use this software.
+4. **Development Status:** This project is currently in beta. While we prioritize security, please use it at your own risk.
 
 **Always audit the source code of any plugin before installation and maintain secure backups.**
 
