@@ -171,6 +171,26 @@
   z-index: 1;
 }
 
+html[data-style="modern"] {
+  &.dark {
+    & [data-sonner-toast][data-styled="true"] {
+      border-color: transparent;
+
+      &[data-index="1"] {
+        opacity: 0.75;
+      }
+
+      &[data-index="2"] {
+        opacity: 0.5;
+      }
+
+      &[data-expanded="true"]:is([data-index="1"], [data-index="2"]) {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 @layer utilities {
   .font-masked {
     font-family: monospace;

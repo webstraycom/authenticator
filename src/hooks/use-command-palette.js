@@ -70,6 +70,7 @@ export const useCommandPalette = () => {
         type: 'Password',
         message: 'Password has been copied to clipboard!',
         getValue: (p) => p.value,
+        requiresVerification: true,
       },
       {
         items: codes,
@@ -77,6 +78,7 @@ export const useCommandPalette = () => {
         type: 'Code',
         message: 'Code has been copied to clipboard!',
         getValue: (c) => getTOTP(c.value, Date.now()).token, // eslint-disable-line react-hooks/purity
+        requiresVerification: false,
       },
       {
         items: tokens,
@@ -84,24 +86,28 @@ export const useCommandPalette = () => {
         type: 'Token',
         message: 'Token has been copied to clipboard!',
         getValue: (t) => t.value,
+        requiresVerification: true,
       },
     ];
 
-    return sources.flatMap(({ items, icon, type, message, getValue }) =>
+    return sources.flatMap(({ items, icon, type, message, getValue, requiresVerification }) =>
       items
         .filter((item) => !item.isCorrupted)
-        .map((item) => ({
-          id: item._id,
-          label: item.site || item.service,
-          hint: item.login || item.account || item.endpoint,
-          icon,
-          type,
-          action: () =>
-            runWithVerification(() => {
-              navigator.clipboard.writeText(getValue(item));
-              toast.success(message);
-            }),
-        })),
+        .map((item) => {
+          const copy = () => {
+            navigator.clipboard.writeText(getValue(item));
+            toast.success(message);
+          };
+
+          return {
+            id: item._id,
+            label: item.site || item.service,
+            hint: item.login || item.account || item.endpoint,
+            icon,
+            type,
+            action: requiresVerification ? () => runWithVerification(copy) : copy,
+          };
+        }),
     );
   }, [passwords, codes, tokens]); // eslint-disable-line react-hooks/exhaustive-deps
 

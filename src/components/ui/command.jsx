@@ -12,7 +12,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { InputGroup, InputGroupAddon } from '@/components/ui/input-group';
-import { Kbd } from '@/components/ui/kbd';
 import { cn } from '@/lib/utils';
 
 function Command({ className, ...props }) {
@@ -20,7 +19,7 @@ function Command({ className, ...props }) {
     <CommandPrimitive
       data-slot="command"
       className={cn(
-        'bg-popover text-popover-foreground flex size-full flex-col overflow-hidden rounded-xl! p-1',
+        'bg-popover text-popover-foreground flex size-full flex-col overflow-hidden rounded-xl!',
         className,
       )}
       {...props}
@@ -56,7 +55,7 @@ function CommandFooter({ className, ...props }) {
   return (
     <DialogFooter
       data-slot="command-footer"
-      className={cn('-mx-1 mt-auto -mb-1 p-2', className)}
+      className={cn('mx-0 mt-auto mb-0', className)}
       {...props}
     />
   );
@@ -64,7 +63,7 @@ function CommandFooter({ className, ...props }) {
 
 function CommandInput({ className, ...props }) {
   return (
-    <div data-slot="command-input-wrapper" className="p-1">
+    <div data-slot="command-input-wrapper" className="p-2">
       <InputGroup className="h-8! rounded-lg! border-none !bg-transparent shadow-none! *:data-[slot=input-group-addon]:pl-2!">
         <CommandPrimitive.Input
           data-slot="command-input"
@@ -77,9 +76,6 @@ function CommandInput({ className, ...props }) {
         <InputGroupAddon>
           <SearchIcon className="size-4 shrink-0 opacity-50" />
         </InputGroupAddon>
-        <InputGroupAddon align="inline-end" className="pr-1" aria-hidden="true">
-          <Kbd>Esc</Kbd>
-        </InputGroupAddon>
       </InputGroup>
     </div>
   );
@@ -90,7 +86,7 @@ function CommandList({ className, ...props }) {
     <CommandPrimitive.List
       data-slot="command-list"
       className={cn(
-        'no-scrollbar max-h-70 scroll-py-2 overflow-x-hidden overflow-y-auto border-t outline-none',
+        'no-scrollbar max-h-70 scroll-py-2 overflow-x-hidden overflow-y-auto px-1 pb-1 outline-none',
         className,
       )}
       {...props}
@@ -113,7 +109,7 @@ function CommandGroup({ className, ...props }) {
     <CommandPrimitive.Group
       data-slot="command-group"
       className={cn(
-        'text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 pb-2 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium',
+        'text-foreground **:[[cmdk-group-heading]]:text-muted-foreground overflow-hidden p-1 **:[[cmdk-group-heading]]:px-2 **:[[cmdk-group-heading]]:py-1.5 **:[[cmdk-group-heading]]:text-xs **:[[cmdk-group-heading]]:font-medium',
         className,
       )}
       {...props}

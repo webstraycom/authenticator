@@ -71,8 +71,10 @@ function SidebarProvider({
     return isMobile ? setOpenMobile((open) => !open) : setOpen((open) => !open);
   }, [isMobile, setOpen, setOpenMobile]);
 
+  const documentHasOpenDialog = () => !!document.querySelector('[role="dialog"]');
+
   // Adds a keyboard shortcut to toggle the sidebar.
-  useShortcut('ctrl+b', toggleSidebar);
+  useShortcut('ctrl+b', toggleSidebar, { disabled: documentHasOpenDialog });
 
   // We add a state so that we can do data-state="expanded" or "collapsed".
   // This makes it easier to style the sidebar with Tailwind classes.
