@@ -18,7 +18,7 @@ export const CorruptedItem = ({ type, service, onDelete }) => (
         variant="outline"
         size="icon-sm"
         onClick={onDelete}
-        aria-label="Delete corrupted token"
+        aria-label={`Delete corrupted ${type.toLowerCase()} for ${service}`}
       >
         <Trash2Icon />
       </Button>
