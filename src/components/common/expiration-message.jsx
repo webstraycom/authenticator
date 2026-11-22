@@ -2,7 +2,7 @@ export const ExpirationMessage = ({ id, expiration, expires }) => {
   if (!expiration) {
     return (
       <p id={id} aria-live="polite" className="text-muted-foreground text-sm">
-        Your token will <span className="text-foreground font-medium">never expire</span>.
+        Your token will <strong className="text-foreground font-medium">never expire</strong>.
       </p>
     );
   }
@@ -13,16 +13,16 @@ export const ExpirationMessage = ({ id, expiration, expires }) => {
     if (isExpired)
       return (
         <p id={id} aria-live="polite" className="text-muted-foreground text-sm">
-          Your token is <span className="text-foreground font-medium">already expired</span>.
+          Your token is <strong className="text-foreground font-medium">already expired</strong>.
         </p>
       );
 
     return (
       <p id={id} aria-live="polite" className="text-muted-foreground text-sm">
         Your token will expire on{' '}
-        <span className="text-foreground font-medium">
+        <strong className="text-foreground font-medium">
           {expires.toLocaleDateString('en-US', { day: '2-digit', month: 'long', year: 'numeric' })}
-        </span>
+        </strong>
         .
       </p>
     );
