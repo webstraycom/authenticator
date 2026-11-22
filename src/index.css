@@ -132,7 +132,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground select-none;
   }
   ::selection {
     @apply bg-selection text-selection-foreground;
@@ -142,6 +142,11 @@
   }
   ::-webkit-scrollbar {
     display: none;
+  }
+  input,
+  textarea,
+  [contenteditable="true"] {
+    @apply select-text;
   }
 }
 

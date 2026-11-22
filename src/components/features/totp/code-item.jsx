@@ -95,7 +95,7 @@ export const CodeItem = memo(
         <ItemMedia variant="icon" className="bg-muted">
           <ClockIcon />
         </ItemMedia>
-        <ItemContent className="gap-0">
+        <ItemContent className="gap-0 select-text">
           <ItemTitle>
             <span className="truncate">{item.service}</span>
           </ItemTitle>

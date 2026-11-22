@@ -59,13 +59,14 @@ export const TokenItem = ({ item }) => {
       <ItemMedia variant="icon" className="bg-muted">
         <KeyRoundIcon />
       </ItemMedia>
-      <ItemContent className="gap-0">
+      <ItemContent className="gap-0 select-text">
         <div className="flex flex-row items-center gap-1">
           <ItemTitle>
             <span className="truncate">{item.service}</span>
           </ItemTitle>
           <Badge
             variant={status.isCritical ? 'destructive' : status.isWarning ? 'outline' : 'secondary'}
+            className="select-none"
           >
             {status.label}
           </Badge>

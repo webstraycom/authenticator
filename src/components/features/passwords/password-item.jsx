@@ -44,7 +44,7 @@ export const PasswordItem = ({ item }) => {
       <ItemMedia variant="icon" className="bg-muted">
         <LockIcon />
       </ItemMedia>
-      <ItemContent className="gap-0">
+      <ItemContent className="gap-0 select-text">
         <ItemTitle>
           <span className="truncate">{item.site}</span>
         </ItemTitle>
