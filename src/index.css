@@ -87,6 +87,8 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --selection: oklch(0.145 0 0);
+  --selection-foreground: oklch(1 0 0);
 }
 
 .dark {
@@ -130,7 +132,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground select-none;
   }
   ::selection {
     @apply bg-selection text-selection-foreground;
@@ -140,6 +142,11 @@
   }
   ::-webkit-scrollbar {
     display: none;
+  }
+  input,
+  textarea,
+  [contenteditable="true"] {
+    @apply select-text;
   }
 }
 

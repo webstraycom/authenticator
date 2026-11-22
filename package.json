@@ -1,7 +1,7 @@
 {
   "name": "webstray-authenticator",
   "private": true,
-  "version": "1.6.8",
+  "version": "1.6.9",
   "main": "http://localhost:5173",
   "node-remote": "http://localhost:5173",
   "type": "module",
@@ -61,6 +61,7 @@
     "eslint-plugin-react-refresh": "^0.4.24",
     "globals": "^16.5.0",
     "nw": "^0.106.1",
+    "prettier": "^3.10.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "shadcn": "^4.13.0",
     "tailwindcss": "^4.1.18",
