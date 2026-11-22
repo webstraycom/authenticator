@@ -23,7 +23,7 @@ export const Header = () => {
     >
       <div className="flex w-full items-center justify-between">
         <div className="text-muted-foreground flex items-center gap-1.5">
-          <SidebarTrigger aria-keyshortcuts="control+b" />
+          <SidebarTrigger aria-keyshortcuts="control+b" className="active:!scale-100" />
           <Separator orientation="vertical" className="mr-1.5 size-4 !self-center" />
           <h1 className="text-sm font-medium">{screenTitles[screen]}</h1>
         </div>
